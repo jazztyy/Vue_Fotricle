@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+@tailwind base;
+
+@tailwind components;
+
+.btn-main {
+    @apply bg-maincolor-400;
+    @apply text-thirdcolor-400;
+    @apply text-center;
+    @apply rounded-lg;
+}
+
+.btn-main:hover {
+    @apply bg-maincolor-500;
+}
+
+.btn-second {
+    @apply bg-secondcolor-500;
+    @apply text-thirdcolor-400;
+    @apply text-center;
+    @apply rounded-lg;
+}
+
+.btn-second:hover {
+    @apply bg-secondcolor-600;
+}
+
+.nav {
+    @apply flex-1;
+    @apply flex;
+    @apply text-thirdcolor-400;
+    @apply text-center;
+}
+
+.nav-btn:hover {
+    @apply text-secondcolor-400;
+}
+
+.mask {
+    @apply absolute;
+    @apply w-full;
+    @apply h-full;
+    @apply bg-black;
+    @apply opacity-50;
+    @apply top-0; 
+    @apply left-0;
+}
+
+.background-mask {
+    @apply absolute;
+    @apply w-full;
+    @apply h-full;
+    @apply opacity-75;
+    @apply rounded-lg;
+    @apply top-0; 
+    @apply left-0;
+}
+
+.bg-img {
+    @apply bg-center;
+    @apply bg-cover;
+    @apply bg-no-repeat;
+}
+
+.btn-center {
+    @apply absolute;
+    @apply top-half;
+    @apply z-20;
+    @apply cursor-pointer;
+    transform: translateY(-50%);
+}
+
+.transX {
+    transform: translateX(-50%);
+}
+
+.transY {
+    transform: translateY(-50%);
+}
+
+.trans-center {
+    transform: translate(-50%, -50%);
+}
+
+.rl {
+    writing-mode: vertical-rl
+}
+
+.blur {
+    filter: blur(3px)
+}
+
+.touch {
+    @apply absolute;
+    @apply w-full;
+    @apply h-full;
+    @apply top-0; 
+    @apply left-0;
+}
+
+.title {
+    @apply text-secondcolor-600;
+    @apply text-4xl;
+    @apply text-center; 
+    @apply py-8;
+}
+
+.default {
+    @apply font-NotoSans; 
+    @apply bg-thirdcolor-300;
+}
+
+.indent {
+    text-indent: 10px;
+}
+
+.fixed-br {
+    top: 88%;
+    right: 5%;
+}
+
+.keep-footer-bottom {
+    min-height: calc(100vh - 368px)
+}
+
+.keep-footer-bottom-pad {
+    min-height: calc(100vh - 562px)
+}
+
+.order-button {
+    @apply rounded-circle;
+}
+
+.transScale {
+    transform: scale(1.05);
+}
+
+@tailwind utilities;
