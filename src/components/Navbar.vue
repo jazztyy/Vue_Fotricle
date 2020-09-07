@@ -3,10 +3,10 @@
         <nav class="container mx-auto px-5 flex items-center">
             <ul class="nav md:justify-around text-xl">
                 <li class="nav-btn hidden md:block">
-                    <a href="#">點餐</a>
+                    <router-link to="/Search">點餐</router-link>
                 </li>
                 <li class="nav-btn hidden md:block">
-                    <a href="#">關於我們</a>
+                    <router-link to="/About">關於我們</router-link>
                 </li>
                 <li class="nav-btn md:hidden">
                     <i class="fas fa-hamburger cursor-pointer"></i>
@@ -17,7 +17,7 @@
             </h1>
             <ul class="nav justify-end md:justify-around text-xl">
                 <li class="nav-btn hidden md:block">
-                    <a href="cartlist.html">餐車列表</a>
+                    <router-link to="/Search">餐車列表</router-link>
                 </li>
                 <li class="nav-btn hidden md:block">
                     <router-link to="/Login">會員登入</router-link>
