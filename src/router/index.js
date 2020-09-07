@@ -111,6 +111,21 @@ const routes = [
         component: () => import('../views/Reception/Brand/BrandReception.vue')
       }
     ]
+  },
+  {
+    path: '/About',
+    name: 'About',
+    component: () => import('../views/About.vue')
+  },
+  {
+    path: '/Search',
+    name: 'Search',
+    component: () => import('../views/Search.vue')
+  },
+  {
+    path: '/BrandDetail',
+    name: 'BrandDetail',
+    component: () => import('../views/BrandDetail.vue')
   }
 ]
 

@@ -14,6 +14,23 @@ export default {
   name: 'Brand',
   components: {
     Navbar
+  },
+  data () {
+    return {
+      token: ''
+    }
+  },
+  created () {
+    this.token = document.cookie.replace(/token=/, '', '$1')
+    if (this.token === '') {
+      window.location = '/#/Login'
+    } else {
+      this.getData()
+    }
+  },
+  methods: {
+    getData () {
+    }
   }
 }
 </script>
