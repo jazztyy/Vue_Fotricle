@@ -74,6 +74,9 @@ export default {
         this.axios.post(BrandApi, user)
           .then(res => {
             console.log(res)
+            const token = res.data.token
+            document.cookie = `token=${token};}`
+            window.location = '/#/Brand/Edit/Menu'
           })
           .catch(err => {
             console.log(err)

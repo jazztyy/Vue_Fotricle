@@ -41,8 +41,74 @@ const routes = [
       },
       {
         path: 'MessageBox',
-        name: 'MeassgeBox',
+        name: 'MessageBox',
         component: () => import('../views/Dashboard/Customer/MessageBox.vue')
+      }
+    ]
+  },
+  {
+    path: '/Brand',
+    name: 'Brand',
+    component: () => import('../views/Brand.vue'),
+    children: [
+      {
+        path: 'Edit',
+        name: 'Edit',
+        component: () => import('../views/Reception/Brand/BrandEdit.vue'),
+        children: [
+          {
+            path: 'Menu',
+            name: 'Menu',
+            component: () => import('../views/Dashboard/Brand/EditMenu.vue')
+          },
+          {
+            path: 'Data',
+            name: 'Data',
+            component: () => import('../views/Dashboard/Brand/EditData.vue')
+          },
+          {
+            path: 'Calender',
+            name: 'Calender',
+            component: () => import('../views/Dashboard/Brand/EditCalender.vue')
+          },
+          {
+            path: 'DataStatistics',
+            name: 'DataStatistics',
+            component: () => import('../views/Dashboard/Brand/DataStatistics.vue')
+          },
+          {
+            path: 'Feedback',
+            name: 'Feedback',
+            component: () => import('../views/Dashboard/Brand/Feedback.vue')
+          }
+        ]
+      },
+      {
+        path: 'Order',
+        name: 'Order',
+        component: () => import('../views/Reception/Brand/BrandOrder.vue'),
+        children: [
+          {
+            path: 'List',
+            name: 'List',
+            component: () => import('../views/Reception/Brand/BrandOrderList.vue')
+          },
+          {
+            path: 'Online',
+            name: 'Online',
+            component: () => import('../views/Reception/Brand/BrandOrderOnline.vue')
+          },
+          {
+            path: 'Site',
+            name: 'Site',
+            component: () => import('../views/Reception/Brand/BrandOrderSite.vue')
+          }
+        ]
+      },
+      {
+        path: 'Reception',
+        name: 'Reception',
+        component: () => import('../views/Reception/Brand/BrandReception.vue')
       }
     ]
   }
