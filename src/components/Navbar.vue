@@ -1,0 +1,31 @@
+<template>
+     <header class="bg-maincolor-400 sticky top-0 z-30">
+        <nav class="container mx-auto px-5 flex items-center">
+            <ul class="nav md:justify-around text-xl">
+                <li class="nav-btn hidden md:block">
+                    <a href="#">點餐</a>
+                </li>
+                <li class="nav-btn hidden md:block">
+                    <a href="#">關於我們</a>
+                </li>
+                <li class="nav-btn md:hidden">
+                    <i class="fas fa-hamburger cursor-pointer"></i>
+                </li>
+            </ul>
+            <h1 class="flex-1 py-1 text-thirdcolor-500 text-5xl text-center">
+                <router-link to="/">Fotricle</router-link>
+            </h1>
+            <ul class="nav justify-end md:justify-around text-xl">
+                <li class="nav-btn hidden md:block">
+                    <a href="cartlist.html">餐車列表</a>
+                </li>
+                <li class="nav-btn hidden md:block">
+                    <router-link to="/Login">會員登入</router-link>
+                </li>
+                <li class="nav-btn">
+                    <i class="fas fa-shopping-cart cursor-pointer"></i>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</template>
