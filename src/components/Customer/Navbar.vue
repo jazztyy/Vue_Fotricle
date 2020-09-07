@@ -28,7 +28,7 @@
                     <a href="shoppingcart.html"><i class="fas fa-shopping-cart cursor-pointer"></i></a>
                 </li>
                 <li class="nav-btn">
-                    <a href="#" class="outline-none" @click.prevent="logout">登出</a>
+                    <a href="#" @click.prevent="logout">登出</a>
                 </li>
             </ul>
         </nav>
