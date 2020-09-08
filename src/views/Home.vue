@@ -14,6 +14,7 @@
         <i
             class="fas fa-arrow-right text-3xl btn-center right-0 text-thirdcolor-500 hover:text-secondcolor-400 pr-5 z-40"></i>
     </div>
+    <loading :active.sync="isLoading"></loading>
     <main>
         <section>
             <h3 class="title">尋找附近的餐車美食</h3>
@@ -130,6 +131,11 @@
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 export default {
+  data () {
+    return {
+      isLoading: false
+    }
+  },
   name: 'Home',
   components: {
     Navbar,
