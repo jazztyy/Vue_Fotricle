@@ -7,17 +7,17 @@
     >
       <div class="mask"></div>
       <div
-        class="w-4/5 absolute z-20 top-20 md:top-40 left-half trans-center text-xl rounded-lg text-thirdcolor-400 px-3"
+        class="w-4/5 absolute z-20 top-60 md:top-half left-half trans-center text-xl rounded-lg text-thirdcolor-400 px-3"
       >
         <div class="relative">
             <div class="background-mask bg-maincolor-400"></div>
             <button
               class="outline-none rounded-lg w-full bg-transparent relative z-10 text-left indent"
-            >分類標籤：</button>
+            > 分類標籤：</button>
         </div>
       </div>
       <ul
-        class="absolute z-20 w-4/5 top-half left-half trans-center flex flex-wrap justify-around text-xl rounded-lg py-5 text-thirdcolor-400"
+        class="absolute z-20 w-4/5 top-30 md:top-40 left-half trans-center flex flex-wrap justify-around text-xl rounded-lg py-5 text-thirdcolor-400"
       >
         <li class="w-full mb-3 md:mb-0 md:w-1/4 px-3">
           <div class="relative">
