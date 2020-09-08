@@ -135,4 +135,12 @@
     transform: scale(1.05);
 }
 
+.toggle-checkbox:checked {
+  @apply right-0; 
+  @apply border-green-400;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply bg-green-400;
+}
+
 @tailwind utilities;
