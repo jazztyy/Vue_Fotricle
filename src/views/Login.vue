@@ -64,7 +64,7 @@ export default {
           .then(res => {
             console.log(res)
             const token = res.data.token
-            document.cookie = `token=${token};}`
+            localStorage.setItem('token', token)
             window.location = '/#/Customer/OrderList'
           })
           .catch(err => {
@@ -75,7 +75,9 @@ export default {
           .then(res => {
             console.log(res)
             const token = res.data.token
-            document.cookie = `token=${token};}`
+            const id = res.data.id
+            localStorage.setItem('token', token)
+            localStorage.setItem('id', id)
             window.location = '/#/Brand/Edit/Menu'
           })
           .catch(err => {
