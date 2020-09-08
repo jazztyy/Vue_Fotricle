@@ -1,16 +1,15 @@
 <template>
-  <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg">
     <div class="bg-secondcolor-400 rounded-lg flex flex-col">
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-400 text-thirdcolor-400">
           <tr>
-            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">日期</th>
-            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單總量</th>
-            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">營業時間</th>
-            <th class="p-3 text-2xl font-bold uppercase rounded-tr-lg hidden lg:table-cell">營業額</th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">申請時間</th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">餐車信箱</th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">餐車粉絲專頁</th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tr-lg">審核</th>
           </tr>
         </thead>
-        <tbody class="text-2xl">
+        <tbody class="text-xl">
           <tr
             class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
           >
@@ -19,36 +18,36 @@
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-              >日期</span>
-              20200822
+              >申請時間</span>
+              20200907 18:00
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-              >訂單總量</span>
-              200
+              >餐車信箱</span>
+              abc@gmail.com
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-              >營業時間</span>
-              8 小時
+              >餐車粉絲頁</span>
+              https://www.facebook.com/P2anG2020
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-              >營業額</span>
-              20000
+              >審核</span>
+              <button class="btn-main p-2 mr-2">通過</button>
+              <button class="btn-main bg-red-600 p-2">未通過</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-  </section>
 </template>

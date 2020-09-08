@@ -10,7 +10,7 @@
           @click.native="whichPage='EditMenu'"
         >餐車菜單編輯</router-link>
       </li>
-      <li class="border-l-8 rounded-tl-lg"
+      <li class="border-l-8"
       :class="{ 'border-maincolor-400 text-black': whichPage === 'EditData', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'EditData'}"
       >
         <router-link
@@ -19,7 +19,7 @@
           @click.native="whichPage='EditData'"
         >餐車資料編輯</router-link>
       </li>
-      <li class="border-l-8 rounded-tl-lg"
+      <li class="border-l-8"
       :class="{ 'border-maincolor-400 text-black': whichPage === 'EditCalender', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'EditCalender'}"
       >
         <router-link
@@ -28,7 +28,7 @@
           @click.native="whichPage='EditCalender'"
         >行事曆編輯</router-link>
       </li>
-      <li class="border-l-8 rounded-tl-lg"
+      <li class="border-l-8"
       :class="{ 'border-maincolor-400 text-black': whichPage === 'DataStatistics', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'DataStatistics'}"
       >
         <router-link
@@ -37,7 +37,7 @@
           @click.native="whichPage='DataStatistics'"
         >數據統計</router-link>
       </li>
-      <li class="border-l-8 rounded-tl-lg"
+      <li class="border-l-8 rounded-bl-lg"
       :class="{ 'border-maincolor-400 text-black': whichPage === 'Feedback', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'Feedback'}"
       >
         <router-link

@@ -20,7 +20,7 @@
             <div class="relative overflow-hidden">
                 <div style="background-image: url(/img/地圖.PNG); " class="relative bg-img blur w-full h-767">
                 </div>
-                <a href="cartMap.html" class="outline-none btn-main btn-center transX left-half text-3xl px-10 py-5">附近餐車</a>
+                <router-link class="btn-main btn-center transX left-half text-3xl px-10 py-5" to="/Search">附近餐車</router-link>
             </div>
         </section>
         <section>
