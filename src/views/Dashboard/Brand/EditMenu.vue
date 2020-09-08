@@ -80,71 +80,6 @@
                   <button class="btn-main bg-red-600 p-2">刪除</button>
                 </td>
               </tr>
-              <tr
-                class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
-              >
-                <td
-                  class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >圖片</span>
-                  <img
-                    class="w-32 mx-auto rounded-lg"
-                    src="/img/robin-stickel-tzl1UCXg5Es-unsplash.jpg"
-                    alt
-                  />
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >分類</span>
-                  漢堡
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >名稱</span>
-                  好吃漢堡
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >價格</span>
-                  60
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >是否上架</span>
-                  是
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >數量</span>
-                  99
-                </td>
-                <td
-                  class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
-                >
-                  <span
-                    class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-                  >編輯</span>
-                  <button class="btn-main p-2 mr-2">編輯</button>
-                  <button class="btn-main bg-red-600 p-2">刪除</button>
-                </td>
-              </tr>
             </tbody>
           </table>
           <button class="btn-main rounded-t-none text-2xl px-5 py-2"
@@ -169,10 +104,24 @@ export default {
       isShow: false
     }
   },
+  props: ['token', 'id'],
+  created () {
+    this.init()
+  },
   methods: {
     closeModal () {
-      console.log(123)
       this.isShow = false
+    },
+    init () {
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/Products/Get?Id=${this.id}`
+      this.axios.get(API, config)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   },
   components: {

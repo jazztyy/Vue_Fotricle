@@ -71,6 +71,11 @@ export default {
         email: this.email,
         password: this.password
       }
+      const brand = {
+        email: this.email,
+        password: this.password,
+        FbAccount: this.fanspage
+      }
       console.log(user)
       if (this.isCustomer) {
         this.axios.post(CustomerApi, user)
@@ -81,7 +86,7 @@ export default {
             console.log(err)
           })
       } else {
-        this.axios.post(BrandApi, user)
+        this.axios.post(BrandApi, brand)
           .then(res => {
             console.log(res)
           })

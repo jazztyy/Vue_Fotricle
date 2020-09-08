@@ -6,7 +6,7 @@
     <form class="bg-secondcolor-400 flex flex-col px-5" action>
       <div class="mb-3 md:flex md:flex-row-reverse">
         <div class="md:w-3/4 flex flex-col justify-between">
-          <div class="flex mb-3 md:mb-0">
+          <div class="flex mb-3">
             <input
               class="flex-3 bg-thirdcolor-400 rounded-lg indent text-xl"
               type="text"
@@ -17,7 +17,7 @@
             />
             <button class="flex-1 btn-main py-2 ml-2">上傳圖片</button>
           </div>
-          <div class="flex mb-3 md:mb-0">
+          <div class="flex mb-3">
             <input
               class="flex-3 bg-thirdcolor-400 rounded-lg indent text-xl"
               type="text"
@@ -99,18 +99,13 @@ export default {
       PayCode: '',
       QRCode: '',
       Img: '',
-      Photo: '',
-      token: ''
+      Photo: ''
     }
   },
+  props: ['token', 'id'],
   methods: {
     init () {
-      this.token = document.cookie.replace(/token=/, '', '$1')
-      if (this.token === '') {
-        window.location = '/#/Login'
-      } else {
-        this.getData()
-      }
+      this.getData()
     },
     editBrandData () {
       const API = 'http://fotricle.rocket-coding.com/Brand/Edit'
@@ -135,16 +130,13 @@ export default {
       })
     },
     getData () {
-      // const API = 'http://fotricle.rocket-coding.com/Brand/Detail'
-      // this.axios.get(API, {
-      //   headers: {
-      //     token: `Bearer ${this.token}`
-      //   }
-      // }).then(res => {
-      //   console.log(res)
-      // }).catch(err => {
-      //   console.log(err)
-      // })
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${this.id}`
+      this.axios.get(API, config).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     }
   },
   created () {

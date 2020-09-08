@@ -54,7 +54,7 @@ const routes = [
       {
         path: 'Edit',
         name: 'Edit',
-        component: () => import('../views/Reception/Brand/BrandEdit.vue'),
+        component: () => import('../views/Dashboard/Brand/BrandEdit.vue'),
         children: [
           {
             path: 'Menu',
