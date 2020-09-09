@@ -17,6 +17,7 @@
           <tbody class="text-xl">
             <tr
               class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+              v-for="product of products" :key="product.Id"
             >
               <td
                 class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
@@ -36,7 +37,7 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >分類</span>
-                漢堡
+                {{ product.sort }}
               </td>
               <td
                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -44,7 +45,7 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >名稱</span>
-                好吃漢堡
+                {{ product.ProductName }}
               </td>
               <td
                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -52,7 +53,7 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >價格</span>
-                60
+                {{ product.Price }}
               </td>
               <td
                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -60,7 +61,8 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >是否上架</span>
-                <div
+                是
+                <!-- <div
                   class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
                 >
                   <input
@@ -73,7 +75,7 @@
                     for="toggle"
                     class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
-                </div>
+                </div> -->
               </td>
               <td
                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -81,7 +83,7 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >數量</span>
-                99
+                {{ product.Total }}
               </td>
               <td
                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -89,8 +91,8 @@
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >編輯</span>
-                <button class="btn-main p-2 mr-2">編輯</button>
-                <button class="btn-main bg-red-600 p-2">刪除</button>
+                <button class="btn-main p-2 mr-2 focus:outline-none" @click.prevent="openModal(product)">編輯</button>
+                <button class="btn-main bg-red-600 p-2 focus:outline-none" @click.prevent="deleteProduct(product.Id)">刪除</button>
               </td>
             </tr>
           </tbody>
@@ -100,10 +102,12 @@
     </section>
     <Product
       @closeModal="closeModal"
-      class="absolute top-half left-half trans-center z-20"
+      @init='init'
+      class="fixed top-half left-half trans-center z-20"
       v-show="isShow"
+      ref="product"
     ></Product>
-    <div class="mask" v-show="isShow"></div>
+    <div class="mask fixed" v-show="isShow"></div>
   </div>
 </template>
 
@@ -127,20 +131,35 @@ export default {
       this.isShow = false
     },
     init () {
+      console.log('init')
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = `http://fotricle.rocket-coding.com/Products/Get?Id=${this.id}`
+      const API = 'http://fotricle.rocket-coding.com/ProductLists/Gets'
       this.axios
         .get(API, config)
         .then((res) => {
-          // res.data.forEach(item => {
-          //   this.products.push(item)
-          // })
-          console.log(res.data)
-          console.log(this.products)
+          console.log(res)
+          this.products = res.data.products
         })
         .catch((err) => {
           console.log(err)
         })
+    },
+    deleteProduct (id) {
+      const API = `http://fotricle.rocket-coding.com/ProductList/Delete?Id=${id}`
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      this.axios
+        .delete(API, config)
+        .then((res) => {
+          console.log(res)
+          this.init()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    openModal (product) {
+      this.isShow = true
+      this.$refs.product.openModal(product)
     }
   },
   components: {

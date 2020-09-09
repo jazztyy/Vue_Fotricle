@@ -6,8 +6,7 @@
     <i class="text-thirdcolor-400 text-3xl absolute fas fa-times p-3 right-0 cursor-pointer"
     @click="closeModal"></i>
     </header>
-    <form class="bg-secondcolor-400 flex flex-col px-5" action
-    v-if="data.PhoneNumber"
+    <form class="bg-secondcolor-400 flex flex-col px-5" action="#"
     >
       <div class="mb-3 flex flex-col lg:flex-row">
           <img
@@ -102,35 +101,27 @@ export default {
       id: ''
     }
   },
-  props: ['brand'],
   created () {
     this.token = localStorage.getItem('token')
     this.id = localStorage.getItem('id')
-    this.data = this.brand
   },
   methods: {
     editBrandData () {
       const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${this.id}`
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const data = {
-        BrandName: this.BrandName,
-        BrandStory: this.BrandStory,
-        CarImage: this.CarImage,
-        LinePay: this.LinePay,
-        LogoPhoto: this.LogoPhoto,
-        PhoneNumber: this.PhoneNumber,
-        QrCode: this.QrCode,
-        Sort: this.Sort
-      }
-      this.axios.patch(API, data, config
+      const { ...BrandData } = this.data
+      this.axios.patch(API, BrandData, config
       ).then(res => {
-        console.log(res)
+        this.closeModal()
       }).catch(err => {
         console.log(err)
       })
     },
     closeModal () {
       this.$emit('closeModal')
+    },
+    showBrandData (data) {
+      this.data = data
     }
   }
 }
