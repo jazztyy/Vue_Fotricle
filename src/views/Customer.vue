@@ -27,7 +27,7 @@ export default {
     }
   },
   created () {
-    this.token = document.cookie.replace(/token=/, '', '$1')
+    this.token = localStorage.getItem('token')
     if (this.token === '') {
       window.location = '/#/Login'
     } else {

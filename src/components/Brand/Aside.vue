@@ -2,48 +2,48 @@
   <aside class="lg:w-1/5 lg:sticky top-0 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
     <ul class="hidden lg:flex-col lg:flex justify-evenly text-2xl text-center">
       <li class="border-l-8 rounded-tl-lg"
-      :class="{ 'border-maincolor-400 text-black': whichPage === 'EditMenu', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'EditMenu'}"
+      :class="{ 'border-maincolor-400 text-black': whichPage === '#/Brand/Edit/Menu', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Brand/Edit/Menu'}"
       >
         <router-link
           class="w-full block"
           to="/Brand/Edit/Menu"
-          @click.native="whichPage='EditMenu'"
+          @click.native="whichPage='#/Brand/Edit/Menu'"
         >餐車菜單編輯</router-link>
       </li>
       <li class="border-l-8"
-      :class="{ 'border-maincolor-400 text-black': whichPage === 'EditData', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'EditData'}"
+      :class="{ 'border-maincolor-400 text-black': whichPage === '#/Brand/Edit/Data', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Brand/Edit/Data'}"
       >
         <router-link
           class="w-full block"
           to="/Brand/Edit/Data"
-          @click.native="whichPage='EditData'"
+          @click.native="whichPage='#/Brand/Edit/Data'"
         >餐車資料編輯</router-link>
       </li>
       <li class="border-l-8"
-      :class="{ 'border-maincolor-400 text-black': whichPage === 'EditCalender', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'EditCalender'}"
+      :class="{ 'border-maincolor-400 text-black': whichPage === '#/Brand/Edit/Calender', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Brand/Edit/Calender'}"
       >
         <router-link
           class="w-full block"
           to="/Brand/Edit/Calender"
-          @click.native="whichPage='EditCalender'"
+          @click.native="whichPage='#/Brand/Edit/Calender'"
         >行事曆編輯</router-link>
       </li>
       <li class="border-l-8"
-      :class="{ 'border-maincolor-400 text-black': whichPage === 'DataStatistics', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'DataStatistics'}"
+      :class="{ 'border-maincolor-400 text-black': whichPage === '#/Brand/Edit/DataStatistics', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Brand/Edit/DataStatistics'}"
       >
         <router-link
           class="w-full block"
           to="/Brand/Edit/DataStatistics"
-          @click.native="whichPage='DataStatistics'"
+          @click.native="whichPage='#/Brand/Edit/DataStatistics'"
         >數據統計</router-link>
       </li>
       <li class="border-l-8 rounded-bl-lg"
-      :class="{ 'border-maincolor-400 text-black': whichPage === 'Feedback', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== 'Feedback'}"
+      :class="{ 'border-maincolor-400 text-black': whichPage === '#/Brand/Edit/Feedback', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Brand/Edit/Feedback'}"
       >
         <router-link
           class="w-full block"
           to="/Brand/Edit/Feedback"
-          @click.native="whichPage='Feedback'"
+          @click.native="whichPage='#/Brand/Edit/Feedback'"
         >回饋單</router-link>
       </li>
     </ul>
@@ -55,8 +55,11 @@
 export default {
   data () {
     return {
-      whichPage: 'EditMenu'
+      whichPage: ''
     }
+  },
+  created () {
+    this.whichPage = window.location.hash
   }
 }
 </script>

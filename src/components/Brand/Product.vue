@@ -15,7 +15,7 @@
             name="imageUrl"
             disabled
             placeholder="圖片網址"
-            v-model="photo"
+            v-model="product.ProductPhoto"
           />
           <button class="w-1/3 btn-main py-2 ml-2">上傳圖片</button>
         </div>
@@ -25,20 +25,20 @@
           class="w-full text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
           type="text"
           placeholder="產品名稱 (10 字內)"
-          v-model="name"
+          v-model="product.ProductName"
         />
         <div class="flex justify-between">
           <input
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
             placeholder="產品分類"
-            v-model="sort"
+            v-model="product.ProductSort"
           />
           <input
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
             placeholder="產品數量"
-            v-model="number"
+            v-model="product.Total"
           />
         </div>
         <div class="flex justify-between">
@@ -46,13 +46,13 @@
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
             placeholder="產品單位"
-            v-model="unit"
+            v-model="product.Unit"
           />
           <input
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
             placeholder="產品價格"
-            v-model="price"
+            v-model="product.Price"
           />
         </div>
         <textarea
@@ -61,10 +61,10 @@
           name="advice"
           id
           placeholder="產品描述"
-          v-model="description"
+          v-model="product.ProductDetail"
         ></textarea>
       </div>
-      <button @click.prevent='addProduct' class="py-3 mb-3 btn-main text-xl">確認</button>
+      <button @click.prevent='judgeStatus' class="py-3 mb-3 btn-main text-xl">確認</button>
     </form>
   </section>
 </template>
@@ -74,48 +74,62 @@ export default {
   name: 'Product',
   data () {
     return {
+      product: { },
       token: '',
-      id: '',
-      photo: '',
-      name: '',
-      sort: '',
-      price: '',
-      unit: '',
-      number: '',
-      description: '',
-      isUse: true
+      isUse: true,
+      isNew: true
     }
   },
   created () {
     this.token = localStorage.getItem('token')
-    this.id = localStorage.getItem('id')
+    this.product.BrandId = localStorage.getItem('id')
   },
   methods: {
     closeModal () {
       this.$emit('closeModal')
     },
+    init () {
+      console.log(454)
+      this.$emit('init')
+    },
     addProduct () {
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const product = {
-        BrandId: this.id,
-        ProductSort: this.sort,
-        ProductName: this.name,
-        Price: this.price,
-        Unit: this.unit,
-        ProductPhoto: this.photo,
-        Total: this.number,
-        ProductDetail: this.description,
-        IsUse: this.isUse
-      }
+      const { ...product } = this.product
       const API = 'http://fotricle.rocket-coding.com/ProductList/New'
       this.axios
         .post(API, product, config)
         .then((res) => {
-          console.log(res)
+          this.closeModal()
+          this.init()
         })
         .catch((err) => {
           console.log(err)
         })
+    },
+    editProduct () {
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const { ...product } = this.product
+      const API = `http://fotricle.rocket-coding.com/ProductList/Edit?Id=${this.product.Id}`
+      this.axios
+        .patch(API, product, config)
+        .then((res) => {
+          this.closeModal()
+          this.init()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    openModal (product) {
+      this.product = product
+      this.isNew = false
+    },
+    judgeStatus () {
+      if (this.isNew) {
+        this.addProduct()
+      } else {
+        this.editProduct()
+      }
     }
   }
 }
