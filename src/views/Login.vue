@@ -64,7 +64,9 @@ export default {
           .then(res => {
             console.log(res)
             const token = res.data.token
+            const id = res.data.id
             localStorage.setItem('token', token)
+            localStorage.setItem('id', id)
             window.location = '/#/Customer/OrderList'
           })
           .catch(err => {

@@ -19,7 +19,7 @@
                 <li class="nav-btn hidden md:block">
                     <a href="#">餐車列表</a>
                 </li>
-                <li class="nav-btn fixed z-20 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
+                <li class="nav-btn fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
                     <router-link class="w-full block" to="/Customer/MessageBox"
                     ><i class="fas fa-bell"></i>
                     </router-link>
@@ -39,7 +39,8 @@
 export default {
   methods: {
     logout () {
-      document.cookie = 'token=;'
+      localStorage.setItem('token', '')
+      localStorage.setItem('id', '')
       window.location = '/'
     }
   }

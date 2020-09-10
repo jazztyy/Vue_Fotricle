@@ -27,7 +27,8 @@ export default {
   props: ['whichPage'],
   methods: {
     logout () {
-      document.cookie = 'token=;'
+      localStorage.setItem('token', '')
+      localStorage.setItem('id', '')
       window.location = '/'
     }
   }
