@@ -46,12 +46,12 @@
     </div>
     <brand-data
       @closeModal="closeModal"
-      class="absolute top-half left-half trans-center z-20"
+      class="fixed top-half left-half trans-center z-20"
       v-show="isShow"
       :brand="data"
       ref="BrandData"
     ></brand-data>
-    <div class="mask" v-show="isShow"></div>
+    <div class="fixed mask" v-show="isShow"></div>
   </section>
 </template>
 
