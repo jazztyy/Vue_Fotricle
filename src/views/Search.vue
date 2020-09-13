@@ -150,7 +150,6 @@ export default {
     }
   },
   created () {
-    // localStorage.setItem('BrandId', '')
     this.getBrandList()
   },
   methods: {
@@ -158,7 +157,6 @@ export default {
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
       this.axios.get(API)
         .then(res => {
-          console.log(res)
           this.brandList = res.data
         })
         .catch(err => {
@@ -170,8 +168,6 @@ export default {
     },
     getBrandId (brandId) {
       this.brandId = brandId
-      console.log(brandId)
-      console.log(this.brandId)
       this.setBrandId(brandId)
     }
   },
