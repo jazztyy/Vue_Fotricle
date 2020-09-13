@@ -61,7 +61,7 @@
                 <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
                   <div class="w-full flex justify-between items-center">
                     <h2 class="text-3xl md:text-2xl font-semibold mb-2">{{ product.ProductName }}</h2>
-                    <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
+                    <button class="btn-main p-2 text-2xl md:text-lg focus:outline-none" @click="addShoppingCartProduct(product.Id, product.BrandId)">點擊購買</button>
                   </div>
                 </div>
                 <p class="text-xl lg:text-lg mb-1">{{ product.ProductDetail }}</p>
@@ -152,7 +152,6 @@ export default {
   methods: {
     getBrandProduct (id) {
       const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${id}`
-      console.log(id)
       this.axios
         .get(API)
         .then((res) => {
@@ -164,7 +163,6 @@ export default {
     },
     getBrandData (id) {
       const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${id}`
-      console.log(id)
       this.axios
         .get(API)
         .then((res) => {
@@ -174,9 +172,10 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    addShoppingCartProduct (id, brandId) {
+      this.$emit('addShoppingCartProduct', id, brandId)
     }
-  },
-  created () {
   },
   mounted () {
     const vm = this
