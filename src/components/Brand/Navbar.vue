@@ -2,7 +2,7 @@
   <header class="bg-maincolor-400">
     <nav class="container mx-auto px-5 flex justify-between items-center">
       <h1 class="w-3/5 py-1 text-thirdcolor-500 text-5xl">
-        <a href="index.html">Fotricle</a>
+        <router-link to="/Home">Fotricle</router-link>
       </h1>
       <ul class="w-2/5 nav justify-end md:justify-around text-xl">
         <li class="nav-btn md:block">
@@ -29,7 +29,7 @@ export default {
     logout () {
       localStorage.setItem('token', '')
       localStorage.setItem('id', '')
-      window.location = '/'
+      window.location = '/Home'
     }
   }
 }

@@ -5,7 +5,11 @@
       </header>
       <main class="p-5 flex flex-col justify-center xs:flex-row" v-if="result">
         <div class="flex flex-col items-center justify-around">
-          <img class="rounded-full mb-5 h-40 w-40" src="/img/女媧01.jpg" alt />
+          <div class="relative">
+              <img class="rounded-full mb-5 h-40 w-40" :src="userData.CusPhoto" alt />
+              <input id="fileUploading" class="hidden" @change="uploadFile" type="file">
+              <label for="fileUploading" class="opacity-0 hover:opacity-50 absolute h-40 w-40 top-0 bg-black text-white rounded-full flex items-center justify-center"> 選擇上傳圖片 </label>
+          </div>
           <button class="hidden xs:block btn-main py-2 px-5 text-xl" @click.prevent="editUserData">儲存</button>
         </div>
         <ul class="w-full xs:w-2/3 xs:pl-5 text-xl">
@@ -46,11 +50,11 @@
             </select>
           </li>
           <li>
-            <label class="mb-3" for="name">年齡</label>
+            <label class="mb-3" for="age">年齡</label>
             <select
               class="w-full rounded-lg bg-thirdcolor-400 indent mb-3 focus:outline-none"
-              name="gender"
-              id="gender"
+              name="age"
+              id="age"
               v-model="userData.Age"
             >
               <option value disabled selected>年齡</option>
@@ -103,15 +107,37 @@ export default {
         })
     },
     editUserData () {
-      console.log(123)
       const API = `http://fotricle.rocket-coding.com/customer/Edit?Id=${this.id}`
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
       const { ...userData } = this.userData
+      console.log(userData)
       this.axios
         .patch(API, userData, config)
         .then((res) => {
           console.log(res)
           this.getUserData()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    uploadFile () {
+      const file = document.querySelector('#fileUploading').files[0]
+      const formData = new FormData()
+      const API = `http://fotricle.rocket-coding.com/customer/upload?Id=${this.id}`
+      const config = {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      formData.append('file', file)
+
+      this.axios
+        .post(API, formData, config)
+        .then((res) => {
+          console.log(res)
+          this.userData.CusPhoto = res.data.imageUrl
         })
         .catch((err) => {
           console.log(err)

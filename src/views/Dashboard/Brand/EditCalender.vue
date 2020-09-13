@@ -5,32 +5,42 @@
     >行事曆編輯</header>
     <main class="container mx-auto px-5">
       <ul class="flex flex-wrap justify-center lg:justify-start">
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
+        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5" v-for="day of date" :key="day.Id">
+          <div class="bg-maincolor-400 rounded-lg px-3 pb-3">
             <div
               class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
             >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
+              <p class="w-3/5 text-left">{{ day.date }}</p>
+              <p class="w-2/5 text-center">{{ `${day.month}/${day.day}` }}</p>
             </div>
             <div class="px-2 text-xl">
               <select
                 class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
                 name="isOpen"
                 id="is__open"
+                v-model="day.status"
               >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
+                <option value='' disabled selected>是否營業</option>
+                <option value="營業中">營業中</option>
+                <option value="未營業">未營業</option>
               </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
+              <div class="text-2xl md:text-3xl lg:text-2xl">
+                <vue-timepicker
+                  v-model="day.SDateTime"
+                  placeholder="開始時間"
+                  manual-input
+                  hour-label="時"
+                  minute-label="分"
+                  :minute-interval='30'
+                ></vue-timepicker>
+                <vue-timepicker
+                  v-model="day.EDateTimeDate"
+                  placeholder="結束時間"
+                  manual-input
+                  hour-label="時"
+                  minute-label="分"
+                  :minute-interval='30'
+                ></vue-timepicker>
               </div>
               <textarea
                 class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
@@ -38,233 +48,107 @@
                 name="營業地點"
                 id="openPlace"
                 rows="3"
+                v-model="day.Location"
               ></textarea>
             </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
-          </div>
-        </li>
-        <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5">
-          <div class="bg-maincolor-400 rounded-lg">
-            <div
-              class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
-            >
-              <p class="w-3/5 text-left">星期一</p>
-              <p class="w-2/5 text-center">9/2</p>
-            </div>
-            <div class="px-2 text-xl">
-              <select
-                class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                name="isOpen"
-                id="is__open"
-              >
-                <option value disabled selected>是否營業</option>
-                <option value="營業">營業</option>
-                <option value="公休">公休</option>
-              </select>
-              <div class="flex justify-between items-center mb-3 text-2xl md:text-3xl lg:text-2xl">
-                <input
-                  class="w-10/12 indent outline-none bg-thirdcolor-400 rounded-lg"
-                  disabled
-                  type="text"
-                  placeholder="營業時間"
-                />
-                <i class="far w-2/12 text-2xl text-center fa-calendar-alt text-thirdcolor-400"></i>
-              </div>
-              <textarea
-                class="w-full indent bg-thirdcolor-400 outline-none rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
-                placeholder="營業地點"
-                name="營業地點"
-                id="openPlace"
-                rows="3"
-              ></textarea>
-            </div>
+            <button class="block btn-second py-2 px-3 text-xl mx-auto focus:outline-none" @click.prevent="editCalender(day, day.Id)">確認行事曆</button>
           </div>
         </li>
       </ul>
     </main>
   </section>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      date: {},
+      token: '',
+      week: {
+        0: '',
+        1: '',
+        2: '',
+        3: '',
+        4: '',
+        5: '',
+        6: ''
+      }
+    }
+  },
+  mounted () {
+    this.token = localStorage.getItem('token')
+    this.getCalender()
+  },
+  methods: {
+    getWeekDay () {
+      const now = new Date()
+      const month = now.getMonth()
+      const year = now.getFullYear()
+      const date = now.getDate()
+      const week = {
+        1: '星期一',
+        2: '星期二',
+        3: '星期三',
+        4: '星期四',
+        5: '星期五',
+        6: '星期六',
+        0: '星期日'
+      }
+      for (let i = 0; i <= 6; i++) {
+        const day = new Date(year, month, date + i)
+        let nextmonth = day.getMonth() + 1
+        const nextday = day.getDay()
+        let nextdate = day.getDate()
+        nextmonth = (nextmonth > 9) ? ('' + nextmonth) : ('0' + nextmonth)
+        nextdate = (nextdate > 9) ? ('' + nextdate) : ('0' + nextdate)
+        this.date[i].month = nextmonth
+        this.date[i].day = nextdate
+        this.date[i].Date = nextmonth + nextdate
+        this.date[i].date = week[nextday]
+      }
+      console.log(this.date)
+    },
+    getCalender () {
+      const API = 'http://fotricle.rocket-coding.com/OpenTime/Get'
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      this.axios
+        .get(API, config)
+        .then((res) => {
+          console.log(res)
+          this.date = res.data.open
+          this.getWeekDay()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    editCalender (day, id) {
+      const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
+      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const changeStatus = {
+        營業中: '1',
+        未營業: '0'
+      }
+      const body = {
+        BrandId: day.BrandId,
+        Date: day.Date,
+        Status: changeStatus[day.status],
+        SDateTime: day.SDateTime,
+        EDateTimeDate: day.EDateTimeDate,
+        Location: day.Location
+      }
+      console.log(body)
+      this.axios
+        .patch(API, body, config)
+        .then((res) => {
+          console.log(res)
+          this.getCalender()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  }
+}
+</script>

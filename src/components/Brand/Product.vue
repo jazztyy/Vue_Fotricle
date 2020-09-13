@@ -7,17 +7,18 @@
     >產品資料</header>
     <form class="rounded-b-lg flex flex-col px-5" action>
       <div class="mb-3 flex flex-col items-center">
-        <img class="rounded-lg mb-3 h-64" src="/img/thomas-tucker-MNtag_eXMKw-unsplash.jpg" alt />
+        <img class="rounded-lg mb-3 h-64" v-show="product.ProductPhoto" :src="product.ProductPhoto" alt />
         <div class="flex self-stretch">
           <input
-            class="w-2/3 bg-thirdcolor-400 rounded-lg indent text-xl"
+            class="w-4/5 bg-thirdcolor-400 rounded-lg indent text-xl"
             type="text"
             name="imageUrl"
             disabled
             placeholder="圖片網址"
             v-model="product.ProductPhoto"
           />
-          <button class="w-1/3 btn-main py-2 ml-2">上傳圖片</button>
+          <input id="fileUploading" class="hidden" @change="uploadFile" type="file">
+          <label for="fileUploading" class="ml-4 px-3 bg-maincolor-400 text-thirdcolor-400 rounded-lg flex items-center justify-center"> 選擇上傳圖片 </label>
         </div>
       </div>
       <div>
@@ -32,7 +33,7 @@
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
             placeholder="產品分類"
-            v-model="product.ProductSort"
+            v-model="product.sort"
           />
           <input
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
@@ -85,13 +86,6 @@ export default {
     this.product.BrandId = localStorage.getItem('id')
   },
   methods: {
-    closeModal () {
-      this.$emit('closeModal')
-    },
-    init () {
-      console.log(454)
-      this.$emit('init')
-    },
     addProduct () {
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
       const { ...product } = this.product
@@ -100,7 +94,8 @@ export default {
         .post(API, product, config)
         .then((res) => {
           this.closeModal()
-          this.init()
+          this.$emit('init')
+          this.product = {}
         })
         .catch((err) => {
           console.log(err)
@@ -114,7 +109,7 @@ export default {
         .patch(API, product, config)
         .then((res) => {
           this.closeModal()
-          this.init()
+          this.$emit('init')
         })
         .catch((err) => {
           console.log(err)
@@ -124,12 +119,38 @@ export default {
       this.product = product
       this.isNew = false
     },
+    closeModal () {
+      this.product = {}
+      this.$emit('closeModal')
+    },
     judgeStatus () {
       if (this.isNew) {
         this.addProduct()
       } else {
         this.editProduct()
       }
+    },
+    uploadFile () {
+      const file = document.querySelector('#fileUploading').files[0]
+      const formData = new FormData()
+      const API = `http://fotricle.rocket-coding.com/customer/upload?Id=${this.id}`
+      const config = {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      formData.append('file', file)
+
+      this.axios
+        .post(API, formData, config)
+        .then((res) => {
+          console.log(res)
+          this.product.ProductPhoto = res.data.imageUrl
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   }
 }
