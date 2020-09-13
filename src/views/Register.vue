@@ -1,6 +1,5 @@
 <template>
   <div>
-    <login-navbar/>
     <main class="relative">
         <div style="background-image: url(/img/photo-1547620917-786ebcbc55af.jfif)" class="bg-img h-767 blur "></div>
         <form action="" class="absolute top-half left-half trans-center w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
@@ -41,19 +40,13 @@
             </div>
         </form>
     </main>
-    <Footer/>
   </div>
 </template>
 
 <script>
-import LoginNavbar from '../components/LoginNavbar'
-import Footer from '../components/Footer'
 export default {
   name: 'Register',
-  components: {
-    LoginNavbar,
-    Footer
-  },
+
   data () {
     return {
       isCustomer: true,

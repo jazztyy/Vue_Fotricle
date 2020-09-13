@@ -27,7 +27,7 @@
                 >圖片</span>
                 <img
                   class="w-32 mx-auto rounded-lg"
-                  src="/img/robin-stickel-tzl1UCXg5Es-unsplash.jpg"
+                  :src="product.ProductPhoto"
                   alt
                 />
               </td>
@@ -131,11 +131,9 @@ export default {
       this.isShow = false
     },
     init () {
-      console.log('init')
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = 'http://fotricle.rocket-coding.com/ProductLists/Gets'
+      const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${this.id}`
       this.axios
-        .get(API, config)
+        .get(API)
         .then((res) => {
           console.log(res)
           this.products = res.data.products
@@ -160,6 +158,27 @@ export default {
     openModal (product) {
       this.isShow = true
       this.$refs.product.openModal(product)
+    },
+    uploadFile () {
+      const file = document.querySelector('#fileUploading').files[0]
+      const formData = new FormData()
+      const API = 'http://fotricle.rocket-coding.com/ProductPhoto/upload'
+      const config = {
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      formData.append('file', file)
+
+      this.axios
+        .post(API, formData, config)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   components: {

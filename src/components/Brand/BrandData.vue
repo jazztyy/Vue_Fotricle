@@ -109,7 +109,7 @@ export default {
     editBrandData () {
       const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${this.id}`
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const { ...BrandData } = this.data
+      const BrandData = this.data
       this.axios.patch(API, BrandData, config
       ).then(res => {
         this.closeModal()

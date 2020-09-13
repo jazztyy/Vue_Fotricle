@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div
       class="relative bg-img h-96 mb-5"
       style="background-image: url(../img/eaters-collective-ddZYOtZUnBk-unsplash.jpg)"
@@ -96,17 +95,20 @@
         </li>
       </ul>
       <section v-show="!isMap">
-        <ul class="flex flex-col md:flex-row md:flex-wrap">
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale">
+        <ul class="flex flex-col items-stretch md:flex-row md:flex-wrap">
+          <li
+          class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale"
+          v-for='brand of brandList' :key="brand.Id"
+          >
             <div class="shadow-xl rounded-lg">
               <div class="relative">
-                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" to="/BrandDetail">前往餐車頁面</router-link>
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
+                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" @click.native="getBrandId(brand.Id)" to="/BrandDetail">前往餐車頁面</router-link>
+                <img class="rounded-t-lg w-full h-64" :src="brand.LogoPhoto" alt="Logo" />
               </div>
               <div class="p-5">
                 <div class="flex justify-between lg:flex-col lg:items-start items-center mb-2">
                   <div class="w-full flex justify-between items-center">
-                    <h2 class="text-4xl font-semibold mb-2">龐炸食</h2>
+                    <h2 class="text-2xl font-semibold mb-2">{{ brand.BrandName }}</h2>
                     <button class="btn-main p-3">導航前往</button>
                   </div>
                   <div>
@@ -117,103 +119,7 @@
                     <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
                   </div>
                 </div>
-                <p class="text-2xl md:text-2xl lg:text-base mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" to="/BrandDetail">前往餐車頁面</router-link>
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-2">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-4xl font-semibold mb-2">龐炸食</h2>
-                    <button class="btn-main p-3">導航前往</button>
-                  </div>
-                  <div>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                  </div>
-                </div>
-                <p class="text-2xl md:text-2xl lg:text-base mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" to="/BrandDetail">前往餐車頁面</router-link>
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-2">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-4xl font-semibold mb-2">龐炸食</h2>
-                    <button class="btn-main p-3">導航前往</button>
-                  </div>
-                  <div>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                  </div>
-                </div>
-                <p class="text-2xl md:text-2xl lg:text-base mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" to="/BrandDetail">前往餐車頁面</router-link>
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-2">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-4xl font-semibold mb-2">龐炸食</h2>
-                    <button class="btn-main p-3">導航前往</button>
-                  </div>
-                  <div>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                  </div>
-                </div>
-                <p class="text-2xl md:text-2xl lg:text-base mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3 hover:item-scale">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <router-link class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white" to="/BrandDetail">前往餐車頁面</router-link>
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-2">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-4xl font-semibold mb-2">龐炸食</h2>
-                    <button class="btn-main p-3">導航前往</button>
-                  </div>
-                  <div>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                    <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
-                  </div>
-                </div>
-                <p class="text-2xl md:text-2xl lg:text-base mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
+                <p class="text-2xl md:text-2xl lg:text-base mb-1">{{ brand.BrandStory }}</p>
               </div>
             </div>
           </li>
@@ -231,23 +137,47 @@
         ></iframe>
       </section>
     </main>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 export default {
   data () {
     return {
-      isMap: true
+      isMap: false,
+      brandList: [],
+      brandId: ''
     }
   },
-  name: 'Search',
-  components: {
-    Navbar,
-    Footer
-  }
+  created () {
+    // localStorage.setItem('BrandId', '')
+    this.getBrandList()
+  },
+  methods: {
+    getBrandList () {
+      const API = 'http://fotricle.rocket-coding.com/Brand/All'
+      this.axios.get(API)
+        .then(res => {
+          console.log(res)
+          this.brandList = res.data
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    setBrandId (brandId) {
+      this.$bus.$emit('getBrandId', brandId)
+    },
+    getBrandId (brandId) {
+      this.brandId = brandId
+      console.log(brandId)
+      console.log(this.brandId)
+      this.setBrandId(brandId)
+    }
+  },
+  beforeDestroy () {
+    localStorage.setItem('BrandId', this.brandId)
+  },
+  name: 'Search'
 }
 </script>

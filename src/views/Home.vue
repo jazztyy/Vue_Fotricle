@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <navbar/>
     <div class="relative bg-img" style="background-image: url(/img/tamas-munkacsi-1_10VeQ_sEI-unsplash.jpg)">
         <i class="fas fa-arrow-left text-3xl btn-center text-thirdcolor-500 hover:text-secondcolor-400 pl-5 z-40"></i>
         <a href="#" class="touch z-30"></a>
@@ -14,7 +13,6 @@
         <i
             class="fas fa-arrow-right text-3xl btn-center right-0 text-thirdcolor-500 hover:text-secondcolor-400 pr-5 z-40"></i>
     </div>
-    <loading :active.sync="isLoading"></loading>
     <main>
         <section>
             <h3 class="title">尋找附近的餐車美食</h3>
@@ -122,24 +120,27 @@
             <button class="btn-main text-2xl px-10 py-2 shadow-xl mb-10">加入我們</button>
         </section>
     </main>
-    <Footer/>
   </div>
 </template>
 
 <script>
 
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 export default {
-  data () {
-    return {
-      isLoading: false
-    }
+  created () {
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition(this.success, this.error)
+    // } else {
+    //   alert('Sorry, 你的裝置不支援地理位置功能。')
+    // }
   },
   name: 'Home',
-  components: {
-    Navbar,
-    Footer
+  methods: {
+    // error () {
+    //   alert('無法取得你的位置')
+    // },
+    // success (position) {
+    //   console.log(position.coords.latitude, position.coords.longitude)
+    // }
   }
 }
 </script>

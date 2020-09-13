@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <main>
       <router-view />
     </main>
@@ -8,13 +7,9 @@
 </template>
 
 <script>
-import Navbar from '../components/Brand/Navbar'
 
 export default {
   name: 'Brand',
-  components: {
-    Navbar
-  },
   data () {
     return {
       token: ''

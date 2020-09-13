@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navbar />
     <div
       class="relative flex items-center bg-img h-auto py-10"
       style="background-image: url(../img/eaters-collective-ddZYOtZUnBk-unsplash.jpg)"
@@ -10,7 +9,7 @@
         class="container mx-auto flex flex-wrap items-center justify-between w-4/5 relative z-10 text-thirdcolor-400"
       >
         <div class="w-full md:w-2/3">
-          <p class="font-semibold text-6xl">龐炸食</p>
+          <p class="font-semibold text-6xl">{{ brand.BrandName }}</p>
           <div class="pb-2">
             <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
             <i class="fas fa-star text-secondcolor-500 text-2xl"></i>
@@ -21,9 +20,9 @@
           </div>
           <p class="text-lg pb-2">
             本日營業時間：
-            <span>14:00-20:00</span>
+            <span></span>
           </p>
-          <p class="text-lg pb-2">訂購專線：0987654321</p>
+          <p class="text-lg pb-2">訂購專線：{{ brand.PhoneNumber }}</p>
           <div>
             <button class="btn-second py-2 px-5 mr-5">導航前往</button>
             <button class="btn-second py-2 px-5">加入追蹤</button>
@@ -40,7 +39,7 @@
             </a>
           </div>
         </div>
-        <p class="w-full md:w-1/3 text-xl pb-2">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
+        <p class="w-full md:w-1/3 text-xl pb-2">{{ brand.BrandStory }}</p>
       </div>
       <div class="btn-second rounded-r-none px-5 fixed z-10 right-0 top-20">
         <p class="text-xl text-black font-medium">目前單號</p>
@@ -51,83 +50,21 @@
       <section>
         <h3 class="title">精選餐點</h3>
         <ul class="flex flex-col md:flex-row md:flex-wrap">
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3">
+          <li
+          class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3"
+          v-for="product of products" :key="product.Id"
+          >
             <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
+              <div class="rounded-t-lg bg-img w-full h-72" :style="{ backgroundImage:'url(' + product.ProductPhoto +')' }">
               </div>
               <div class="p-5">
                 <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
                   <div class="w-full flex justify-between items-center">
-                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">雞米花</h2>
+                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">{{ product.ProductName }}</h2>
                     <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
                   </div>
                 </div>
-                <p class="text-xl lg:text-lg mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">雞米花</h2>
-                    <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
-                  </div>
-                </div>
-                <p class="text-xl lg:text-lg mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">雞米花</h2>
-                    <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
-                  </div>
-                </div>
-                <p class="text-xl lg:text-lg mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">雞米花</h2>
-                    <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
-                  </div>
-                </div>
-                <p class="text-xl lg:text-lg mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
-              </div>
-            </div>
-          </li>
-          <li class="md:w-1/2 lg:w-1/3 xl:w-1/4 mb-4 px-3">
-            <div class="shadow-xl rounded-lg">
-              <div class="relative">
-                <img class="rounded-t-lg" src="/img/alex-munsell-Yr4n8O_3UPc-unsplash.jpg" alt />
-              </div>
-              <div class="p-5">
-                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-5">
-                  <div class="w-full flex justify-between items-center">
-                    <h2 class="text-3xl md:text-2xl font-semibold mb-2">雞米花</h2>
-                    <button class="btn-main p-2 text-2xl md:text-lg">點擊購買</button>
-                  </div>
-                </div>
-                <p class="text-xl lg:text-lg mb-1">是該來吃個雞米花，也可以來聊個天，不一樣的炸物，錯過就可惜了！</p>
+                <p class="text-xl lg:text-lg mb-1">{{ product.ProductDetail }}</p>
               </div>
             </div>
           </li>
@@ -200,18 +137,61 @@
         <h3 class="title">活動與貼文</h3>
       </section>
     </main>
-    <Footer />
   </div>
 </template>
 
 <script>
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
 export default {
   name: 'Search',
-  components: {
-    Navbar,
-    Footer
+  data () {
+    return {
+      brand: {},
+      products: {}
+    }
+  },
+  methods: {
+    getBrandProduct (id) {
+      const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${id}`
+      console.log(id)
+      this.axios
+        .get(API)
+        .then((res) => {
+          this.products = res.data.products
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    getBrandData (id) {
+      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${id}`
+      console.log(id)
+      this.axios
+        .get(API)
+        .then((res) => {
+          this.brand = res.data.brand
+          this.sort = res.data.sort
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  },
+  created () {
+  },
+  mounted () {
+    const vm = this
+    const id = localStorage.getItem('BrandId')
+    if (id !== '') {
+      this.axios.all([vm.getBrandProduct(id), vm.getBrandData(id)])
+    } else {
+      this.$bus.$on('getBrandId', function (brandId) {
+        localStorage.setItem('BrandId', brandId)
+        this.axios.all([vm.getBrandProduct(brandId), vm.getBrandData(brandId)])
+      })
+    }
+  },
+  destroyed () {
+    this.$bus.$off()
   }
 }
 </script>
