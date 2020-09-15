@@ -65,18 +65,20 @@ export default {
     return {
       date: {},
       token: '',
-      week: {
-        0: '',
-        1: '',
-        2: '',
-        3: '',
-        4: '',
-        5: '',
-        6: ''
-      }
+      id: '',
+      week: [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
     }
   },
   mounted () {
+    this.id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
     this.getCalender()
   },
@@ -102,22 +104,30 @@ export default {
         let nextdate = day.getDate()
         nextmonth = (nextmonth > 9) ? ('' + nextmonth) : ('0' + nextmonth)
         nextdate = (nextdate > 9) ? ('' + nextdate) : ('0' + nextdate)
-        this.date[i].month = nextmonth
-        this.date[i].day = nextdate
-        this.date[i].Date = nextmonth + nextdate
-        this.date[i].date = week[nextday]
+        this.week[i].Date = nextmonth + nextdate
+        this.week[i].date = week[nextday]
       }
-      console.log(this.date)
+    },
+    checkWeekDay () {
+      this.date.forEach(data => {
+        this.week.forEach(day => {
+          if (day.Date === data.Date) {
+            console.log(day)
+            data.date = day.date
+            day = data
+          }
+        })
+      })
     },
     getCalender () {
-      const API = 'http://fotricle.rocket-coding.com/OpenTime/Get'
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${this.id}`
       this.axios
-        .get(API, config)
+        .get(API)
         .then((res) => {
           console.log(res)
           this.date = res.data.open
           this.getWeekDay()
+          this.checkWeekDay()
         })
         .catch((err) => {
           console.log(err)
@@ -126,6 +136,7 @@ export default {
     editCalender (day, id) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      console.log(id)
       const changeStatus = {
         營業中: '1',
         未營業: '0'

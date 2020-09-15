@@ -1,5 +1,5 @@
 <template>
-  <section class="lg:w-3/4 mx-5 rounded-lg">
+  <section class="lg:w-3/4 mx-auto rounded-lg">
     <ul class="flex justify-between py-5">
       <li>
         <router-link

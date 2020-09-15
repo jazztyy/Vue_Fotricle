@@ -131,6 +131,11 @@ const routes = [
         path: '/BrandDetail',
         name: 'BrandDetail',
         component: () => import('../views/BrandDetail.vue')
+      },
+      {
+        path: '/CheckoutPage',
+        name: 'CheckoutPage',
+        component: () => import('../views/CheckoutPage.vue')
       }
     ]
   },

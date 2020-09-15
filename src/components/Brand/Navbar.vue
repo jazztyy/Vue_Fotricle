@@ -1,5 +1,5 @@
 <template>
-  <header class="bg-maincolor-400">
+  <header class="bg-maincolor-400 sticky top-0 z-40">
     <nav class="container mx-auto px-5 flex justify-between items-center">
       <h1 class="w-3/5 py-1 text-thirdcolor-500 text-5xl">
         <router-link to="/Home">Fotricle</router-link>
@@ -15,7 +15,7 @@
           <router-link to="/Brand/Reception">廚房端</router-link>
         </li>
         <li class="nav-btn">
-          <a href="#" @click.prevent="logout">登出</a>
+          <router-link to="/Home" @click.native="logout">登出</router-link>
         </li>
       </ul>
     </nav>
@@ -29,7 +29,8 @@ export default {
     logout () {
       localStorage.setItem('token', '')
       localStorage.setItem('id', '')
-      window.location = '/Home'
+      this.$emit('changeIdentity', 'Visitors')
+      this.$emit('resetToken')
     }
   }
 }
