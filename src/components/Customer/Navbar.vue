@@ -1,12 +1,12 @@
 <template>
-  <header class="bg-maincolor-400 relative">
+  <header class="bg-maincolor-400 sticky top-0 z-40">
     <nav class="container mx-auto px-5 flex items-center">
       <ul class="nav md:justify-around text-xl">
         <li class="nav-btn hidden md:block">
           <router-link to="/Search">點餐</router-link>
         </li>
         <li class="nav-btn hidden md:block">
-          <router-link to="/About">關於我們</router-link>
+          <router-link to="/Customer/OrderList">會員專區</router-link>
         </li>
         <li class="nav-btn md:hidden">
           <i class="fas fa-hamburger cursor-pointer"></i>
@@ -27,10 +27,11 @@
           </router-link>
         </li>
         <li>
-          <a class="nav-btn" href="#" @click="isShowCart = !isShowCart">
-            <i class="fas fa-shopping-cart cursor-pointer"></i>
+          <a class="relative" href="#" @click.prevent="isShowCart = !isShowCart">
+            <i class="nav-btn  fas fa-shopping-cart cursor-pointer"></i>
+            <p class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90 " v-show="shoppingCart.length"> {{ shoppingCart.length }} </p>
           </a>
-          <div class="absolute top-100 right-0 md:right-3 z-20 bg-thirdcolor-400 text-black rounded-b-lg md:w-1/3 lg:w-1/4 shadow-lg"
+          <div class="absolute top-100 right-0 md:right-3 z-40 bg-thirdcolor-400 text-black rounded-b-lg md:w-1/3 lg:w-1/4 shadow-lg"
           v-show="isShowCart"
           >
             <p v-if="!shoppingCart[0]">購物車目前是空的</p>
@@ -47,7 +48,7 @@
                   <p class="w-1/4 ml-3"> {{ product.ProductList.Amount }} 元</p>
                 </div>
                   <i class="fas fa-times absolute top-0 text-red-500 hover:text-red-700 right-2 cursor-pointer"
-                  @click=" delShoppingCartProduct(product.Id)"
+                  @click="delShoppingCartProduct(product.Id)"
                   ></i>
               </li>
             </ul>
@@ -63,15 +64,14 @@
                   <span>{{ totalPrice }}</span>
                 </p>
               </div>
-              <div class="">
-                <button class="w-1/2 bg-maincolor-400 hover:bg-maincolor-600 md:rounded-bl-lg inline-block text-thirdcolor-400 py-3">查看購物車</button>
-                <button class="w-1/2 bg-secondcolor-400 hover:bg-secondcolor-600 md:rounded-br-lg inline-block py-3">結帳</button>
+              <div>
+                <router-link class="w-full text-thirdcolor-400 bg-maincolor-400 hover:bg-maincolor-600 md:rounded-b-lg inline-block py-3" to="/CheckoutPage" @click.native="isShowCart = false">結帳</router-link>
               </div>
             </div>
           </div>
         </li>
         <li class="nav-btn">
-          <a href="#" @click.prevent="logout">登出</a>
+          <router-link to="/Home" @click.native="logout">登出</router-link>
         </li>
       </ul>
     </nav>
@@ -82,13 +82,10 @@
 export default {
   data () {
     return {
-      shoppingCart: {},
-      totalPrice: 0,
-      id: '',
-      token: '',
       isShowCart: false
     }
   },
+  props: ['totalPrice', 'shoppingCart'],
   created () {
     this.id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
@@ -98,52 +95,17 @@ export default {
     logout () {
       localStorage.setItem('token', '')
       localStorage.setItem('id', '')
-      window.location = '/Home'
-    },
-    delShoppingCartProduct (id) {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = `http://fotricle.rocket-coding.com/cart/${id}`
-      this.axios
-        .delete(API, config)
-        .then((res) => {
-          console.log(res)
-          this.getShoppingCartProduct()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    delAllShoppingCartProduct () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = 'http://fotricle.rocket-coding.com/cart/ALL'
-      this.axios
-        .delete(API, config)
-        .then((res) => {
-          console.log(res)
-          this.getShoppingCartProduct()
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      this.$emit('changeIdentity', 'Visitors')
+      this.$emit('resetToken')
     },
     getShoppingCartProduct () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = `http://fotricle.rocket-coding.com/cart/customer/${this.id}`
-      this.axios
-        .get(API, config)
-        .then((res) => {
-          this.totalPrice = 0
-          if (res.data.carts.length === 0) {
-            localStorage.setItem('ShoppingCartId', '')
-          }
-          res.data.carts.forEach(productList => {
-            this.totalPrice += productList.ProductList.Amount
-          })
-          this.shoppingCart = res.data.carts
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+      this.$emit('getShoppingCartProduct')
+    },
+    delShoppingCartProduct (id) {
+      this.$emit('delShoppingCartProduct', id)
+    },
+    delAllShoppingCartProduct () {
+      this.$emit('delAllShoppingCartProduct')
     }
   }
 }

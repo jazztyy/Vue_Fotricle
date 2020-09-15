@@ -35,7 +35,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >審核</span>
-              <button class="btn-main p-2 mr-2" @click="accept(item.Id)">通過</button>
+              <button class="btn-main p-2 mr-2" @click="accept(item.Id, item.FbAccount)">通過</button>
               <button class="btn-main bg-red-600 p-2" @click="fail(item.Id)">未通過</button>
             </td>
           </tr>
@@ -66,10 +66,11 @@ export default {
           console.log(err)
         })
     },
-    accept (id) {
+    accept (id, page) {
       const API = `http://fotricle.rocket-coding.com/Brand/checkpass?Id=${id}`
       const data = {
         Id: id,
+        FbAccount: page,
         Verification: 1
       }
       this.axios.patch(API, data)

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main>
+    <main class="keep-footer-bottom">
       <router-view />
     </main>
   </div>

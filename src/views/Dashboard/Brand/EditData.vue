@@ -106,7 +106,6 @@
         </li>
       </ul>
     </div>
-    <div class="fixed mask" v-show="isShow"></div>
     <button class="w-full md:w-1/5 block mx-auto rounded-t-none md:rounded-lg bg-maincolor-400 text-thirdcolor-400 py-3 text-2xl md:mb-4 " @click.prevent="editBrandData">送出資料</button>
   </section>
 </template>
@@ -123,7 +122,6 @@ export default {
     return {
       brandData: {},
       sort: '',
-      isShow: false,
       value: '',
       options: [
         '特色小吃',

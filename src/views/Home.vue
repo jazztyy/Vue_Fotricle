@@ -2,7 +2,7 @@
   <div class="home">
     <div class="relative bg-img" style="background-image: url(/img/tamas-munkacsi-1_10VeQ_sEI-unsplash.jpg)">
         <i class="fas fa-arrow-left text-3xl btn-center text-thirdcolor-500 hover:text-secondcolor-400 pl-5 z-40"></i>
-        <a href="#" class="touch z-30"></a>
+        <a class="touch z-30"></a>
         <div class="mask"></div>
         <div class="flex flex-row-reverse justify-center py-10 h-full relative z-20">
             <h2 class="text-thirdcolor-500 rl text-5xl self-start">龐炸食</h2>
@@ -127,6 +127,7 @@
 
 export default {
   created () {
+    this.getIdentity()
     // if (navigator.geolocation) {
     //   navigator.geolocation.getCurrentPosition(this.success, this.error)
     // } else {
@@ -135,6 +136,9 @@ export default {
   },
   name: 'Home',
   methods: {
+    getIdentity () {
+      this.$emit('getIdentity')
+    }
     // error () {
     //   alert('無法取得你的位置')
     // },

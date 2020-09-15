@@ -50,16 +50,15 @@ export default {
         email: this.email,
         password: this.password
       }
-      console.log(user)
       if (this.isCustomer) {
         this.axios.post(CustomerApi, user)
           .then(res => {
-            console.log(res)
             const token = res.data.token
             const id = res.data.id
             localStorage.setItem('token', token)
             localStorage.setItem('id', id)
             window.location = '/#/Customer/OrderList'
+            this.changeIdentity('顧客')
           })
           .catch(err => {
             console.log(err)
@@ -73,11 +72,15 @@ export default {
             localStorage.setItem('token', token)
             localStorage.setItem('id', id)
             window.location = '/#/Brand/Edit/Menu'
+            this.changeIdentity('餐車')
           })
           .catch(err => {
             console.log(err)
           })
       }
+    },
+    changeIdentity (identity) {
+      this.$emit('changeIdentity', identity)
     }
   }
 }
