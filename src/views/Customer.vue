@@ -2,7 +2,9 @@
   <div>
     <main class="keep-footer-bottom flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
       <Aside />
-      <router-view />
+      <router-view
+      :myFollowBrand='myFollowBrand'
+      ></router-view>
     </main>
   </div>
 </template>
@@ -20,6 +22,7 @@ export default {
       token: ''
     }
   },
+  props: ['myFollowBrand'],
   created () {
     this.token = localStorage.getItem('token')
     if (this.token === '') {

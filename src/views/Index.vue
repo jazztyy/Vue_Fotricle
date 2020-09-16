@@ -3,7 +3,7 @@
     <navbar v-if="identity === 'Visitors'"
     @changeIdentity="changeIdentity"
     />
-    <brand-navbar v-show="identity === '餐車'"
+    <brand-navbar v-if="identity === '餐車'"
     @changeIdentity="changeIdentity"
     @resetToken="resetToken"
     />
@@ -27,9 +27,14 @@
     @delAllShoppingCartProduct='delAllShoppingCartProduct'
     @changeIdentity="changeIdentity"
     @editShoppingCartProduct="editShoppingCartProduct"
+    @addMyFollow="addMyFollow"
+    @getMyFollow="getMyFollow"
+    @delMyFollow="delMyFollow"
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     :brandId='brandId'
+    :myFollowBrand='myFollowBrand'
+    :isFollow='isFollow'
     />
     <loading :active.sync="isLoading"></loading>
     <Footer/>
@@ -47,13 +52,16 @@ export default {
   data () {
     return {
       isLoading: false,
+      isFollow: false,
       token: '',
       id: '',
       identity: 'Visitors',
       brandId: '',
+      followId: '',
       shoppingCart: {},
       totalPrice: '',
-      QRCode: ''
+      QRCode: '',
+      myFollowBrand: []
     }
   },
   components: {
@@ -68,6 +76,14 @@ export default {
     this.token = localStorage.getItem('token')
     this.brandId = localStorage.getItem('ShoppingCartId')
     this.getIdentity()
+  },
+  watch: {
+    identity () {
+      if (this.identity === '顧客') {
+        this.getOrderList()
+        this.getMyFollow()
+      }
+    }
   },
   methods: {
     addShoppingCartProduct (id, brandId, ProductUnit = 1) {
@@ -113,7 +129,7 @@ export default {
           this.shoppingCart = res.data.carts
         })
         .catch((err) => {
-          console.log(err, 123)
+          console.log(err)
         })
     },
     delShoppingCartProduct (id) {
@@ -154,13 +170,6 @@ export default {
           this.getShoppingCartProduct()
         })
     },
-    changeIdentity (identity) {
-      this.identity = identity
-    },
-    resetToken () {
-      this.token = ''
-      this.id = ''
-    },
     getIdentity () {
       if (localStorage.getItem('token')) {
         const API = 'http://fotricle.rocket-coding.com/GetIdentity'
@@ -170,6 +179,65 @@ export default {
             this.identity = res.data.message
           })
       }
+    },
+    changeIdentity (identity) {
+      this.identity = identity
+    },
+    resetToken () {
+      this.token = ''
+      this.id = ''
+    },
+    addMyFollow (brandId) {
+      if (this.identity === '顧客') {
+        const API = 'http://fotricle.rocket-coding.com/myfollow/add'
+        const body = {
+          BrandId: brandId
+        }
+        const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        this.axios.post(API, body, config)
+          .then(res => {
+            console.log(res)
+            this.getMyFollow()
+          })
+      }
+    },
+    getMyFollow () {
+      const API = 'http://fotricle.rocket-coding.com/customer/myfollow'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
+        .then(res => {
+          console.log(res)
+          this.myFollowBrand = res.data.myfollow
+          this.myFollowBrand.forEach(brandId => {
+            if (brandId.BrandId === Number(localStorage.getItem('BrandId'))) {
+              this.isFollow = true
+              this.followId = brandId.Id
+            } else {
+              this.isFollow = false
+              this.followId = ''
+            }
+          })
+          console.log(this.isFollow, this.followId)
+        })
+    },
+    delMyFollow () {
+      if (this.identity === '顧客') {
+        const API = `http://fotricle.rocket-coding.com/api/MyFollows/${this.followId}`
+        const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+        this.axios.delete(API, config)
+          .then(res => {
+            console.log(res)
+            this.getMyFollow()
+          })
+      }
+    },
+    getOrderList () {
+      const API = 'https://fotricle.rocket-coding.com/customer/orders'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
+        .then(res => {
+          console.log(res)
+        })
     }
   }
 }

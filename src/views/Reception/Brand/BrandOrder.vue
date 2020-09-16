@@ -22,22 +22,23 @@ export default {
   methods: {
     getBrandOrderList () {
       const API = `http://fotricle.rocket-coding.com/BrandOrder/Get?Id=${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios
-        .get(API)
+        .get(API, config)
         .then((res) => {
           console.log(res)
           this.OrderCofirmList = res.data.today.filter(item => {
-            return item.OrderDetail[0].Status === '訂單處理中'
+            return item.status === '訂單處理中'
           })
           this.OrderFoundList = res.data.today.filter(item => {
-            return item.OrderDetail[0].Status === '訂單成立'
+            return item.status === '訂單成立'
           })
           this.OrderFoodCompleted = res.data.today.filter(item => {
-            return item.OrderDetail[0].Status === '訂單餐點完成'
+            return item.status === '訂單餐點完成'
           })
-          console.log(this.OrderCofirmList)
-          console.log(this.OrderFoundList)
-          console.log(this.OrderFoodCompleted)
+          console.log(this.OrderCofirmList, '處理中')
+          console.log(this.OrderFoundList, '成立')
+          console.log(this.OrderFoodCompleted, '餐點')
         })
         .catch((err) => {
           console.log(err)

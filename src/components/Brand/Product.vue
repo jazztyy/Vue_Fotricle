@@ -145,9 +145,7 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
           this.product.ProductPhoto = res.data.imageUrl
-          console.log(this.product)
         })
         .catch((err) => {
           console.log(err)

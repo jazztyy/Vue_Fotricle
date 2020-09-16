@@ -25,7 +25,14 @@
           <p class="text-lg pb-2">訂購專線：{{ brand.PhoneNumber }}</p>
           <div>
             <button class="btn-second py-2 px-5 mr-5">導航前往</button>
-            <button class="btn-second py-2 px-5">加入追蹤</button>
+            <button class="btn-second py-2 px-5"
+            @click="addMyFollow(brand.Id)"
+            v-if="!isFollow"
+            >加入追蹤</button>
+            <button class="btn-second py-2 px-5"
+            @click="delMyFollow(brand.Id)"
+            v-if="isFollow"
+            >取消追蹤</button>
           </div>
           <div class="text-5xl">
             <a class="hover:text-secondcolor-400 mr-3" href="#">
@@ -143,6 +150,7 @@
 <script>
 export default {
   name: 'Search',
+  props: ['myFollowBrand', 'isFollow'],
   data () {
     return {
       brand: {},
@@ -175,6 +183,12 @@ export default {
     },
     addShoppingCartProduct (id, brandId) {
       this.$emit('addShoppingCartProduct', id, brandId)
+    },
+    addMyFollow (brandId) {
+      this.$emit('addMyFollow', brandId)
+    },
+    delMyFollow () {
+      this.$emit('delMyFollow')
     }
   },
   mounted () {
