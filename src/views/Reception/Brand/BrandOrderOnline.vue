@@ -26,7 +26,7 @@
         </thead>
         <tbody class="text-xl">
           <tr class="flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
-          v-for="order of OrderCofirmList" :key="order.OrderID"
+          v-for="order of OrderCofirmList" :key="order.Id"
           >
             <td
               class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
@@ -34,7 +34,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >金額</span>
-              150
+              {{ order.Total }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
@@ -42,7 +42,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >驗證碼</span>
-              {{ order.OrderDetail[0].LinepayVer }}
+              {{ order.LinepayVer }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
@@ -52,7 +52,7 @@
               >訂單內容</span>
               <span
               class="pr-3"
-              v-for="(item, i) of order.OrderDetail"
+              v-for="(item, i) of order.OrderDetails"
               :key="i"
               >{{ item.ProductName + '*' + item.ProductUnit }}</span>
             </td>
@@ -60,10 +60,10 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <button class="text-thirdcolor-400 rounded-lg px-10 py-5 bg-red-600 hover:bg-red-800 mr-8"
-              @click="changeOrderPhase('Fail', order.OrderID)"
+              @click="changeOrderPhase('Fail', order.Id, )"
               >拒絕</button>
               <button class="btn-main px-10 py-5"
-               @click="changeOrderPhase('Comfirm', order.OrderID)"
+               @click="changeOrderPhase('Comfirm', order.Id)"
               >接受</button>
             </td>
           </tr>

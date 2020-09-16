@@ -14,12 +14,14 @@
                     </thead>
                     <tbody class="text-xl">
                         <tr
-                            class=" lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0 ">
+                            class=" lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0 "
+                            v-for="brand of myFollowBrand" :key="brand.Id"
+                            >
                             <td
                                 class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">餐車名稱</span>
-                                龐炸食
+                                {{ brand.BrandName }}
                             </td>
                             <td
                                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static">
@@ -41,3 +43,10 @@
             </div>
         </section>
 </template>
+
+<script>
+export default {
+  name: 'MyFollow',
+  props: ['myFollowBrand']
+}
+</script>
