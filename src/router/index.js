@@ -107,13 +107,13 @@ const routes = [
                 path: 'Site',
                 name: 'Site',
                 component: () => import('../views/Reception/Brand/BrandOrderSite.vue')
+              },
+              {
+                path: 'Reception',
+                name: 'Reception',
+                component: () => import('../views/Reception/Brand/BrandReception.vue')
               }
             ]
-          },
-          {
-            path: 'Reception',
-            name: 'Reception',
-            component: () => import('../views/Reception/Brand/BrandReception.vue')
           }
         ]
       },

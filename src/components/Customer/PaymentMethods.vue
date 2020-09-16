@@ -25,6 +25,7 @@
     <button
       class="block w-1/4 mx-auto py-2 bg-maincolor-400 rounded-lg text-thirdcolor-400 mb-3"
     v-show="isCash"
+    @click="getBrandOrder"
     >送出訂單</button>
     <button
       class="block w-1/4 mx-auto py-2 bg-maincolor-400 rounded-lg text-thirdcolor-400 mb-3"

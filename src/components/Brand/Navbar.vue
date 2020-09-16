@@ -12,7 +12,7 @@
           <router-link to="/Brand/Edit/Menu">後台系統</router-link>
         </li>
         <li class="nav-btn md:block">
-          <router-link to="/Brand/Reception">廚房端</router-link>
+          <router-link to="/Brand/Order/Reception">廚房端</router-link>
         </li>
         <li class="nav-btn">
           <router-link to="/Home" @click.native="logout">登出</router-link>

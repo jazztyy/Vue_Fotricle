@@ -97,7 +97,7 @@ export default {
     editShoppingCartProduct (id, number) {
       this.$emit('editShoppingCartProduct', id, number)
     },
-    addOrder (LinePay, payment, mealNumber) {
+    addOrder (LinePay = '', payment, mealNumber) {
       const API = 'http://fotricle.rocket-coding.com/order/add'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const body = {
@@ -107,6 +107,8 @@ export default {
         LinepayVer: LinePay,
         Site: 0
       }
+      console.log(API, config)
+      console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
           console.log(res)
@@ -135,12 +137,13 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          let mealNumber = res.data.result.splice(-1)[0].MealNumber
-          if (!mealNumber) {
+          let mealNumber = 0
+          if (!res.data.today) {
             mealNumber = 1
           } else {
-            mealNumber += 1
+            mealNumber = res.data.today.splice(-1)[0].OrderDetail[0].MealNumber + 1
           }
+          console.log(res, mealNumber)
           this.addOrder(LinePay, payment, mealNumber)
         })
         .catch((err) => {
