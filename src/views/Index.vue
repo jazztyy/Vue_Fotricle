@@ -30,6 +30,7 @@
     @addMyFollow="addMyFollow"
     @getMyFollow="getMyFollow"
     @delMyFollow="delMyFollow"
+    @getOrderList="getOrderList"
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     :brandId='brandId'
@@ -207,7 +208,7 @@ export default {
       this.axios.get(API, config)
         .then(res => {
           console.log(res)
-          this.myFollowBrand = res.data.myfollow
+          this.myFollowBrand = res.data.dt
           this.myFollowBrand.forEach(brandId => {
             if (brandId.BrandId === Number(localStorage.getItem('BrandId'))) {
               this.isFollow = true
@@ -232,9 +233,9 @@ export default {
       }
     },
     getOrderList () {
-      const API = 'https://fotricle.rocket-coding.com/customer/orders'
-      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      this.axios.get(API, config)
+      const API = `https://fotricle.rocket-coding.com/customer/orders?Id=${localStorage.getItem('id')}`
+      console.log(localStorage.getItem('token'))
+      this.axios.get(API)
         .then(res => {
           console.log(res)
         })

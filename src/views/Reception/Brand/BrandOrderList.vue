@@ -1,5 +1,5 @@
 <template>
-  <section class="lg:w-3/4 mx-auto rounded-lg">
+  <section class="lg:w-11/12 mx-auto rounded-lg mb-5">
     <ul class="flex justify-between py-5">
       <li>
         <router-link
@@ -14,7 +14,7 @@
         >網站訂單</router-link>
       </li>
     </ul>
-    <div class="bg-secondcolor-400 rounded-lg flex flex-col shadow-lg">
+    <div class="bg-thirdcolor-400 rounded-lg flex flex-col shadow-lg">
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-400 text-thirdcolor-400">
           <tr>
@@ -28,61 +28,71 @@
           </tr>
         </thead>
         <tbody class="text-xl">
-          <tr class="flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0">
+          <tr class="flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+          v-for="order of OrderFoodCompleted" :key="order.Id"
+          >
             <td
-              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >單號</span>
               <p
-                class="mx-auto order-button w-20 h-20 bg-green-700 hover:bg-green-800 text-center text-3xl py-4"
-              >1</p>
+                class="mx-auto order-button w-20 h-20 text-center text-3xl py-4"
+                :class="{ 'bg-green-700': order.status === '訂單餐點完成', 'bg-red-600': order.status === '訂單成立' }"
+              >{{ order.OrderNumber }}</p>
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單編號</span>
-              A1231546
+              {{ order.Id }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >金額</span>
-              150
+              {{ order.Total }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >來源</span>
-              網站
+              {{ order.Site }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >驗證碼</span>
-              V5467
+              {{ order.LinepayVer }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單內容</span>
-              雞米花*1 脆薯*1 炸雞翅*1 甜不辣*1
+              <span
+                class="pr-3"
+                v-for="(item, i) of order.OrderDetails"
+                :key="i"
+              >{{ item.ProductName + '*' + item.ProductUnit }}</span>
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
-              <button class="btn-main px-8 py-2">完成</button>
+              <button class="btn-main px-5 py-2"
+              v-if="order.status === '訂單餐點完成'"
+              @click="changeOrderPhase('Finished', order.Id)"
+              >完成</button>
             </td>
           </tr>
         </tbody>
@@ -90,3 +100,16 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  name: 'OrderList',
+  props: ['OrderFoodCompleted'],
+  methods: {
+    changeOrderPhase (phase, orderId) {
+      console.log(orderId)
+      this.$emit('changeOrderPhase', phase, orderId)
+    }
+  }
+}
+</script>

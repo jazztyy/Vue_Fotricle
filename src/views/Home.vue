@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <div class="relative bg-img" style="background-image: url(/img/tamas-munkacsi-1_10VeQ_sEI-unsplash.jpg)">
-        <i class="fas fa-arrow-left text-3xl btn-center text-thirdcolor-500 hover:text-secondcolor-400 pl-5 z-40"></i>
+        <i class="fas fa-arrow-left text-3xl btn-center text-thirdcolor-500 hover:text-secondcolor-400 pl-5 z-40"
+        @click="getOrderList"
+        ></i>
         <a class="touch z-30"></a>
         <div class="mask"></div>
         <div class="flex flex-row-reverse justify-center py-10 h-full relative z-20">
@@ -138,6 +140,10 @@ export default {
   methods: {
     getIdentity () {
       this.$emit('getIdentity')
+    },
+    getOrderList () {
+      console.log(123)
+      this.$emit('getOrderList')
     }
     // error () {
     //   alert('無法取得你的位置')

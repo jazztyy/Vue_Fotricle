@@ -27,13 +27,13 @@
                                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">是否營業</span>
-                                營業時間：14:00-20:00
+                                營業時間：{{ brand.SDateTime + '-' + brand.EDateTimeDate }}
                             </td>
                             <td
                                 class="w-full lg:w-auto p-3  border-b text-center block lg:table-cell relative lg:static ">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">營業地址</span>
-                                高雄軟體園區
+                                {{ brand.Location }}
                                 <button class="btn-main ml-5 px-5 py-2">導航</button>
                             </td>
                         </tr>
