@@ -27,33 +27,11 @@
       </div>
       <section class="w-full px-5 mb-5">
         <main class="container mx-auto rounded-lg bg-gray-500 shadow-lg">
-          <ul class="flex flex-wrap justify-center items-center">
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
-            </li>
-            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3">
-              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8">雞米花</div>
+          <ul class="flex flex-wrap items-center">
+            <li class="w-full md:w-1/3 flex md:flex-col items-center p-3"
+            v-for="product of BrandProducts" :key="product.Id"
+            >
+              <div class="w-full text-center text-4xl bg-secondcolor-400 rounded-lg px-2 py-8 cursor-pointer" @click="addSiteOrder(product.Id)">{{ product.ProductName }}</div>
             </li>
           </ul>
         </main>
@@ -70,122 +48,37 @@
                 <th class="p-3 text-2xl font-bold uppercase lg:table-cell">編輯</th>
               </tr>
             </thead>
-            <tbody class="text-2xl">
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
+            <tbody class="text-2xl"
+            v-if="SiteOrder[0]"
+            >
+              <tr class="table-row mb-5 lg:mb-0"
+              v-for="product of SiteOrder"
+              :key="product.Id"
+              >
+                <td class="w-auto p-3 text-center border-b table-cell">{{ product.ProductList.ProductName }}</td>
+                <td class="w-auto p-3 border-b text-center table-cell">{{ product.ProductList.Amount }}</td>
                 <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
+                  <div class="flex justify-evenly items-center">
+                    <i class="fas fa-minus" v-show="product.ProductList.ProductUnit > 1" @click="product.ProductList.ProductUnit -=1"></i>
+                    <i class="fas fa-minus" v-show="product.ProductList.ProductUnit === 1"></i>
+                    {{ product.ProductList.ProductUnit }}
+                    <i class="fas fa-plus" @click="product.ProductList.ProductUnit +=1"></i>
                   </div>
                 </td>
                 <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
-                </td>
-              </tr>
-              <tr class="table-row mb-5 lg:mb-0">
-                <td class="w-auto p-3 text-center border-b table-cell">雞米花</td>
-                <td class="w-auto p-3 border-b text-center table-cell">60</td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <div class="flex justify-between items-center">
-                    <i class="fas fa-plus cursor-pointer text-3xl text-secondcolor-400"></i>
-                    1
-                    <i
-                      class="fas fa-minus cursor-pointer text-3xl text-red-600"
-                    ></i>
-                  </div>
-                </td>
-                <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="btn-second bg-red-600 py-3 px-5">刪除</button>
+                  <button class="rounded-lg text-thirdcolor-400 bg-maincolor-400 py-3 px-5 mr-3"
+                  @click="editSiteOrder(product.Id, product.ProductList.ProductUnit)"
+                  >修改</button>
+                  <button class="rounded-lg text-thirdcolor-400 bg-red-600 py-3 px-5"
+                  @click="delSiteOrder(product.Id)"
+                  >刪除</button>
                 </td>
               </tr>
             </tbody>
           </table>
-          <button class="w-full btn-second py-5 rounded-t-none text-2xl">確認訂單</button>
+          <button class="w-full btn-second py-5 rounded-t-none text-2xl"
+          @click="getBrandOrder()"
+          >確認訂單</button>
         </div>
       </section>
       <router-view/>
@@ -196,11 +89,95 @@
 <script>
 export default {
   name: 'BrandOrder',
-  components: {},
+  props: ['BrandProducts'],
   data () {
     return {
-      whichPage: ''
+      SiteOrder: {},
+      totalPrice: 0
+    }
+  },
+  created () {
+    this.getSiteOrder()
+  },
+  methods: {
+    addSiteOrder (productId) {
+      const API = 'http://fotricle.rocket-coding.com/BrandCart/add'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        ProductListId: productId,
+        ProductUnit: 1
+      }
+      this.axios.post(API, body, config)
+        .then(res => {
+          console.log(res)
+          this.getSiteOrder()
+        })
+    },
+    getSiteOrder () {
+      const API = `http://fotricle.rocket-coding.com/BrandCart/customer/${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
+        .then(res => {
+          this.totalPrice = 0
+          this.SiteOrder = res.data.carts
+          res.data.carts.forEach(product => {
+            this.totalPrice += product.ProductList.Amount
+          })
+          console.log(res)
+        })
+    },
+    delSiteOrder (id) {
+      const API = `http://fotricle.rocket-coding.com/BrandCart/${id}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.delete(API, config)
+        .then(res => {
+          console.log(res)
+          this.getSiteOrder()
+        })
+    },
+    editSiteOrder (id, unit) {
+      const API = `http://fotricle.rocket-coding.com/BrandCart/Edit?Id=${id}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        ProductUnit: unit
+      }
+      this.axios.patch(API, body, config)
+        .then(res => {
+          console.log(res)
+          this.getSiteOrder()
+        })
+    },
+    sendSiteOrder (mealNumber = 1) {
+      const API = 'http://fotricle.rocket-coding.com/BrandOrder/add'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        Payment: 1,
+        OrderNumber: mealNumber,
+        Amount: this.totalPrice,
+        Site: 1
+      }
+      this.axios.post(API, body, config)
+        .then(res => {
+          console.log(res)
+          this.getSiteOrder()
+          this.getBrandOrderList()
+        })
+    },
+    getBrandOrder () {
+      const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${localStorage.getItem('id')}`
+      this.axios.get(API)
+        .then(res => {
+          if (res.data.today === []) {
+            this.sendSiteOrder()
+          } else {
+            this.sendSiteOrder(res.data.today.splice(-1)[0].MealNumber + 1)
+          }
+        })
+    },
+    getBrandOrderList () {
+      this.$emit('getBrandOrderList')
     }
   }
 }
+
 </script>

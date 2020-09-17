@@ -3,7 +3,9 @@
       :OrderCofirmList='OrderCofirmList'
       :OrderFoundList='OrderFoundList'
       :OrderFoodCompleted='OrderFoodCompleted'
+      :BrandProducts='BrandProducts'
       @changeOrderPhase='changeOrderPhase'
+      @getBrandOrderList='getBrandOrderList'
       >
       </router-view>
 </template>
@@ -16,12 +18,13 @@ export default {
     return {
       OrderCofirmList: {},
       OrderFoundList: {},
-      OrderFoodCompleted: {}
+      OrderFoodCompleted: {},
+      BrandProducts: {}
     }
   },
   methods: {
     getBrandOrderList () {
-      const API = `http://fotricle.rocket-coding.com/BrandOrder/Get?Id=${localStorage.getItem('id')}`
+      const API = 'http://fotricle.rocket-coding.com/BrandOrder/Get'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios
         .get(API, config)
@@ -34,11 +37,11 @@ export default {
             return item.status === '訂單成立'
           })
           this.OrderFoodCompleted = res.data.today.filter(item => {
-            return item.status === '訂單餐點完成'
+            return item.status === '訂單餐點完成' || item.status === '訂單成立'
           })
           console.log(this.OrderCofirmList, '處理中')
           console.log(this.OrderFoundList, '成立')
-          console.log(this.OrderFoodCompleted, '餐點')
+          console.log(this.OrderFoodCompleted, '餐點完成')
         })
         .catch((err) => {
           console.log(err)
@@ -83,10 +86,23 @@ export default {
           console.log(res)
           this.getBrandOrderList()
         })
+    },
+    getBrandProducts () {
+      const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${localStorage.getItem('id')}`
+      this.axios
+        .get(API)
+        .then((res) => {
+          console.log(res)
+          this.BrandProducts = res.data.products
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created () {
     this.getBrandOrderList()
+    this.getBrandProducts()
   }
 }
 </script>

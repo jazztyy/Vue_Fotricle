@@ -22,6 +22,11 @@ export default {
   },
   components: {
     Aside
+  },
+  methods: {
+    getDataStatistics () {
+
+    }
   }
 }
 </script>
