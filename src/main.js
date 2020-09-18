@@ -12,12 +12,14 @@ import './assets/css/tailwind.css'
 import 'sweetalert2/dist/sweetalert2.min.css'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
+import StarRating from 'vue-star-rating'
 
 Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios, VueSweetalert2, Multiselect)
 Vue.component('Loading', Loading)
 Vue.component('VueTimepicker', VueTimepicker)
+Vue.component('star-rating', StarRating)
 Vue.prototype.$bus = new Vue()
 
 new Vue({

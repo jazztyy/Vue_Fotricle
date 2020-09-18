@@ -29,7 +29,6 @@ export default {
       this.axios
         .get(API, config)
         .then((res) => {
-          console.log(res)
           this.OrderCofirmList = res.data.today.filter(item => {
             return item.status === '訂單處理中'
           })
@@ -39,9 +38,6 @@ export default {
           this.OrderFoodCompleted = res.data.today.filter(item => {
             return item.status === '訂單餐點完成' || item.status === '訂單成立'
           })
-          console.log(this.OrderCofirmList, '處理中')
-          console.log(this.OrderFoundList, '成立')
-          console.log(this.OrderFoodCompleted, '餐點完成')
         })
         .catch((err) => {
           console.log(err)
@@ -83,7 +79,6 @@ export default {
       }
       this.axios.patch(API, body, config)
         .then(res => {
-          console.log(res)
           this.getBrandOrderList()
         })
     },
@@ -92,7 +87,6 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          console.log(res)
           this.BrandProducts = res.data.products
         })
         .catch((err) => {
