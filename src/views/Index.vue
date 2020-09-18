@@ -5,7 +5,6 @@
     />
     <brand-navbar v-if="identity === '餐車'"
     @changeIdentity="changeIdentity"
-    @resetToken="resetToken"
     />
     <customer-navbar
     v-if="identity === '顧客'"
@@ -15,7 +14,6 @@
     @delShoppingCartProduct='delShoppingCartProduct'
     @delAllShoppingCartProduct='delAllShoppingCartProduct'
     @changeIdentity="changeIdentity"
-    @resetToken="resetToken"
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     />
@@ -36,6 +34,11 @@
     :brandId='brandId'
     :myFollowBrand='myFollowBrand'
     :isFollow='isFollow'
+    :OrderCofirmList='OrderCofirmList'
+    :OrderFoundList='OrderFoundList'
+    :OrderFoodCompletedList='OrderFoodCompletedList'
+    :OrderFailList='OrderFailList'
+    :OrderSuccessList='OrderSuccessList'
     />
     <loading :active.sync="isLoading"></loading>
     <Footer/>
@@ -62,7 +65,12 @@ export default {
       shoppingCart: {},
       totalPrice: '',
       QRCode: '',
-      myFollowBrand: []
+      myFollowBrand: [],
+      OrderCofirmList: {},
+      OrderFoundList: {},
+      OrderFoodCompletedList: {},
+      OrderFailList: {},
+      OrderSuccessList: {}
     }
   },
   components: {
@@ -73,8 +81,6 @@ export default {
     Footer
   },
   created () {
-    this.id = localStorage.getItem('id')
-    this.token = localStorage.getItem('token')
     this.brandId = localStorage.getItem('ShoppingCartId')
     this.getIdentity()
   },
@@ -134,7 +140,7 @@ export default {
         })
     },
     delShoppingCartProduct (id) {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = `http://fotricle.rocket-coding.com/cart/${id}`
       this.axios
         .delete(API, config)
@@ -147,7 +153,7 @@ export default {
         })
     },
     delAllShoppingCartProduct () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = 'http://fotricle.rocket-coding.com/cart/ALL'
       this.axios
         .delete(API, config)
@@ -161,7 +167,7 @@ export default {
     },
     editShoppingCartProduct (id, number) {
       const API = `http://fotricle.rocket-coding.com/cart/Edit?Id=${id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const body = {
         ProductUnit: number
       }
@@ -174,7 +180,7 @@ export default {
     getIdentity () {
       if (localStorage.getItem('token')) {
         const API = 'http://fotricle.rocket-coding.com/GetIdentity'
-        const config = { headers: { Authorization: `Bearer ${this.token}` } }
+        const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.get(API, config)
           .then(res => {
             this.identity = res.data.message
@@ -183,10 +189,6 @@ export default {
     },
     changeIdentity (identity) {
       this.identity = identity
-    },
-    resetToken () {
-      this.token = ''
-      this.id = ''
     },
     addMyFollow (brandId) {
       if (this.identity === '顧客') {
@@ -218,7 +220,6 @@ export default {
               this.followId = ''
             }
           })
-          console.log(this.isFollow, this.followId)
         })
     },
     delMyFollow () {
@@ -234,10 +235,24 @@ export default {
     },
     getOrderList () {
       const API = `https://fotricle.rocket-coding.com/customer/orders?Id=${localStorage.getItem('id')}`
-      console.log(localStorage.getItem('token'))
       this.axios.get(API)
         .then(res => {
           console.log(res)
+          this.OrderCofirmList = res.data.today.filter(item => {
+            return item.status === '訂單處理中'
+          })
+          this.OrderFoundList = res.data.today.filter(item => {
+            return item.status === '訂單成立'
+          })
+          this.OrderFoodCompletedList = res.data.today.filter(item => {
+            return item.status === '訂單餐點完成'
+          })
+          this.OrderFailList = res.data.today.filter(item => {
+            return item.status === '訂單失敗'
+          })
+          this.OrderSuccessList = res.data.today.filter(item => {
+            return item.status === '訂單完成'
+          })
         })
     }
   }

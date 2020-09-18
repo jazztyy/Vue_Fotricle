@@ -4,6 +4,11 @@
       <Aside />
       <router-view
       :myFollowBrand='myFollowBrand'
+      :OrderCofirmList='OrderCofirmList'
+      :OrderFoundList='OrderFoundList'
+      :OrderFoodCompletedList='OrderFoodCompletedList'
+      :OrderFailList='OrderFailList'
+      :OrderSuccessList='OrderSuccessList'
       ></router-view>
     </main>
   </div>
@@ -22,7 +27,7 @@ export default {
       token: ''
     }
   },
-  props: ['myFollowBrand'],
+  props: ['myFollowBrand', 'OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList'],
   created () {
     this.token = localStorage.getItem('token')
     if (this.token === '') {

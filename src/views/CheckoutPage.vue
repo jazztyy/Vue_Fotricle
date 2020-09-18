@@ -113,6 +113,7 @@ export default {
         .then(res => {
           console.log(res)
           this.getShoppingCartProduct()
+          this.$emit('getOrderList')
         })
         .catch(err => {
           console.log(err)
@@ -133,17 +134,16 @@ export default {
         })
     },
     getBrandOrder (LinePay, payment) {
-      const API = `http://fotricle.rocket-coding.com/BrandOrder/Get?Id=${this.brandId}`
+      const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${this.brandId}`
       this.axios
         .get(API)
         .then((res) => {
           let mealNumber = 0
-          if (!res.data.today) {
+          if (res.data.today.length === 0) {
             mealNumber = 1
           } else {
-            mealNumber = res.data.today.splice(-1)[0].OrderDetail[0].MealNumber + 1
+            mealNumber = res.data.today.splice(-1)[0].MealNumber + 1
           }
-          console.log(res, mealNumber)
           this.addOrder(LinePay, payment, mealNumber)
         })
         .catch((err) => {

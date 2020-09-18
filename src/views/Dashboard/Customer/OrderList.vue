@@ -32,7 +32,14 @@
                     :class="{ 'text-black': currentPage === 'Fail', 'border-secondcolor-400 text-thirdcolor-400': currentPage !== 'Fail'}">失敗</a>
                     </li>
             </ul>
-            <div class="bg-secondcolor-400 pt-5 rounded-b-lg " :is='currentPage'>
+            <div class="bg-secondcolor-400 pt-5 rounded-b-lg "
+            :is='currentPage'
+            :OrderCofirmList='OrderCofirmList'
+            :OrderFoundList='OrderFoundList'
+            :OrderFoodCompletedList='OrderFoodCompletedList'
+            :OrderFailList='OrderFailList'
+            :OrderSuccessList='OrderSuccessList'
+            >
             </div>
         </section>
 </template>
@@ -56,6 +63,7 @@ export default {
     return {
       currentPage: 'Checking'
     }
-  }
+  },
+  props: ['OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList']
 }
 </script>
