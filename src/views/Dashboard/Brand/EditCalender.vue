@@ -120,7 +120,7 @@ export default {
       })
     },
     getCalender () {
-      const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${this.id}`
+      const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${localStorage.getItem('id')}`
       this.axios
         .get(API)
         .then((res) => {
@@ -135,7 +135,7 @@ export default {
     },
     editCalender (day, id) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       console.log(id)
       const changeStatus = {
         營業中: '1',

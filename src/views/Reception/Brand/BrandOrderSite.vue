@@ -118,12 +118,12 @@ export default {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.get(API, config)
         .then(res => {
+          console.log(res.data.carts)
           this.totalPrice = 0
           this.SiteOrder = res.data.carts
           res.data.carts.forEach(product => {
             this.totalPrice += product.ProductList.Amount
           })
-          console.log(res)
         })
     },
     delSiteOrder (id) {
@@ -156,6 +156,8 @@ export default {
         Amount: this.totalPrice,
         Site: 1
       }
+      console.log(API, config)
+      console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
           console.log(res)

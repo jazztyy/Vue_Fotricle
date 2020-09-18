@@ -228,7 +228,6 @@ export default {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.delete(API, config)
           .then(res => {
-            console.log(res)
             this.getMyFollow()
           })
       }
@@ -237,7 +236,6 @@ export default {
       const API = `https://fotricle.rocket-coding.com/customer/orders?Id=${localStorage.getItem('id')}`
       this.axios.get(API)
         .then(res => {
-          console.log(res)
           this.OrderCofirmList = res.data.today.filter(item => {
             return item.status === '訂單處理中'
           })
