@@ -19,12 +19,6 @@ export default {
     this.token = localStorage.getItem('token')
     if (this.token === '') {
       window.location = '/#/Login'
-    } else {
-      this.getData()
-    }
-  },
-  methods: {
-    getData () {
     }
   }
 }

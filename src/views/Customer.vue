@@ -9,6 +9,7 @@
       :OrderFoodCompletedList='OrderFoodCompletedList'
       :OrderFailList='OrderFailList'
       :OrderSuccessList='OrderSuccessList'
+      @getOrderList="getOrderList"
       ></router-view>
     </main>
   </div>
@@ -32,12 +33,11 @@ export default {
     this.token = localStorage.getItem('token')
     if (this.token === '') {
       window.location = '/#/Login'
-    } else {
-      this.getData()
     }
   },
   methods: {
-    getData () {
+    getOrderList () {
+      this.$emit('getOrderList')
     }
   }
 }

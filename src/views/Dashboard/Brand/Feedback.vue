@@ -4,7 +4,8 @@
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-400 text-thirdcolor-400">
           <tr>
-            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">用戶名稱</th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg"></th>
+            <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">顧客名稱</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">日期</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">餐點分數</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">服務分數</th>
@@ -12,17 +13,25 @@
             <th class="p-3 text-2xl font-bold uppercase rounded-tr-lg hidden lg:table-cell">評價</th>
           </tr>
         </thead>
-        <tbody class="text-2xl">
+        <tbody class="text-2xl"
+        v-if="feedback[0]"
+        >
           <tr
             class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+            v-for="person of feedback" :key="person.OrderId"
           >
             <td
-              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static "
+            >
+              <img class="w-20 h-20 rounded-full" :src='person.CusPhoto' alt="">
+            </td>
+            <td
+              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static "
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
-              >用戶名</span>
-              林阿魚
+                class="lg:hidden absolute top-half left-0 transY block bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+              >顧客名稱</span>
+                {{ person.UserName }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -38,7 +47,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >餐點分數</span>
-              5
+              {{ person.Food }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -46,7 +55,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >服務分數</span>
-              4
+              {{ person.Service }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -54,7 +63,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >整體分數</span>
-              4
+              {{ person.AllSuggest }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -62,7 +71,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >評價</span>
-              雞米花多汁好吃，根本是我的摯愛。
+              {{ person.CarSuggest }}
             </td>
           </tr>
         </tbody>
@@ -70,3 +79,10 @@
     </div>
   </section>
 </template>
+
+<script>
+export default {
+  name: 'feedback',
+  props: ['feedback']
+}
+</script>

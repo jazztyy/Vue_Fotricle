@@ -1,7 +1,10 @@
 <template>
         <div class="keep-footer-bottom flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
             <Aside/>
-            <router-view :token='token' :id='id' />
+            <router-view
+            :feedback="feedback"
+            :dataAnalysis="dataAnalysis"
+            ></router-view>
         </div>
 </template>
 
@@ -12,20 +15,37 @@ export default {
   name: 'Edit',
   data () {
     return {
-      token: '',
-      id: ''
+      feedback: [],
+      dataAnalysis: []
     }
   },
   created () {
-    this.token = localStorage.getItem('token')
-    this.id = localStorage.getItem('id')
+    this.getDataStatistics()
+    this.getFeedback()
   },
   components: {
     Aside
   },
   methods: {
     getDataStatistics () {
-
+      const API = 'http://fotricle.rocket-coding.com/OrderSale/Get'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
+        .then(res => {
+          this.dataAnalysis = res.data['數據分析']
+          console.log(res)
+          console.log(this.dataAnalysis)
+        })
+    },
+    getFeedback () {
+      const API = 'http://fotricle.rocket-coding.com/customer/feedback'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
+        .then(res => {
+          this.feedback = res.data.feedback
+          console.log(res)
+          console.log(this.feedback)
+        })
     }
   }
 }

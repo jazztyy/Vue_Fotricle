@@ -29,6 +29,7 @@ export default {
       this.axios
         .get(API, config)
         .then((res) => {
+          console.log(res.data.today)
           this.OrderCofirmList = res.data.today.filter(item => {
             return item.status === '訂單處理中'
           })
@@ -59,7 +60,7 @@ export default {
           body = {
             OrderId: orderId,
             Status: 2,
-            Remark2: `您的訂單已失敗，${message}`
+            Remark2: `${message}`
           }
           break
         case 'Finished':

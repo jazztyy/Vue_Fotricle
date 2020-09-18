@@ -142,7 +142,6 @@ export default {
       this.$emit('getIdentity')
     },
     getOrderList () {
-      console.log(123)
       this.$emit('getOrderList')
     }
     // error () {

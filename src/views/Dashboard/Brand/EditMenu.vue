@@ -131,11 +131,10 @@ export default {
       this.isShow = false
     },
     init () {
-      const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${this.id}`
+      const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${localStorage.getItem('id')}`
       this.axios
         .get(API)
         .then((res) => {
-          console.log(res)
           this.products = res.data.products
         })
         .catch((err) => {
@@ -144,11 +143,10 @@ export default {
     },
     deleteProduct (id) {
       const API = `http://fotricle.rocket-coding.com/ProductList/Delete?Id=${id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios
         .delete(API, config)
         .then((res) => {
-          console.log(res)
           this.init()
         })
         .catch((err) => {
@@ -165,7 +163,7 @@ export default {
       const API = 'http://fotricle.rocket-coding.com/ProductPhoto/upload'
       const config = {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
         }
       }

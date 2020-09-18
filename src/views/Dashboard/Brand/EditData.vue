@@ -141,8 +141,8 @@ export default {
   },
   methods: {
     getData () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${this.id}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
       this.axios
         .get(API, config)
         .then((res) => {
@@ -155,8 +155,8 @@ export default {
         })
     },
     editBrandData () {
-      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${this.id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const BrandData = this.brandData
       console.log(BrandData)
       this.axios
@@ -175,7 +175,7 @@ export default {
       const API = 'http://fotricle.rocket-coding.com/BrandPhoto/upload'
       const config = {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
         }
       }

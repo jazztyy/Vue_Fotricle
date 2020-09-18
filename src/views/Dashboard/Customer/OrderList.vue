@@ -39,6 +39,7 @@
             :OrderFoodCompletedList='OrderFoodCompletedList'
             :OrderFailList='OrderFailList'
             :OrderSuccessList='OrderSuccessList'
+            @getOrderList="getOrderList"
             >
             </div>
         </section>
@@ -52,6 +53,7 @@ import Fail from '../../../components/Customer/OrderStatus/Fail'
 import Success from '../../../components/Customer/OrderStatus/Success'
 
 export default {
+  name: 'OrderList',
   components: {
     Checking,
     Completed,
@@ -64,6 +66,11 @@ export default {
       currentPage: 'Checking'
     }
   },
-  props: ['OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList']
+  props: ['OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList'],
+  methods: {
+    getOrderList () {
+      this.$emit('getOrderList')
+    }
+  }
 }
 </script>
