@@ -233,8 +233,9 @@ export default {
       }
     },
     getOrderList () {
-      const API = `https://fotricle.rocket-coding.com/customer/orders?Id=${localStorage.getItem('id')}`
-      this.axios.get(API)
+      const API = 'http://fotricle.rocket-coding.com/customer/orders'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      this.axios.get(API, config)
         .then(res => {
           this.OrderCofirmList = res.data.today.filter(item => {
             return item.status === '訂單處理中'

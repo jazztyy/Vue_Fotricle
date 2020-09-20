@@ -169,7 +169,8 @@ export default {
       const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${localStorage.getItem('id')}`
       this.axios.get(API)
         .then(res => {
-          if (res.data.today === []) {
+          console.log(res)
+          if (res.data.today.length === 0) {
             this.sendSiteOrder()
           } else {
             this.sendSiteOrder(res.data.today.splice(-1)[0].MealNumber + 1)
