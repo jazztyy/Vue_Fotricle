@@ -5,7 +5,7 @@
         <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單編號</th>
         <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">餐車名稱</th>
         <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單明細</th>
-        <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">失敗原因</th>
+        <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">取消原因</th>
       </tr>
     </thead>
     <tbody class="text-xl">

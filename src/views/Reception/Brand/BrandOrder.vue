@@ -66,7 +66,7 @@ export default {
             Status: 2,
             Remark2: `${message}`
           }
-          this.addMessage(orderId, 2, `您的訂單已失敗，${message}`)
+          this.addMessage(orderId, 2, `您的餐點由於 ${message} 因此被取消。`)
           break
         case 'Finished':
           body = {

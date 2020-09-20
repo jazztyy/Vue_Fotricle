@@ -9,6 +9,7 @@
       :OrderFoodCompletedList='OrderFoodCompletedList'
       :OrderFailList='OrderFailList'
       :OrderSuccessList='OrderSuccessList'
+      :messageBox='messageBox'
       @getOrderList="getOrderList"
       ></router-view>
     </main>
@@ -28,7 +29,7 @@ export default {
       token: ''
     }
   },
-  props: ['myFollowBrand', 'OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList'],
+  props: ['myFollowBrand', 'OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList', 'messageBox'],
   created () {
     this.token = localStorage.getItem('token')
     if (this.token === '') {
