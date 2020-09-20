@@ -14,6 +14,7 @@
     @delShoppingCartProduct='delShoppingCartProduct'
     @delAllShoppingCartProduct='delAllShoppingCartProduct'
     @changeIdentity="changeIdentity"
+    :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     />
@@ -29,6 +30,7 @@
     @getMyFollow="getMyFollow"
     @delMyFollow="delMyFollow"
     @getOrderList="getOrderList"
+    :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     :brandId='brandId'
@@ -57,14 +59,13 @@ export default {
     return {
       isLoading: false,
       isFollow: false,
-      token: '',
-      id: '',
       identity: 'Visitors',
       brandId: '',
       followId: '',
       shoppingCart: {},
       totalPrice: '',
       QRCode: '',
+      messageBox: [],
       myFollowBrand: [],
       OrderCofirmList: {},
       OrderFoundList: {},
@@ -89,6 +90,7 @@ export default {
       if (this.identity === '顧客') {
         this.getOrderList()
         this.getMyFollow()
+        this.getMessage()
       }
     }
   },
@@ -253,6 +255,16 @@ export default {
             return item.status === '訂單完成'
           })
         })
+    },
+    getMessage () {
+      const API = 'http://fotricle.rocket-coding.com/notice/customer'
+      const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      }
+      this.axios.get(API, config).then((res) => {
+        console.log(res)
+        this.messageBox = res.data.notice
+      })
     }
   }
 }

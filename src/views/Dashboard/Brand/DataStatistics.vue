@@ -15,7 +15,7 @@
         >
           <tr
             class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
-            v-for="data of dataAnalysis" :key="data.orderdate"
+            v-for="data of dataAnalysis" :key="data.Ordertime"
           >
             <td
               class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
@@ -23,7 +23,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >日期</span>
-              {{ data.orderdate }}
+              {{ data.Ordertime }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -31,7 +31,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單總量</span>
-              {{ data.ordernums }}
+              {{ data.count }}
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -39,7 +39,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >營業時間</span>
-              {{ data.workhours }} 小時
+              {{ data.workhour }} 小時
             </td>
             <td
               class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -47,7 +47,7 @@
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >營業額</span>
-              {{ data.orderamount }}
+              {{ data.total }}
             </td>
           </tr>
         </tbody>

@@ -29,7 +29,7 @@
                 :class="{'bg-secondcolor-400': currentPage === 'Fail', 'bg-maincolor-400': currentPage !== 'Fail'}">
                     <a href="#"
                     @click.prevent="currentPage='Fail'"
-                    :class="{ 'text-black': currentPage === 'Fail', 'border-secondcolor-400 text-thirdcolor-400': currentPage !== 'Fail'}">失敗</a>
+                    :class="{ 'text-black': currentPage === 'Fail', 'border-secondcolor-400 text-thirdcolor-400': currentPage !== 'Fail'}">取消</a>
                     </li>
             </ul>
             <div class="bg-secondcolor-400 pt-5 rounded-b-lg "

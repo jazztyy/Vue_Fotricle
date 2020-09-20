@@ -20,10 +20,13 @@
           <router-link to="/Search">餐車列表</router-link>
         </li>
         <li
-          class="nav-btn fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl"
+          class="fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl"
         >
           <router-link class="w-full block" to="/Customer/MessageBox">
-            <i class="fas fa-bell"></i>
+            <div class="relative">
+              <i class="nav-btn fas fa-bell"></i>
+              <p class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90 " v-show="messageBox.length"> {{ messageBox.length }} </p>
+            </div>
           </router-link>
         </li>
         <li>
@@ -85,7 +88,7 @@ export default {
       isShowCart: false
     }
   },
-  props: ['totalPrice', 'shoppingCart'],
+  props: ['totalPrice', 'shoppingCart', 'messageBox'],
   created () {
     this.id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')
@@ -96,7 +99,6 @@ export default {
       localStorage.setItem('token', '')
       localStorage.setItem('id', '')
       this.$emit('changeIdentity', 'Visitors')
-      this.$emit('resetToken')
     },
     getShoppingCartProduct () {
       this.$emit('getShoppingCartProduct')
