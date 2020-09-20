@@ -22,6 +22,10 @@ export default {
       BrandProducts: {}
     }
   },
+  created () {
+    this.getBrandOrderList()
+    this.getBrandProducts()
+  },
   methods: {
     getBrandOrderList () {
       const API = 'http://fotricle.rocket-coding.com/BrandOrder/Get'
@@ -52,9 +56,9 @@ export default {
         case 'Comfirm':
           body = {
             OrderId: orderId,
-            Status: 1,
-            Remark1: '您的訂單已成立，可至訂單明細查看詳細資訊'
+            Status: 1
           }
+          this.addMessage(orderId, 1, '您的訂單已成立，可至訂單明細查看詳細資訊')
           break
         case 'Fail':
           body = {
@@ -62,20 +66,21 @@ export default {
             Status: 2,
             Remark2: `${message}`
           }
+          this.addMessage(orderId, 2, `您的訂單已失敗，${message}`)
           break
         case 'Finished':
           body = {
             OrderId: orderId,
-            Status: 4,
-            Remark4: '您的訂單已完成，可至訂單明細填寫回饋單'
+            Status: 4
           }
+          this.addMessage(orderId, 4, '您的訂單已完成，可至訂單明細填寫回饋單')
           break
         case 'FoodCompleted':
           body = {
             OrderId: orderId,
-            Status: 3,
-            Remark3: '您的餐點已完成，可前往取餐'
+            Status: 3
           }
+          this.addMessage(orderId, 3, '您的餐點已完成，可前往取餐')
           break
       }
       this.axios.patch(API, body, config)
@@ -93,11 +98,20 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    addMessage (orderId, OrderStatus, remarks) {
+      const API = 'http://fotricle.rocket-coding.com/notice/create'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        OrderId: orderId,
+        OrderStatus: OrderStatus,
+        Remarks: remarks
+      }
+      this.axios.post(API, body, config)
+        .then(res => {
+          console.log(res)
+        })
     }
-  },
-  created () {
-    this.getBrandOrderList()
-    this.getBrandProducts()
   }
 }
 </script>
