@@ -10,15 +10,15 @@
             <div
               class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
             >
-              <p class="w-3/5 text-left">{{  weekDay[new Date(day.Date).getDay()] }}</p>
-              <p class="w-2/5 text-center">{{ new Date(day.Date).getMonth() + 1 +'/'+ new Date(day.Date).getDate() }}</p>
+              <p class="w-3/5 text-left">{{  weekDay[new Date(day.OpenDate).getDay()] }}</p>
+              <p class="w-2/5 text-center">{{ new Date(day.OpenDate).getMonth() + 1 +'/'+ new Date(day.OpenDate).getDate() }}</p>
             </div>
             <div class="px-2 text-xl">
               <select
                 class="w-full indent outline-none bg-thirdcolor-400 rounded-lg mb-3 text-2xl md:text-3xl lg:text-2xl"
                 name="isOpen"
                 id="is__open"
-                v-model="day.status"
+                v-model="day.Status"
               >
                 <option value='' disabled selected>是否營業</option>
                 <option value="營業中">營業中</option>
@@ -51,7 +51,7 @@
                 v-model="day.Location"
               ></textarea>
             </div>
-            <button class="block btn-second py-2 px-3 text-xl mx-auto focus:outline-none" @click.prevent="editCalender(day, day.id, weekDay[new Date(day.Date).getDay()])">確認行事曆</button>
+            <button class="block btn-second py-2 px-3 text-xl mx-auto focus:outline-none" @click.prevent="editCalender(day, day.Id, weekDay[new Date(day.OpenDate).getDay()])">確認行事曆</button>
           </div>
         </li>
       </ul>
@@ -61,18 +61,11 @@
 
 <script>
 export default {
+  name: 'BrandCalender',
   data () {
     return {
       date: {},
-      week: [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
-      ],
+      today: '',
       weekDay: {
         0: '星期日',
         1: '星期一',
@@ -81,33 +74,44 @@ export default {
         4: '星期四',
         5: '星期五',
         6: '星期六'
-      }
+      },
+      week: [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ]
     }
   },
   mounted () {
     this.getCalender()
   },
   methods: {
-    getWeekDay (id) {
+    getWeekDay () {
       const now = new Date()
       const month = now.getMonth()
       const year = now.getFullYear()
       const date = now.getDate()
-      for (let i = 0; i <= 6; i++) {
-        const day = new Date(year, month, date + i)
-        const nextyear = day.getFullYear()
-        let nextmonth = day.getMonth() + 1
-        let nextdate = day.getDate()
-        nextmonth = (nextmonth > 9) ? ('' + nextmonth) : ('0' + nextmonth)
-        nextdate = (nextdate > 9) ? ('' + nextdate) : ('0' + nextdate)
-        this.week[i].Date = nextyear + '/' + nextmonth + '/' + nextdate
-        this.week[i].Id = id[i].id
+      let nextmonth = month + 1
+      let nextdate = date
+      nextmonth = (nextmonth > 9) ? ('' + nextmonth) : ('0' + nextmonth)
+      nextdate = (nextdate > 9) ? ('' + nextdate) : ('0' + nextdate)
+      this.today = year + '/' + nextmonth + '/' + nextdate
+      for (let i = 0; i < 7; i++) {
+        this.week[i].Date = this.weekDay[new Date(year, month, date + i).getDay()]
+        this.week[i].opdate = new Date(year, month + 1, date + i).getFullYear() + '/' + new Date(year, month + 1, date + i).getMonth() + '/' + new Date(year, month + 1, date + i).getDate()
+        if (this.date[i]) {
+          this.week[i].Id = this.date[i].Id
+        }
       }
     },
     checkWeekDay () {
-      if (this.date[6].Date < this.week[0].Date) {
+      if (new Date(this.today) > new Date(this.date[0].OpenDate)) {
         this.week.forEach(day => {
-          this.resetCalender(day.Date, day.Id)
+          this.resetCalender(day, day.Id)
         })
       }
     },
@@ -117,30 +121,40 @@ export default {
         .get(API)
         .then((res) => {
           console.log(res)
-          this.date = res.data.open
-          this.getWeekDay(res.data.open)
-          this.checkWeekDay()
+          this.getWeekDay()
+          if (res.data.result.open.length === 0) {
+            this.week.forEach(day => {
+              this.addCalender(day)
+            })
+          } else {
+            this.date = res.data.result.open.sort((a, b) => {
+              return new Date(a.OpenDate) - new Date(b.OpenDate)
+            })
+            this.checkWeekDay()
+          }
         })
         .catch((err) => {
           console.log(err)
         })
     },
     editCalender (day, id, weekday) {
-      const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
+      const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const changeStatus = {
         營業中: '1',
         未營業: '0'
       }
       const body = {
-        OpenDate: day.Date,
+        OpenDate: day.OpenDate,
+        BrandName: day.BrandName,
         BrandId: day.BrandId,
         Date: weekday,
-        Status: changeStatus[day.status],
-        SDateTime: day.Date + ' ' + day.SDateTime,
-        EDateTimeDate: day.Date + ' ' + day.EDateTimeDate,
+        Status: changeStatus[day.Status],
+        SDateTime: day.OpenDate + ' ' + day.SDateTime,
+        EDateTimeDate: day.OpenDate + ' ' + day.EDateTimeDate,
         Location: day.Location
       }
+      console.log(body.Status)
       console.log(body)
       this.axios
         .patch(API, body, config)
@@ -156,17 +170,40 @@ export default {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const body = {
-        OpenDate: date,
+        Opendate: date.opdate,
         BrandId: localStorage.getItem('id'),
-        Date: this.weekDay[new Date(date).getDay()],
+        Date: date.Date,
         Status: 0,
-        SDateTime: `${date} 00:00`,
-        EDateTimeDate: `${date} 00:00`,
+        SDateTime: `${date.opdate} 00:00`,
+        EDateTimeDate: `${date.opdate} 00:00`,
         Location: ''
       }
       console.log(body)
       this.axios
         .patch(API, body, config)
+        .then((res) => {
+          console.log(res)
+          this.getCalender()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    addCalender (date) {
+      const API = 'http://fotricle.rocket-coding.com/OpenTime/New'
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        Opendate: date.opdate,
+        BrandId: localStorage.getItem('id'),
+        Date: date.Date,
+        Status: 0,
+        SDateTime: `${date.opdate} 00:00`,
+        EDateTimeDate: `${date.opdate} 00:00`,
+        Location: ''
+      }
+      console.log(body)
+      this.axios
+        .post(API, body, config)
         .then((res) => {
           console.log(res)
           this.getCalender()

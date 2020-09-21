@@ -81,7 +81,7 @@
                 <p>整體滿意度</p>
                 <star-rating
                 v-model="allRating"
-                :increment='0.5'
+                :increment='1'
                 :show-rating='false'
                 :star-size='35'
                 ></star-rating>

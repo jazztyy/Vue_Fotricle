@@ -18,7 +18,6 @@
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     />
-    <login-navbar v-if="identity === 'LoginAndRegister'"/>
     <router-view
     @addShoppingCartProduct='addShoppingCartProduct'
     @getShoppingCartProduct='getShoppingCartProduct'
@@ -52,7 +51,6 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import BrandNavbar from '../components/Brand/Navbar'
 import CustomerNavbar from '../components/Customer/Navbar'
-import LoginNavbar from '../components/LoginNavbar'
 export default {
   name: 'index',
   data () {
@@ -78,7 +76,6 @@ export default {
     BrandNavbar,
     CustomerNavbar,
     Navbar,
-    LoginNavbar,
     Footer
   },
   created () {
@@ -187,6 +184,8 @@ export default {
           .then(res => {
             this.identity = res.data.message
           })
+      } else {
+        this.identity = 'Visitors'
       }
     },
     changeIdentity (identity) {

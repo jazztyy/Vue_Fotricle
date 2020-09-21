@@ -28,7 +28,6 @@
             >
               <option class="border-none" value disabled selected>是否追蹤</option>
               <option value="已追蹤">已追蹤</option>
-              <option value="未追蹤">未追蹤</option>
               <option value="所有餐車">所有餐車</option>
             </select>
           </div>
@@ -57,7 +56,6 @@
             >
               <option value disabled selected>店家狀態</option>
               <option value="營業中">營業中</option>
-              <option value="未營業">未營業</option>
               <option value="所有餐車">所有餐車</option>
             </select>
           </div>
@@ -142,6 +140,7 @@
 
 <script>
 export default {
+  name: 'Search',
   data () {
     return {
       isMap: false,
@@ -173,7 +172,6 @@ export default {
   },
   beforeDestroy () {
     localStorage.setItem('BrandId', this.brandId)
-  },
-  name: 'Search'
+  }
 }
 </script>
