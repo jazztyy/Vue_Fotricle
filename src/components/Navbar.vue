@@ -20,7 +20,7 @@
                     <router-link to="/Search">餐車列表</router-link>
                 </li>
                 <li class="nav-btn hidden md:block">
-                    <router-link to="/Login" @click.native="changeIdentity('LoginAndRegister')">會員登入</router-link>
+                    <router-link to="/Login">會員登入</router-link>
                 </li>
             </ul>
         </nav>

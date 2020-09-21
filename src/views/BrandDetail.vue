@@ -154,7 +154,8 @@ export default {
   data () {
     return {
       brand: {},
-      products: {}
+      products: {},
+      order: []
     }
   },
   methods: {
@@ -181,6 +182,16 @@ export default {
           console.log(err)
         })
     },
+    getBrandOrder (id) {
+      const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${id}`
+      this.axios.get(API)
+        .then(res => {
+          this.order = res.data.today.filter(num => {
+            return num.State === '回饋單已填寫' || num === '訂單完成'
+          })
+          console.log(this.order)
+        })
+    },
     addShoppingCartProduct (id, brandId) {
       this.$emit('addShoppingCartProduct', id, brandId)
     },
@@ -195,11 +206,11 @@ export default {
     const vm = this
     const id = localStorage.getItem('BrandId')
     if (id !== '') {
-      this.axios.all([vm.getBrandProduct(id), vm.getBrandData(id)])
+      this.axios.all([vm.getBrandProduct(id), vm.getBrandData(id), vm.getBrandOrder(id)])
     } else {
       this.$bus.$on('getBrandId', function (brandId) {
         localStorage.setItem('BrandId', brandId)
-        this.axios.all([vm.getBrandProduct(brandId), vm.getBrandData(brandId)])
+        this.axios.all([vm.getBrandProduct(brandId), vm.getBrandData(brandId), vm.getBrandOrder(brandId)])
       })
     }
   },

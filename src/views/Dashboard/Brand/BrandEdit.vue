@@ -32,19 +32,16 @@ export default {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.get(API, config)
         .then(res => {
-          this.dataAnalysis = res.data['數據統計'][0].Time
-          console.log(res)
-          console.log(this.dataAnalysis)
+          if (res.data['數據統計'].length !== 0) {
+            this.dataAnalysis = res.data['數據統計'][0].Time
+          }
         })
     },
     getFeedback () {
-      const API = 'http://fotricle.rocket-coding.com/customer/feedback'
-      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      this.axios.get(API, config)
+      const API = `http://fotricle.rocket-coding.com/customer/feedback?id=${localStorage.getItem('id')}`
+      this.axios.get(API)
         .then(res => {
           this.feedback = res.data.feedback
-          console.log(res)
-          console.log(this.feedback)
         })
     }
   }

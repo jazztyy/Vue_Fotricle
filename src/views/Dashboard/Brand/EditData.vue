@@ -114,6 +114,7 @@
 import Multiselect from 'vue-multiselect'
 
 export default {
+  name: 'BrandData',
   components: {
     Multiselect
   },
@@ -133,7 +134,18 @@ export default {
         '美式',
         '日式',
         '泰式'
-      ]
+      ],
+      changeOptions: {
+        特色小吃: 0,
+        甜點: 1,
+        飲料: 2,
+        主食: 3,
+        炸物: 4,
+        素食: 5,
+        美式: 6,
+        日式: 7,
+        泰式: 8
+      }
     }
   },
   created () {
@@ -158,6 +170,7 @@ export default {
       const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const BrandData = this.brandData
+      BrandData.Sort = this.changeOptions[this.sort]
       console.log(BrandData)
       this.axios
         .patch(API, BrandData, config)
