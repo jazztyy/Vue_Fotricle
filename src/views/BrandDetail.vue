@@ -189,6 +189,8 @@ export default {
           this.order = res.data.today.filter(num => {
             return num.State === '回饋單已填寫' || num === '訂單完成'
           })
+          this.order = this.order.sort((a, b) => {
+          })
           console.log(this.order)
         })
     },

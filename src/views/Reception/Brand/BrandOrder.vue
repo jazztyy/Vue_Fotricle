@@ -33,7 +33,6 @@ export default {
       this.axios
         .get(API, config)
         .then((res) => {
-          console.log(res.data.today)
           this.OrderCofirmList = res.data.today.filter(item => {
             return item.status === '訂單處理中'
           })
@@ -109,7 +108,6 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
         })
     }
   }

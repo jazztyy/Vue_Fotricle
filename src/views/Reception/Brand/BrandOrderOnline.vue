@@ -108,7 +108,6 @@ export default {
   created () {},
   methods: {
     changeOrderPhase (phase, orderId, message) {
-      console.log(phase, orderId, message)
       this.$emit('changeOrderPhase', phase, orderId, message)
     }
   }

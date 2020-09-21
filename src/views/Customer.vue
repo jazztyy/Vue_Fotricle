@@ -11,6 +11,7 @@
       :OrderSuccessList='OrderSuccessList'
       :messageBox='messageBox'
       @getOrderList="getOrderList"
+      @getMessage='getMessage'
       ></router-view>
     </main>
   </div>
@@ -39,6 +40,9 @@ export default {
   methods: {
     getOrderList () {
       this.$emit('getOrderList')
+    },
+    getMessage () {
+      this.$emit('getMessage')
     }
   }
 }

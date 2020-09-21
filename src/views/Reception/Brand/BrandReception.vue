@@ -30,7 +30,6 @@ export default {
   props: ['OrderFoundList'],
   methods: {
     changeOrderPhase (phase, orderId) {
-      console.log(orderId)
       this.$emit('changeOrderPhase', phase, orderId)
     }
   }

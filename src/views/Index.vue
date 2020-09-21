@@ -29,6 +29,7 @@
     @getMyFollow="getMyFollow"
     @delMyFollow="delMyFollow"
     @getOrderList="getOrderList"
+    @getMessage='getMessage'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
@@ -261,7 +262,6 @@ export default {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
       this.axios.get(API, config).then((res) => {
-        console.log(res)
         this.messageBox = res.data.notice
       })
     }

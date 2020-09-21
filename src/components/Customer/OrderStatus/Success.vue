@@ -63,7 +63,7 @@
                 <p>餐點滿意度</p>
                 <star-rating
                 v-model="foodRating"
-                :increment='0.5'
+                :increment='1'
                 :show-rating='false'
                 :star-size='35'
                 ></star-rating>
@@ -72,7 +72,7 @@
                 <p>服務滿意度</p>
                 <star-rating
                 v-model="serviceRating"
-                :increment='0.5'
+                :increment='1'
                 :show-rating='false'
                 :star-size='35'
                 ></star-rating>

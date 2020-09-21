@@ -56,7 +56,7 @@
             <td
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
-              <button class="px-3 text-2xl hover:bg-secondcolor-600 bg-secondcolor-400 rounded-lg">已讀</button>
+              <button class="px-3 text-2xl hover:bg-secondcolor-600 bg-secondcolor-400 rounded-lg" @click="changeMessagePhase(message.Id)">已讀</button>
             </td>
           </tr>
         </tbody>
@@ -68,15 +68,21 @@
 <script>
 export default {
   name: 'Message',
-  data () {
-    return {
-    }
-  },
   props: ['messageBox'],
-  created () {
-  },
   methods: {
-    changeMessagePhase () {
+    changeMessagePhase (id) {
+      const API = `http://fotricle.rocket-coding.com/notice/update?Id=${id}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const body = {
+        Isread: 1
+      }
+      this.axios.patch(API, body, config)
+        .then(res => {
+          this.getMessage()
+        })
+    },
+    getMessage () {
+      this.$emit('getMessage')
     }
   }
 }

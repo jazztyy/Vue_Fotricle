@@ -91,7 +91,7 @@
             >
               <button class="btn-main px-5 py-2"
               v-if="order.status === '訂單餐點完成'"
-              @click="changeOrderPhase('Finished', order.Id)"
+              @click="changeOrderPhase('Finished', order.Id, order.CustomerId)"
               >完成</button>
             </td>
           </tr>
@@ -106,9 +106,8 @@ export default {
   name: 'OrderList',
   props: ['OrderFoodCompleted'],
   methods: {
-    changeOrderPhase (phase, orderId) {
-      console.log(orderId)
-      this.$emit('changeOrderPhase', phase, orderId)
+    changeOrderPhase (phase, orderId, customerId) {
+      this.$emit('changeOrderPhase', phase, orderId, customerId)
     }
   }
 }
