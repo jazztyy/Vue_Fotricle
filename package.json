@@ -13,6 +13,7 @@
     "tailwindcss": "^1.7.6",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
+    "vue-carousel": "^0.18.0",
     "vue-loading-overlay": "^3.4.0",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^3.2.0",

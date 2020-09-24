@@ -5,6 +5,9 @@
         <router-link to="/Home">Fotricle</router-link>
       </h1>
       <ul class="w-2/5 nav justify-end md:justify-around text-xl">
+        <li class="nav-btn">
+          <router-link to="/Search" >餐車列表</router-link>
+        </li>
         <li class="nav-btn md:block">
           <router-link to="/Brand/Order/Site">訂單系統</router-link>
         </li>
@@ -30,7 +33,6 @@ export default {
       localStorage.setItem('token', '')
       localStorage.setItem('id', '')
       this.$emit('changeIdentity', 'Visitors')
-      this.$emit('resetToken')
     }
   }
 }

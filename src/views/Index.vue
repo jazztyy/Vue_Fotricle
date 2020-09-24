@@ -29,6 +29,8 @@
     @getMyFollow="getMyFollow"
     @delMyFollow="delMyFollow"
     @getOrderList="getOrderList"
+    @getMessage='getMessage'
+    @checkMyFollow='checkMyFollow'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
@@ -40,6 +42,7 @@
     :OrderFoodCompletedList='OrderFoodCompletedList'
     :OrderFailList='OrderFailList'
     :OrderSuccessList='OrderSuccessList'
+    :brandList='brandList'
     />
     <loading :active.sync="isLoading"></loading>
     <Footer/>
@@ -65,6 +68,7 @@ export default {
       QRCode: '',
       messageBox: [],
       myFollowBrand: [],
+      brandList: {},
       OrderCofirmList: {},
       OrderFoundList: {},
       OrderFoodCompletedList: {},
@@ -79,8 +83,16 @@ export default {
     Footer
   },
   created () {
+    const vm = this
     this.brandId = localStorage.getItem('ShoppingCartId')
-    this.getIdentity()
+    this.axios.all(
+      [
+        vm.isLoading = true,
+        vm.getIdentity(),
+        vm.getBrandList()
+      ]).then(vm.axios.spread((...res) => {
+      vm.isLoading = false
+    }))
   },
   watch: {
     identity () {
@@ -205,33 +217,26 @@ export default {
           })
       }
     },
-    getMyFollow () {
+    getMyFollow (id) {
       const API = 'http://fotricle.rocket-coding.com/customer/myfollow'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.get(API, config)
         .then(res => {
-          console.log(res)
           this.myFollowBrand = res.data.dt
-          this.myFollowBrand.forEach(brandId => {
-            if (brandId.BrandId === Number(localStorage.getItem('BrandId'))) {
-              this.isFollow = true
-              this.followId = brandId.Id
-            } else {
-              this.isFollow = false
-              this.followId = ''
-            }
-          })
         })
     },
-    delMyFollow () {
+    delMyFollow (id) {
       if (this.identity === '顧客') {
-        const API = `http://fotricle.rocket-coding.com/api/MyFollows/${this.followId}`
+        const API = `http://fotricle.rocket-coding.com/api/MyFollows/${id}`
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.delete(API, config)
           .then(res => {
             this.getMyFollow()
           })
       }
+    },
+    checkMyFollow (status) {
+      this.isFollow = status
     },
     getOrderList () {
       const API = 'http://fotricle.rocket-coding.com/customer/orders'
@@ -261,9 +266,32 @@ export default {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
       this.axios.get(API, config).then((res) => {
-        console.log(res)
         this.messageBox = res.data.notice
       })
+    },
+    getBrandList () {
+      const API = 'http://fotricle.rocket-coding.com/Brand/All'
+      this.axios.get(API)
+        .then(res => {
+          this.brandList = res.data.brandAll
+          this.brandList.forEach(brand => {
+            brand.feedback = []
+            brand.opentime = []
+            brand.feedback = res.data.brandfeedback.filter(feedback => {
+              return feedback.BrandId === brand.Id
+            })
+            brand.opentime = res.data.brandopentime.filter(opentime => {
+              return opentime.BrandId === brand.Id
+            })
+            brand.allSuggest = 0
+            brand.feedback.forEach(allSuggest => {
+              brand.allSuggest += (allSuggest.AllSuggest / brand.feedback.length)
+            })
+          })
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
   }
 }

@@ -32,6 +32,7 @@ export default {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.get(API, config)
         .then(res => {
+          console.log(res)
           if (res.data['數據統計'].length !== 0) {
             this.dataAnalysis = res.data['數據統計'][0].Time
           }

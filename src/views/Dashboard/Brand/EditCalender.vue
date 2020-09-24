@@ -109,7 +109,7 @@ export default {
       }
     },
     checkWeekDay () {
-      if (new Date(this.today) > new Date(this.date[0].OpenDate)) {
+      if (new Date(this.today) > new Date(this.date[6].OpenDate)) {
         this.week.forEach(day => {
           this.resetCalender(day, day.Id)
         })
@@ -120,9 +120,8 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          console.log(res)
-          this.getWeekDay()
           if (res.data.result.open.length === 0) {
+            this.getWeekDay()
             this.week.forEach(day => {
               this.addCalender(day)
             })
@@ -130,6 +129,7 @@ export default {
             this.date = res.data.result.open.sort((a, b) => {
               return new Date(a.OpenDate) - new Date(b.OpenDate)
             })
+            this.getWeekDay()
             this.checkWeekDay()
           }
         })
@@ -159,7 +159,6 @@ export default {
       this.axios
         .patch(API, body, config)
         .then((res) => {
-          console.log(res)
           this.getCalender()
         })
         .catch((err) => {
@@ -182,7 +181,6 @@ export default {
       this.axios
         .patch(API, body, config)
         .then((res) => {
-          console.log(res)
           this.getCalender()
         })
         .catch((err) => {
@@ -205,7 +203,6 @@ export default {
       this.axios
         .post(API, body, config)
         .then((res) => {
-          console.log(res)
           this.getCalender()
         })
         .catch((err) => {

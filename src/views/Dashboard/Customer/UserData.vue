@@ -95,11 +95,16 @@ export default {
     getUserData () {
       const API = `http://fotricle.rocket-coding.com/api/customer/${this.id}`
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const Gender = {
+        1: '女',
+        0: '男'
+      }
       this.axios
         .get(API, config)
         .then((res) => {
           console.log(res)
           this.userData = res.data.member
+          this.userData.Gender = Gender[this.userData.Gender]
           this.result = res.data.result
         })
         .catch((err) => {

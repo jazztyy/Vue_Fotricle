@@ -103,11 +103,11 @@
     <Product
       @closeModal="closeModal"
       @init='init'
-      class="fixed top-half left-half trans-center z-20"
+      class="fixed top-half left-half trans-center z-50"
       v-show="isShow"
       ref="product"
     ></Product>
-    <div class="mask fixed" v-show="isShow"></div>
+    <div class="mask fixed z-40" v-show="isShow"></div>
   </div>
 </template>
 
@@ -119,7 +119,18 @@ export default {
   data () {
     return {
       isShow: false,
-      products: []
+      products: [],
+      changeOptions: {
+        0: '特色小吃',
+        1: '甜點',
+        2: '飲料',
+        3: '主食',
+        4: '炸物',
+        5: '素食',
+        6: '美式',
+        7: '日式',
+        8: '泰式'
+      }
     }
   },
   props: ['token', 'id'],
@@ -135,6 +146,7 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
+          console.log(res)
           this.products = res.data.products
         })
         .catch((err) => {
