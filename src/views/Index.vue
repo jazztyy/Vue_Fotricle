@@ -31,6 +31,7 @@
     @getOrderList="getOrderList"
     @getMessage='getMessage'
     @checkMyFollow='checkMyFollow'
+    :identity='identity'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'

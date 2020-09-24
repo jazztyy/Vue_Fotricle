@@ -1,7 +1,7 @@
 <template>
   <div class="lg:w-2/3">
     <section class="mx-5 rounded-lg shadow-lg">
-      <div class="bg-secondcolor-400 rounded-lg flex flex-col">
+      <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
         <table class="w-full mb-5 rounded-t-lg">
           <thead class="bg-maincolor-400 text-thirdcolor-400">
             <tr>
@@ -16,11 +16,11 @@
           </thead>
           <tbody class="text-xl">
             <tr
-              class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+              class="flex lg:table-row hover:bg-thirdcolor-600 flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
               v-for="product of products" :key="product.Id"
             >
               <td
-                class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 text-center border-black border-b block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -32,7 +32,7 @@
                 />
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -40,7 +40,7 @@
                 {{ product.sort }}
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -48,7 +48,7 @@
                 {{ product.ProductName }}
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -56,29 +56,30 @@
                 {{ product.Price }}
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >是否上架</span>
-                是
-                <!-- <div
+                <div
                   class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
                 >
                   <input
                     type="checkbox"
                     name="toggle"
                     id="toggle"
+                    v-model="product.IsUse"
+                    @click="changeProductStatus(product.Id, product.IsUse)"
                     class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer outline-none"
                   />
                   <label
                     for="toggle"
                     class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
-                </div> -->
+                </div>
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -86,13 +87,13 @@
                 {{ product.Total }}
               </td>
               <td
-                class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+                class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >編輯</span>
                 <button class="btn-main p-2 mr-2 focus:outline-none" @click.prevent="openModal(product)">編輯</button>
-                <button class="btn-main bg-red-600 p-2 focus:outline-none" @click.prevent="deleteProduct(product.Id)">刪除</button>
+                <button class="btn-main bg-red-600 p-2 focus:outline-none" @click.prevent="changeProductStatus(product.Id, 'del')">刪除</button>
               </td>
             </tr>
           </tbody>
@@ -118,8 +119,14 @@ export default {
   name: 'EditMenu',
   data () {
     return {
+      check: false,
       isShow: false,
       products: [],
+      status: {
+        是: true,
+        否: false,
+        刪除: '刪除'
+      },
       changeOptions: {
         0: '特色小吃',
         1: '甜點',
@@ -133,7 +140,6 @@ export default {
       }
     }
   },
-  props: ['token', 'id'],
   created () {
     this.init()
   },
@@ -148,17 +154,30 @@ export default {
         .then((res) => {
           console.log(res)
           this.products = res.data.products
+          this.products.forEach(product => {
+            product.IsUse = this.status[product.IsUse]
+          })
         })
         .catch((err) => {
           console.log(err)
         })
     },
-    deleteProduct (id) {
-      const API = `http://fotricle.rocket-coding.com/ProductList/Delete?Id=${id}`
+    changeProductStatus (id, status) {
+      const API = `http://fotricle.rocket-coding.com/Products/Use?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const changeStr = {
+        false: 1,
+        true: 0,
+        del: 2
+      }
+      const body = {
+        IsUse: changeStr[status]
+      }
+      console.log(body)
       this.axios
-        .delete(API, config)
+        .patch(API, body, config)
         .then((res) => {
+          console.log(res)
           this.init()
         })
         .catch((err) => {

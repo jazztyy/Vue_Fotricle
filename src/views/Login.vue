@@ -58,6 +58,7 @@ export default {
             localStorage.setItem('token', token)
             localStorage.setItem('id', id)
             window.location = '/#/Customer/OrderList'
+            this.showAlert('登入成功', 'success')
             this.changeIdentity('顧客')
           })
           .catch(err => {
