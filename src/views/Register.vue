@@ -93,7 +93,6 @@ export default {
     },
     showAlert (message, status) {
       this.$swal({
-        // position: 'top-end',
         icon: status,
         title: message,
         showConfirmButton: false,

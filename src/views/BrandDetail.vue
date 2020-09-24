@@ -127,7 +127,7 @@ export default {
     // Slide
   },
   name: 'Search',
-  props: ['myFollowBrand', 'isFollow'],
+  props: ['myFollowBrand', 'isFollow', 'identity'],
   data () {
     return {
       brand: {},
@@ -136,8 +136,11 @@ export default {
       order: [],
       calender: [],
       today: '',
+      todayOpen: '',
+      todayEnd: '',
       openTime: '',
-      allRating: 0
+      allRating: 0,
+      isOpen: true
     }
   },
   methods: {
@@ -146,7 +149,10 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          this.products = res.data.products
+          console.log(res)
+          this.products = res.data.products.filter(product => {
+            return product.IsUse === '是'
+          })
         })
         .catch((err) => {
           console.log(err)
@@ -183,8 +189,9 @@ export default {
         }
       })
     },
-    getBrandCalender (id) {
+    getBrandCalender (id, today) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${id}`
+      console.log(today)
       this.axios.get(API).then((res) => {
         this.calender = res.data.result.open.sort((a, b) => {
           return new Date(a.OpenDate) - new Date(b.OpenDate)
@@ -192,6 +199,11 @@ export default {
         this.calender.forEach((day) => {
           if (day.OpenDate === this.today) {
             this.openTime = day.SDateTime + '-' + day.EDateTimeDate
+            this.todayOpen = day.SDateTime
+            this.todayEnd = day.EDateTimeDate
+            if (today < new Date(this.today + ' ' + day.SDateTime) || today > new Date(this.today + ' ' + day.EDateTimeDate)) {
+              this.isOpen = false
+            }
           }
         })
       })
@@ -208,7 +220,16 @@ export default {
       })
     },
     addShoppingCartProduct (id, brandId) {
-      this.$emit('addShoppingCartProduct', id, brandId)
+      if (this.identity !== '顧客') {
+        this.showAlert('必須登入消費者帳號才能購買商品', 'error')
+        window.location = '/#/Login'
+      } else {
+        if (this.isOpen) {
+          this.$emit('addShoppingCartProduct', id, brandId)
+        } else {
+          this.showAlert('目前非餐車營業時間，無法購買產品', 'error')
+        }
+      }
     },
     addMyFollow (brandId) {
       this.$emit('addMyFollow', brandId)
@@ -227,6 +248,13 @@ export default {
       } else {
         this.$emit('checkMyFollow', false)
       }
+    },
+    showAlert (message, status) {
+      this.$swal({
+        icon: status,
+        title: message,
+        showConfirmButton: true
+      })
     }
   },
   mounted () {
@@ -246,7 +274,7 @@ export default {
         vm.getBrandProduct(id),
         vm.getBrandData(id),
         vm.getBrandOrder(id),
-        vm.getBrandCalender(id),
+        vm.getBrandCalender(id, today),
         vm.getBrandFeedback(id),
         vm.checkMyFollow(id)
       ])
@@ -257,7 +285,7 @@ export default {
           vm.getBrandProduct(brandId),
           vm.getBrandData(brandId),
           vm.getBrandOrder(brandId),
-          vm.getBrandCalender(brandId),
+          vm.getBrandCalender(brandId, today),
           vm.getBrandFeedback(brandId),
           vm.checkMyFollow(brandId)
         ])
