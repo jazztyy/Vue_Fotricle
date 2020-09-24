@@ -22,7 +22,7 @@
               <label for="brandName" class="inline-block mb-1">餐車名稱：</label>
               <input
               type="text"
-              class="w-full focus:outline-none rounded-lg indent py-1"
+              class="w-full focus:outline-none rounded-lg indent py-2"
               id="BrandName"
               v-model="brandData.BrandName"
               />
@@ -33,7 +33,7 @@
               <label for="LinePay" class="inline-block mb-1">收款代碼：</label>
               <input
               type="text"
-              class="w-full  focus:outline-none rounded-lg indent py-1"
+              class="w-full  focus:outline-none rounded-lg indent py-2"
               id="LinePay"
               v-model="brandData.LinePay"
               />
@@ -44,7 +44,7 @@
               <label for="Tel" class="inline-block mb-1">電話號碼：</label>
               <input
               type="tel"
-              class="w-full focus:outline-none rounded-lg indent py-1"
+              class="w-full focus:outline-none rounded-lg indent py-2"
               id="Tel"
               v-model="brandData.PhoneNumber"
               />
@@ -197,20 +197,15 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
-          console.log(photoType)
           switch (photoType) {
             case 'QRCode':
               this.brandData.QrCode = res.data.imageUrl
-              console.log('QrCode', this.brandData.QrCode)
               break
             case 'BrandPhoto':
               this.brandData.CarImage = res.data.imageUrl
-              console.log('CarImage', this.brandData.CarImage)
               break
             case 'BrandLogo':
               this.brandData.LogoPhoto = res.data.imageUrl
-              console.log('LogoPhoto', this.brandData.LogoPhoto)
               break
           }
         })

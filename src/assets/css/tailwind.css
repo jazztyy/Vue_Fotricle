@@ -143,4 +143,18 @@
   @apply bg-green-400;
 }
 
+.text-hidden {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
+}
+
+.text-hidden-one {
+    white-space: nowrap;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
 @tailwind utilities;

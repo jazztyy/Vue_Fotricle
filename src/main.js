@@ -1,22 +1,29 @@
 import Vue from 'vue'
+
+import VueAxios from 'vue-axios'
 import axios from 'axios'
+
 import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
+
 import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
-import VueAxios from 'vue-axios'
+
 import Multiselect from 'vue-multiselect'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
+
 import App from './App.vue'
 import router from './router'
 import './assets/css/tailwind.css'
-import 'sweetalert2/dist/sweetalert2.min.css'
 import Loading from 'vue-loading-overlay'
 import 'vue-loading-overlay/dist/vue-loading.css'
 import StarRating from 'vue-star-rating'
+import VueCarousel from 'vue-carousel'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 Vue.config.productionTip = false
 
-Vue.use(VueAxios, axios, VueSweetalert2, Multiselect)
+Vue.use(VueAxios, axios, Multiselect, VueCarousel)
+Vue.use(VueSweetalert2)
 Vue.component('Loading', Loading)
 Vue.component('VueTimepicker', VueTimepicker)
 Vue.component('star-rating', StarRating)

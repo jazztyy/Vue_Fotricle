@@ -29,12 +29,21 @@
           v-model="product.ProductName"
         />
         <div class="flex justify-between">
-          <input
-            class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
-            type="text"
-            placeholder="產品分類"
-            v-model="product.sort"
-          />
+          <select name="產品類別" id="productSort"
+          v-model="product.sort"
+          class="w-48/100 text-lg rounded-lg bg-thirdcolor-400 mb-3"
+          >
+            <option value="" disabled selected>產品類別</option>
+            <option value="特色小吃">特色小吃</option>
+            <option value="甜點">甜點</option>
+            <option value="飲料">飲料</option>
+            <option value="主食">主食</option>
+            <option value="炸物">炸物</option>
+            <option value="素食">素食</option>
+            <option value="美式">美式</option>
+            <option value="日式">日式</option>
+            <option value="泰式">泰式</option>
+          </select>
           <input
             class="inline-block w-48/100 text-xl rounded-lg bg-thirdcolor-400 py-1 mb-3 outline-none indent"
             type="text"
@@ -78,7 +87,18 @@ export default {
       product: { },
       token: '',
       isUse: true,
-      isNew: true
+      isNew: true,
+      changeOptions: {
+        特色小吃: 0,
+        甜點: 1,
+        飲料: 2,
+        主食: 3,
+        炸物: 4,
+        素食: 5,
+        美式: 6,
+        日式: 7,
+        泰式: 8
+      }
     }
   },
   created () {
@@ -88,7 +108,8 @@ export default {
   methods: {
     addProduct () {
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const { ...product } = this.product
+      const product = this.product
+      product.ProductSort = this.changeOptions[product.sort]
       const API = 'http://fotricle.rocket-coding.com/ProductList/New'
       this.axios
         .post(API, product, config)
@@ -103,8 +124,9 @@ export default {
     },
     editProduct () {
       const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const { ...product } = this.product
+      const product = this.product
       const API = `http://fotricle.rocket-coding.com/ProductList/Edit?Id=${this.product.Id}`
+      product.ProductSort = this.changeOptions[product.sort]
       this.axios
         .patch(API, product, config)
         .then((res) => {
@@ -145,6 +167,7 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
+          console.log(res)
           this.product.ProductPhoto = res.data.imageUrl
         })
         .catch((err) => {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <main class="relative">
-        <div style="background-image: url(/img/photo-1547620917-786ebcbc55af.jfif)" class="bg-img h-767 blur "></div>
+        <div style="" class="bg-img h-767 blur "></div>
         <form action="" class="absolute top-half left-half trans-center w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
             <div class="flex flex-col xs:flex-row justify-between text-center text-2xl text-white">
                 <h2 class="flex-1 cursor-pointer md:rounded-t-lg px-5 py-3"
@@ -46,7 +46,6 @@
 <script>
 export default {
   name: 'Register',
-
   data () {
     return {
       isCustomer: true,
@@ -55,6 +54,8 @@ export default {
       confirmPassword: '',
       fanspage: ''
     }
+  },
+  created () {
   },
   methods: {
     register () {
@@ -73,20 +74,40 @@ export default {
       if (this.isCustomer) {
         this.axios.post(CustomerApi, user)
           .then(res => {
-            console.log(res)
+            this.showAlert('註冊成功', 'success')
           })
           .catch(err => {
+            this.showAlert('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       } else {
         this.axios.post(BrandApi, brand)
           .then(res => {
-            console.log(res)
+            this.showAlert('註冊成功，請等待人工審核', 'success')
           })
           .catch(err => {
+            this.showAlert('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       }
+    },
+    showAlert (message, status) {
+      this.$swal({
+        // position: 'top-end',
+        icon: status,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+      })
+      if (status === 'success') {
+        window.location = '/#/Login'
+      }
+    }
+  },
+  watch: {
+    isCustomer () {
+      this.email = ''
+      this.password = ''
     }
   }
 }
