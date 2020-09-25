@@ -27,14 +27,15 @@
                                 class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">是否營業</span>
-                                營業時間：{{ brand.SDateTime + '-' + brand.EDateTimeDate }}
+                                <span v-if="brand.SDateTime !== brand.EDateTimeDate">營業時間：{{ brand.SDateTime + '-' + brand.EDateTimeDate }}</span>
+                                <span v-if="brand.SDateTime === brand.EDateTimeDate">本日公休</span>
                             </td>
                             <td
                                 class="w-full lg:w-auto p-3  border-b text-center block lg:table-cell relative lg:static ">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">營業地址</span>
                                 {{ brand.Location }}
-                                <button class="btn-main ml-5 px-5 py-2">導航</button>
+                                <button v-if="brand.Location" class="btn-main ml-5 px-5 py-2">導航</button>
                             </td>
                         </tr>
                     </tbody>
