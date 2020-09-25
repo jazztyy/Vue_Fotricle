@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="keep-footer-bottom">
     <navbar v-if="identity === 'Visitors'"
     @changeIdentity="changeIdentity"
     />
@@ -31,6 +31,7 @@
     @getOrderList="getOrderList"
     @getMessage='getMessage'
     @checkMyFollow='checkMyFollow'
+    @getBrandList='getBrandList'
     :identity='identity'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
@@ -46,7 +47,7 @@
     :brandList='brandList'
     />
     <loading :active.sync="isLoading"></loading>
-    <Footer/>
+    <Footer class="mt-auto"></Footer>
   </div>
 </template>
 
@@ -214,7 +215,7 @@ export default {
         this.axios.post(API, body, config)
           .then(res => {
             console.log(res)
-            this.getMyFollow()
+            this.getMyFollow(brandId)
           })
       }
     },
@@ -224,6 +225,7 @@ export default {
       this.axios.get(API, config)
         .then(res => {
           this.myFollowBrand = res.data.dt
+          this.checkMyFollow(id)
         })
     },
     delMyFollow (id) {
@@ -236,8 +238,15 @@ export default {
           })
       }
     },
-    checkMyFollow (status) {
-      this.isFollow = status
+    checkMyFollow (id) {
+      if (
+        this.myFollowBrand.some(brandId => {
+          return brandId.BrandId === Number(id)
+        })) {
+        this.isFollow = true
+      } else {
+        this.isFollow = false
+      }
     },
     getOrderList () {
       const API = 'http://fotricle.rocket-coding.com/customer/orders'

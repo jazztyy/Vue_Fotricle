@@ -1,5 +1,5 @@
 <template>
-  <div class="keep-footer-bottom flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
+  <div class="flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
     <aside class="lg:w-1/5 lg:sticky top-0 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
       <ul class="hidden lg:flex-col lg:flex justify-evenly text-2xl text-center">
         <li

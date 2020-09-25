@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="keep-footer-bottom flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
+    <main class="flex flex-col lg:flex-row justify-evenly lg:items-start py-10">
       <Aside />
       <router-view
       :myFollowBrand='myFollowBrand'

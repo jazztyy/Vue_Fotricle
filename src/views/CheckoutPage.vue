@@ -1,5 +1,5 @@
 <template>
-  <div class="keep-footer-bottom flex justify-center items-center my-5">
+  <div class="flex justify-center items-center my-5">
     <div class="md:w-2/3 mx-auto py-3 bg-thirdcolor-400 text-black rounded-lg shadow-lg">
       <p class="text-center text-secondcolor-400 text-3xl">訂單明細</p>
       <p v-if="!shoppingCart[0]" class="text-center">訂單目前是空的</p>

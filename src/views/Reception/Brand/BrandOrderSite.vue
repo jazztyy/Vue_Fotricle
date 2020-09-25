@@ -1,6 +1,6 @@
 <template>
   <div>
-    <main class="keep-footer-bottom flex flex-col justify-evenly lg:items-start">
+    <main class="flex flex-col justify-evenly lg:items-start">
       <div class="container mx-auto py-5 px-5">
         <ul class="md:flex justify-between items-center">
           <li class="flex text-center mb-5 md:mb-0">

@@ -120,11 +120,9 @@
 }
 
 .keep-footer-bottom {
-    min-height: calc(100vh - 368px)
-}
-
-.keep-footer-bottom-pad {
-    min-height: calc(100vh - 562px)
+    height: 100%;
+    display: flex;
+    flex-direction: column
 }
 
 .order-button {

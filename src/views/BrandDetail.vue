@@ -14,15 +14,15 @@
             <star-rating
               v-model="allRating"
               :read-only="true"
-              :rating="0.1"
+              :fixed-points="2"
+              :increment="0.01"
               :show-rating="false"
-              :star-size="35"
-              inactive-color="#e2e8f000"
-              :rounded-corners="true"
-              :round-start-rating="false"
+              :star-size="30"
+              :rounded-corners='true'
             ></star-rating>
           </div>
-          <p class="text-lg pb-2">本日營業時間：{{ openTime }}</p>
+          <p v-if="this.isOpen" class="text-lg pb-2">本日營業時間：{{ openTime }}</p>
+          <p v-if="!this.isOpen" class="text-lg pb-2">本日公休</p>
           <p class="text-lg pb-2">訂購專線：{{ brand.PhoneNumber }}</p>
           <div>
             <button class="btn-second py-2 px-5 mr-5">導航前往</button>
@@ -149,7 +149,6 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          console.log(res)
           this.products = res.data.products.filter(product => {
             return product.IsUse === '是'
           })
@@ -191,7 +190,6 @@ export default {
     },
     getBrandCalender (id, today) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${id}`
-      console.log(today)
       this.axios.get(API).then((res) => {
         this.calender = res.data.result.open.sort((a, b) => {
           return new Date(a.OpenDate) - new Date(b.OpenDate)
@@ -234,20 +232,17 @@ export default {
     addMyFollow (brandId) {
       this.$emit('addMyFollow', brandId)
     },
-    delMyFollow (id) {
+    delMyFollow (brandId) {
+      let id
+      this.myFollowBrand.forEach(brand => {
+        if (brand.BrandId === brandId) {
+          id = brand.Id
+        }
+      })
       this.$emit('delMyFollow', id)
     },
     checkMyFollow (id) {
-      console.log(id, this.myFollowBrand)
-      if (
-        this.myFollowBrand.some(brandId => {
-          console.log(id, brandId.BrandId)
-          return brandId.BrandId === Number(id)
-        })) {
-        this.$emit('checkMyFollow', true)
-      } else {
-        this.$emit('checkMyFollow', false)
-      }
+      this.$emit('checkMyFollow', id)
     },
     showAlert (message, status) {
       this.$swal({
