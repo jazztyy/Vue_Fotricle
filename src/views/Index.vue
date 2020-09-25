@@ -276,7 +276,10 @@ export default {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
       this.axios.get(API, config).then((res) => {
-        this.messageBox = res.data.notice
+        console.log(res)
+        this.messageBox = res.data.notice.sort((a, b) => {
+          return new Date(b.InitDate) - new Date(a.InitDate)
+        })
       })
     },
     getBrandList () {
