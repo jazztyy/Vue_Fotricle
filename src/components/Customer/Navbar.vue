@@ -1,21 +1,18 @@
 <template>
-  <header class="bg-maincolor-400 sticky top-0 z-40">
-    <nav class="container mx-auto px-5 flex items-center">
-      <ul class="nav md:justify-around text-xl">
-        <li class="nav-btn hidden md:block">
-          <router-link to="/Search">點餐</router-link>
-        </li>
-        <li class="nav-btn hidden md:block">
-          <router-link to="/Customer/OrderList">會員專區</router-link>
-        </li>
-        <li class="nav-btn md:hidden">
+  <header class="bg-maincolor-300">
+    <nav class="px-5 flex justify-between items-center">
+      <ul class="nav md:hidden text-xl">
+        <li class="nav-btn">
           <i class="fas fa-hamburger cursor-pointer"></i>
         </li>
       </ul>
-      <h1 class="flex-1 py-1 text-thirdcolor-500 text-5xl text-center">
+      <h1 class="w-1/2 py-1 text-thirdcolor-500 text-4xl text-left">
         <router-link to="/Home">Fotricle</router-link>
       </h1>
       <ul class="nav justify-end md:justify-around text-xl">
+        <li class="nav-btn hidden md:block">
+          <router-link to="/Customer/OrderList">會員專區</router-link>
+        </li>
         <li class="nav-btn hidden md:block">
           <router-link to="/Search">餐車列表</router-link>
         </li>
@@ -68,7 +65,7 @@
                 </p>
               </div>
               <div>
-                <router-link class="w-full text-thirdcolor-400 bg-maincolor-400 hover:bg-maincolor-600 md:rounded-b-lg inline-block py-3" to="/CheckoutPage" @click.native="isShowCart = false">結帳</router-link>
+                <router-link class="w-full text-thirdcolor-400 bg-maincolor-200 hover:bg-maincolor-400 md:rounded-b-lg inline-block py-3" to="/CheckoutPage" @click.native="isShowCart = false">結帳</router-link>
               </div>
             </div>
           </div>
@@ -88,7 +85,7 @@ export default {
       isShowCart: false
     }
   },
-  props: ['totalPrice', 'shoppingCart', 'messageBox'],
+  props: ['totalPrice', 'shoppingCart', 'messageBox', 'userData'],
   created () {
     this.id = localStorage.getItem('id')
     this.token = localStorage.getItem('token')

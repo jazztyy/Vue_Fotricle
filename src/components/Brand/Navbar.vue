@@ -1,7 +1,7 @@
 <template>
-  <header class="bg-maincolor-400 sticky top-0 z-40">
-    <nav class="container mx-auto px-5 flex justify-between items-center">
-      <h1 class="w-3/5 py-1 text-thirdcolor-500 text-5xl">
+  <header class="bg-maincolor-200">
+    <nav class="px-5 flex justify-between items-center">
+      <h1 class="w-3/5 py-1 text-thirdcolor-500 text-4xl">
         <router-link to="/Home">Fotricle</router-link>
       </h1>
       <ul class="w-2/5 nav justify-end md:justify-around text-xl">

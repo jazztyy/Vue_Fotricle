@@ -1,5 +1,5 @@
 <template>
-  <section class="max-w-screen-lg lg:w-2/3 mx-5 rounded-lg shadow-lg bg-secondcolor-400">
+  <section class="max-w-screen-lg lg:w-2/3 mx-5 rounded-lg shadow-lg bg-thirdcolor-400">
     <header
       class="text-3xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >餐車資料</header>
@@ -153,6 +153,7 @@ export default {
   },
   methods: {
     getData () {
+      this.changeLoading(true)
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
       this.axios
@@ -160,10 +161,11 @@ export default {
         .then((res) => {
           this.brandData = res.data.brand
           this.sort = res.data.sort
-          console.log(this.brandData)
+          this.changeLoading(false)
         })
         .catch((err) => {
           console.log(err)
+          this.changeLoading(false)
         })
     },
     editBrandData () {
@@ -212,6 +214,9 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   }
 }

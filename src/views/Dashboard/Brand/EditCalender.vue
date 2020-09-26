@@ -1,5 +1,5 @@
 <template>
-  <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg bg-secondcolor-400">
+  <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg bg-thirdcolor-400">
     <header
       class="text-4xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >行事曆編輯</header>
@@ -116,6 +116,7 @@ export default {
       }
     },
     getCalender () {
+      this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${localStorage.getItem('id')}`
       this.axios
         .get(API)
@@ -131,6 +132,7 @@ export default {
             })
             this.getWeekDay()
             this.checkWeekDay()
+            this.changeLoading(false)
           }
         })
         .catch((err) => {
@@ -138,6 +140,7 @@ export default {
         })
     },
     editCalender (day, id, weekday) {
+      this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const changeStatus = {
@@ -154,8 +157,6 @@ export default {
         EDateTimeDate: day.OpenDate + ' ' + day.EDateTimeDate,
         Location: day.Location
       }
-      console.log(body.Status)
-      console.log(body)
       this.axios
         .patch(API, body, config)
         .then((res) => {
@@ -166,6 +167,7 @@ export default {
         })
     },
     resetCalender (date, id) {
+      this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const body = {
@@ -208,6 +210,9 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   }
 }

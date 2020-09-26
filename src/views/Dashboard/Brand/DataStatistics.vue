@@ -1,6 +1,6 @@
 <template>
   <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg">
-    <div class="bg-secondcolor-400 rounded-lg flex flex-col">
+    <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-400 text-thirdcolor-400">
           <tr>
@@ -14,11 +14,11 @@
         v-if="dataAnalysis[0]"
         >
           <tr
-            class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+            class="lg:hover:bg-thirdcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
             v-for="data of dataAnalysis" :key="data.Ordertime"
           >
             <td
-              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -26,7 +26,7 @@
               {{ data.Ordertime }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -34,7 +34,7 @@
               {{ data.count }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -42,7 +42,7 @@
               {{ data.workhour }} 小時
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"

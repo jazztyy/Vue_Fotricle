@@ -3,7 +3,7 @@
       <header class="bg-maincolor-400 text-thirdcolor-400 rounded-t-lg">
         <p class="text-center text-4xl">個人資料</p>
       </header>
-      <main class="p-5 flex flex-col justify-center xs:flex-row" v-if="result">
+      <main class="p-5 flex flex-col justify-center xs:flex-row" v-if="userData.Id">
         <div class="flex flex-col items-center justify-around">
           <div class="relative">
               <img class="rounded-full mb-5 h-40 w-40" :src="userData.CusPhoto" alt />
@@ -76,76 +76,51 @@
 <script>
 export default {
   name: 'UserData',
+  props: ['userData'],
   data () {
     return {
-      userData: {},
-      isShow: false,
-      id: '',
-      token: '',
-      result: false
+      isShow: false
     }
   },
-  components: {},
-  created () {
-    this.id = localStorage.getItem('id')
-    this.token = localStorage.getItem('token')
-    this.getUserData()
-  },
   methods: {
-    getUserData () {
-      const API = `http://fotricle.rocket-coding.com/api/customer/${this.id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
-      const Gender = {
-        1: '女',
-        0: '男'
-      }
-      this.axios
-        .get(API, config)
-        .then((res) => {
-          console.log(res)
-          this.userData = res.data.member
-          this.userData.Gender = Gender[this.userData.Gender]
-          this.result = res.data.result
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
     editUserData () {
-      const API = `http://fotricle.rocket-coding.com/customer/Edit?Id=${this.id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      this.$emit('changeLoading', true)
+      const API = `http://fotricle.rocket-coding.com/customer/Edit?Id=${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const { ...userData } = this.userData
-      console.log(userData)
       this.axios
         .patch(API, userData, config)
         .then((res) => {
-          console.log(res)
-          this.getUserData()
+          this.$emit('getUserData', '資料修改成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '個人資料修改失敗，請重新輸入', 'error')
         })
     },
     uploadFile () {
       const file = document.querySelector('#fileUploading').files[0]
       const formData = new FormData()
-      const API = `http://fotricle.rocket-coding.com/customer/upload?Id=${this.id}`
+      const API = `http://fotricle.rocket-coding.com/customer/upload?Id=${localStorage.getItem('id')}`
       const config = {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
         }
       }
       formData.append('file', file)
-
+      this.$emit('changeLoading', true)
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
           this.userData.CusPhoto = res.data.imageUrl
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertAside', '圖片上傳成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '圖片上傳失敗，請重新上傳', 'error')
         })
     }
   }

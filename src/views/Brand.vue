@@ -1,7 +1,9 @@
 <template>
   <div>
     <main>
-      <router-view />
+      <router-view
+      @changeLoading='changeLoading'
+      ></router-view>
     </main>
   </div>
 </template>
@@ -19,6 +21,11 @@ export default {
     this.token = localStorage.getItem('token')
     if (this.token === '') {
       window.location = '/#/Login'
+    }
+  },
+  methods: {
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   }
 }

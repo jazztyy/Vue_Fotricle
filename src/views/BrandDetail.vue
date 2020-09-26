@@ -22,7 +22,7 @@
             ></star-rating>
           </div>
           <p v-if="this.isOpen" class="text-lg pb-2">本日營業時間：{{ openTime }}</p>
-          <p v-if="!this.isOpen" class="text-lg pb-2">本日公休</p>
+          <p v-if="!this.isOpen" class="text-lg pb-2">非營業時間</p>
           <p class="text-lg pb-2">訂購專線：{{ brand.PhoneNumber }}</p>
           <div>
             <button class="btn-second py-2 px-5 mr-5">導航前往</button>
@@ -96,7 +96,7 @@
                 <p
                   class="pb-2"
                   v-if="day.Status === '營業中'"
-                >{{ new Date(day.OpenDate).getMonth() + '月' + new Date(day.OpenDate).getDate() + '日' }}</p>
+                >{{ new Date(day.OpenDate).getMonth() + 1 + '月' + new Date(day.OpenDate).getDate() + '日' }}</p>
                 <p
                   class="pb-2"
                   v-if="day.Status === '營業中'"
@@ -209,6 +209,7 @@ export default {
     getBrandFeedback (id) {
       const API = `http://fotricle.rocket-coding.com/customer/feedback?Id=${id}`
       this.axios.get(API).then((res) => {
+        console.log(res)
         this.feedback = res.data.feedback
         this.allRating = 0
         res.data.feedback.forEach((feedback) => {
@@ -220,7 +221,6 @@ export default {
     addShoppingCartProduct (id, brandId) {
       if (this.identity !== '顧客') {
         this.showAlert('必須登入消費者帳號才能購買商品', 'error')
-        window.location = '/#/Login'
       } else {
         if (this.isOpen) {
           this.$emit('addShoppingCartProduct', id, brandId)
@@ -230,7 +230,11 @@ export default {
       }
     },
     addMyFollow (brandId) {
-      this.$emit('addMyFollow', brandId)
+      if (this.identity === '顧客') {
+        this.$emit('addMyFollow', brandId)
+      } else {
+        this.showAlert('必須登入消費者帳號才能追蹤餐車', 'error')
+      }
     },
     delMyFollow (brandId) {
       let id

@@ -93,7 +93,7 @@
                   class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >編輯</span>
                 <button class="btn-main p-2 mr-2 focus:outline-none" @click.prevent="openModal(product)">編輯</button>
-                <button class="btn-main bg-red-600 p-2 focus:outline-none" @click.prevent="changeProductStatus(product.Id, 'del')">刪除</button>
+                <button class="bg-red-600 hover:bg-red-700 text-thirdcolor-400 rounded-lg p-2 focus:outline-none" @click.prevent="changeProductStatus(product.Id, 'del')">刪除</button>
               </td>
             </tr>
           </tbody>
@@ -148,21 +148,26 @@ export default {
       this.isShow = false
     },
     init () {
+      this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${localStorage.getItem('id')}`
       this.axios
         .get(API)
         .then((res) => {
-          console.log(res)
           this.products = res.data.products
           this.products.forEach(product => {
             product.IsUse = this.status[product.IsUse]
           })
+          this.products = this.products.filter(products => {
+            return products.IsUse !== '刪除'
+          })
+          this.changeLoading(false)
         })
         .catch((err) => {
           console.log(err)
         })
     },
     changeProductStatus (id, status) {
+      this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/Products/Use?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const changeStr = {
@@ -208,6 +213,9 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   },
   components: {

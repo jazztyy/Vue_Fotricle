@@ -24,7 +24,9 @@
                         <input class="w-full py-4 rounded-lg indent text-xl outline-none" type="password" name="password" id="password" v-model="password" placeholder="密碼">
                     </li>
                 </ul>
-                <button class="relative btn-second w-full py-3 mb-5 text-2xl"><a class="touch" href="#" @click.prevent="login"></a>登入</button>
+                <button class="relative btn-second w-full py-3 mb-5 text-2xl touch"
+                 @click.prevent="login" @keyup.enter.prevent='login'
+                >登入</button>
                 <p class="text-lg">還不是會員？<router-link class="text-secondcolor-600 hover:text-secondcolor-800" to="/Register">按此註冊</router-link></p>
             </div>
         </form>
@@ -57,9 +59,9 @@ export default {
             const id = res.data.id
             localStorage.setItem('token', token)
             localStorage.setItem('id', id)
-            window.location = '/#/Customer/OrderList'
-            this.showAlert('登入成功', 'success')
+            window.location = '/index.html#/Customer/OrderList'
             this.changeIdentity('顧客')
+            this.$emit('showAlert', '帳號登入成功', 'success')
           })
           .catch(err => {
             console.log(err)
@@ -72,9 +74,9 @@ export default {
             const id = res.data.id
             localStorage.setItem('token', token)
             localStorage.setItem('id', id)
-            window.location = '/#/Brand/Edit/Menu'
-            this.showAlert('登入成功', 'success')
+            window.location = '/index.html#/Brand/Edit/Menu'
             this.changeIdentity('餐車')
+            this.$emit('showAlert', '帳號登入成功', 'success')
           })
           .catch(err => {
             console.log(err)
@@ -83,14 +85,6 @@ export default {
     },
     changeIdentity (identity) {
       this.$emit('changeIdentity', identity)
-    },
-    showAlert (message, status) {
-      this.$swal({
-        icon: status,
-        title: message,
-        showConfirmButton: false,
-        timer: 1000
-      })
     }
   },
   watch: {

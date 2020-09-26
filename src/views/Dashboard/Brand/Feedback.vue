@@ -1,6 +1,6 @@
 <template>
   <section class="lg:w-3/4 mx-5 rounded-lg shadow-lg">
-    <div class="bg-secondcolor-400 rounded-lg flex flex-col">
+    <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-400 text-thirdcolor-400">
           <tr>
@@ -14,19 +14,18 @@
           </tr>
         </thead>
         <tbody class="text-2xl"
-        v-if="feedback[0]"
         >
           <tr
-            class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+            class="lg:hover:bg-thirdcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
             v-for="person of feedback" :key="person.OrderId"
           >
             <td
-              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static "
+              class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static "
             >
               <img class="w-20 h-20 rounded-full" :src='person.CusPhoto' alt="">
             </td>
             <td
-              class="w-full lg:w-auto p-3 text-center border-b block lg:table-cell relative lg:static "
+              class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static "
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY block bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -34,15 +33,15 @@
                 {{ person.UserName }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >日期</span>
-              20200822
+              {{ person.Date }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -50,7 +49,7 @@
               {{ person.Food }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -58,7 +57,7 @@
               {{ person.Service }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
@@ -66,7 +65,7 @@
               {{ person.AllSuggest }}
             </td>
             <td
-              class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
+              class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
                 class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"

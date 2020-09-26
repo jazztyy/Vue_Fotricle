@@ -107,16 +107,15 @@ export default {
         LinepayVer: LinePay,
         Site: 0
       }
-      console.log(API, config)
-      console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
           this.getShoppingCartProduct()
           this.$emit('getOrderList')
+          this.$emit('showAlertAside', '訂單成功送出', 'success')
         })
         .catch(err => {
           console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
         })
     },
     closeModal () {
@@ -131,6 +130,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
         })
     },
     getBrandOrder (LinePay, payment) {
@@ -148,6 +148,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
         })
     }
   },

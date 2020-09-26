@@ -1,6 +1,6 @@
 <template>
-     <header class="bg-maincolor-400 sticky top-0 z-40">
-        <nav class="container mx-auto px-5 flex items-center">
+     <header class="bg-maincolor-400">
+        <nav class="px-5 flex items-center">
             <ul class="nav md:justify-around text-xl">
                 <li class="nav-btn hidden md:block">
                     <router-link to="/Search">點餐</router-link>
