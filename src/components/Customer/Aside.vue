@@ -1,5 +1,5 @@
 <template>
-        <aside class="lg:w-1/5 lg:sticky top-0 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
+        <aside class="lg:w-1/5 lg:sticky top-10 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
             <ul class="hidden lg:flex-col lg:flex justify-evenly text-2xl text-center ">
                 <li class="border-l-8 rounded-tl-lg"
                     :class="{ 'border-maincolor-400 text-black': whichPage === '#/Customer/OrderList', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Customer/OrderList'}"

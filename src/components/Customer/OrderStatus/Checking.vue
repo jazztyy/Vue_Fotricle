@@ -20,7 +20,7 @@
           <span
             class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
           >訂單時間</span>
-          {{ order.OrderDetails[0].InitDate }}
+          {{ new Date(order.OrderDetails[0].InitDate).getFullYear() + '-' + (new Date(order.OrderDetails[0].InitDate).getMonth() + 1) + '-' + new Date(order.OrderDetails[0].InitDate).getDate() + ' ' + ((new Date(order.OrderDetails[0].InitDate).getHours() > 9 ) ? ('' + new Date(order.OrderDetails[0].InitDate).getHours()) : ('0' + new Date(order.OrderDetails[0].InitDate).getHours())) + ':' + ((new Date(order.OrderDetails[0].InitDate).getMinutes() > 9 ) ? ('' + new Date(order.OrderDetails[0].InitDate).getMinutes()) : ('0' + new Date(order.OrderDetails[0].InitDate).getMinutes())) }}
         </td>
         <td
           class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"
@@ -40,7 +40,7 @@
                 class="pr-3"
                 v-for="(item, i) of order.OrderDetails"
                 :key="i"
-              >{{ item.ProductName + '*' + item.ProductUnit }}</span>
+              >{{ item.ProductName + ' ' + item.ProductUnit + ' ' + '份' }}</span>
         </td>
         <td
           class="w-full lg:w-auto p-3 border-b text-center block lg:table-cell relative lg:static"

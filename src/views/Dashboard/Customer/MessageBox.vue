@@ -82,7 +82,10 @@ export default {
         })
     },
     getMessage () {
-      this.$emit('getMessage')
+      this.$emit('getMessage', '成功修改', 'success')
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   }
 }

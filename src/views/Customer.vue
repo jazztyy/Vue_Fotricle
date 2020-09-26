@@ -10,8 +10,13 @@
       :OrderFailList='OrderFailList'
       :OrderSuccessList='OrderSuccessList'
       :messageBox='messageBox'
+      :userData='userData'
       @getOrderList="getOrderList"
       @getMessage='getMessage'
+      @getUserData='getUserData'
+      @changeLoading='changeLoading'
+      @showAlertAside='showAlertAside'
+      @showAlert='showAlert'
       ></router-view>
     </main>
   </div>
@@ -30,7 +35,7 @@ export default {
       token: ''
     }
   },
-  props: ['myFollowBrand', 'OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList', 'messageBox'],
+  props: ['myFollowBrand', 'OrderCofirmList', 'OrderFoundList', 'OrderFoodCompletedList', 'OrderFailList', 'OrderSuccessList', 'messageBox', 'userData'],
   created () {
     this.token = localStorage.getItem('token')
     if (this.token === '') {
@@ -41,8 +46,20 @@ export default {
     getOrderList () {
       this.$emit('getOrderList')
     },
-    getMessage () {
-      this.$emit('getMessage')
+    getMessage (message, status) {
+      this.$emit('getMessage', message, status)
+    },
+    getUserData (message, status) {
+      this.$emit('getUserData', message, status)
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
+    },
+    showAlertAside (message, status) {
+      this.$emit('showAlertAside', message, status)
+    },
+    showAlert (message, status) {
+      this.$emit('showAlert', message, status)
     }
   }
 }

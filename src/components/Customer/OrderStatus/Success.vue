@@ -131,7 +131,6 @@ export default {
       console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
           this.changeOrderPhase()
           this.isShow = false
           this.foodRating = 0
@@ -139,6 +138,7 @@ export default {
           this.serviceRating = 0
           this.advice = ''
           this.orderId = 0
+          this.showAlert()
         })
     },
     changeOrderPhase () {
@@ -156,8 +156,17 @@ export default {
     },
     getOrderList () {
       this.$emit('getOrderList')
+    },
+    showAlert () {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: '回饋單送出',
+        showConfirmButton: false,
+        timer: 1000
+      })
     }
-
   }
 }
 </script>

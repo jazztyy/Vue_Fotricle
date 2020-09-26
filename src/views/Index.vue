@@ -2,9 +2,11 @@
   <div class="keep-footer-bottom">
     <navbar v-if="identity === 'Visitors'"
     @changeIdentity="changeIdentity"
+    class="sticky top-0 z-40"
     />
     <brand-navbar v-if="identity === '餐車'"
     @changeIdentity="changeIdentity"
+    class="sticky top-0 z-40"
     />
     <customer-navbar
     v-if="identity === '顧客'"
@@ -17,21 +19,28 @@
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
+    :userData='userData'
+    class="sticky top-0 z-40"
     />
     <router-view
-    @addShoppingCartProduct='addShoppingCartProduct'
     @getShoppingCartProduct='getShoppingCartProduct'
+    @addShoppingCartProduct='addShoppingCartProduct'
     @delShoppingCartProduct='delShoppingCartProduct'
     @delAllShoppingCartProduct='delAllShoppingCartProduct'
-    @changeIdentity="changeIdentity"
     @editShoppingCartProduct="editShoppingCartProduct"
-    @addMyFollow="addMyFollow"
     @getMyFollow="getMyFollow"
+    @addMyFollow="addMyFollow"
     @delMyFollow="delMyFollow"
     @getOrderList="getOrderList"
     @getMessage='getMessage'
-    @checkMyFollow='checkMyFollow'
     @getBrandList='getBrandList'
+    @getUserData='getUserData'
+    @checkMyFollow='checkMyFollow'
+    @changeIdentity="changeIdentity"
+    @changeLoading='changeLoading'
+    @showAlertAside='showAlertAside'
+    @showAlert='showAlert'
+    :userData='userData'
     :identity='identity'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
@@ -68,6 +77,7 @@ export default {
       shoppingCart: {},
       totalPrice: '',
       QRCode: '',
+      userData: {},
       messageBox: [],
       myFollowBrand: [],
       brandList: {},
@@ -98,15 +108,24 @@ export default {
   },
   watch: {
     identity () {
+      const vm = this
       if (this.identity === '顧客') {
-        this.getOrderList()
-        this.getMyFollow()
-        this.getMessage()
+        this.axios.all(
+          [
+            vm.getOrderList(),
+            vm.getMyFollow(),
+            vm.getMessage(),
+            vm.getUserData()
+          ]).catch(vm.axios.spread((...err) => {
+          console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
+        }))
       }
     }
   },
   methods: {
     addShoppingCartProduct (id, brandId, ProductUnit = 1) {
+      this.isLoading = true
       this.brandId = Number(localStorage.getItem('ShoppingCartId'))
       if (this.brandId === 0) {
         this.brandId = brandId
@@ -123,17 +142,18 @@ export default {
         this.axios
           .post(API, body, config)
           .then((res) => {
-            console.log(res)
-            this.getShoppingCartProduct()
+            this.getShoppingCartProduct('成功添加商品', 'success')
           })
           .catch((err) => {
             console.log(err)
+            this.isLoading = false
+            this.showAlertButton('商品加入購物車失敗，請重新操作', 'error')
           })
       } else {
-        console.log('加入購物車失敗')
+        this.showAlertButton('同筆訂單中只能購買相同餐車的商品', 'error')
       }
     },
-    getShoppingCartProduct () {
+    getShoppingCartProduct (message, status) {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = `http://fotricle.rocket-coding.com/cart/customer/${localStorage.getItem('id')}`
       this.axios
@@ -147,38 +167,47 @@ export default {
             this.totalPrice += productList.ProductList.Amount
           })
           this.shoppingCart = res.data.carts
+          if (message) {
+            this.showAlertAside(message, status)
+            this.isLoading = false
+          }
         })
         .catch((err) => {
           console.log(err)
+          this.showAlertButton('購物車載入失敗，請重新操作', 'error')
         })
     },
     delShoppingCartProduct (id) {
+      this.isLoading = true
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = `http://fotricle.rocket-coding.com/cart/${id}`
       this.axios
         .delete(API, config)
         .then((res) => {
-          console.log(res)
-          this.getShoppingCartProduct()
+          this.getShoppingCartProduct('商品已刪除', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.isLoading = false
+          this.showAlertButton('商品刪除失敗，請重新操作', 'error')
         })
     },
     delAllShoppingCartProduct () {
+      this.isLoading = true
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = 'http://fotricle.rocket-coding.com/cart/ALL'
       this.axios
         .delete(API, config)
         .then((res) => {
-          console.log(res)
-          this.getShoppingCartProduct()
+          this.getShoppingCartProduct('購物車已清空', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.showAlertButton('購物車清空失敗，請重新操作', 'error')
         })
     },
     editShoppingCartProduct (id, number) {
+      this.isLoading = true
       const API = `http://fotricle.rocket-coding.com/cart/Edit?Id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const body = {
@@ -186,8 +215,11 @@ export default {
       }
       this.axios.patch(API, body, config)
         .then(res => {
-          console.log(res)
-          this.getShoppingCartProduct()
+          this.getShoppingCartProduct('產品修改成功', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('產品修改失敗，請重新操作', 'error')
         })
     },
     getIdentity () {
@@ -214,18 +246,24 @@ export default {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.post(API, body, config)
           .then(res => {
-            console.log(res)
-            this.getMyFollow(brandId)
+            this.getMyFollow(brandId, '成功追蹤', 'success')
           })
       }
     },
-    getMyFollow (id) {
+    getMyFollow (id, message, status) {
       const API = 'http://fotricle.rocket-coding.com/customer/myfollow'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.get(API, config)
         .then(res => {
           this.myFollowBrand = res.data.dt
           this.checkMyFollow(id)
+          if (message) {
+            this.showAlertAside(message, status)
+          }
+        })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
         })
     },
     delMyFollow (id) {
@@ -234,7 +272,7 @@ export default {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.delete(API, config)
           .then(res => {
-            this.getMyFollow()
+            this.getMyFollow('', '追蹤已取消', 'success')
           })
       }
     },
@@ -254,6 +292,9 @@ export default {
       this.axios.get(API, config)
         .then(res => {
           this.OrderCofirmList = res.data.today.filter(item => {
+            if (item.LinepayVer === '') {
+              item.LinepayVer = '現金'
+            }
             return item.status === '訂單處理中'
           })
           this.OrderFoundList = res.data.today.filter(item => {
@@ -269,18 +310,55 @@ export default {
             return item.status === '訂單完成'
           })
         })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
+        })
     },
-    getMessage () {
+    getMessage (message, status) {
       const API = 'http://fotricle.rocket-coding.com/notice/customer'
       const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
-      this.axios.get(API, config).then((res) => {
-        console.log(res)
-        this.messageBox = res.data.notice.sort((a, b) => {
-          return new Date(b.InitDate) - new Date(a.InitDate)
+      this.axios.get(API, config)
+        .then((res) => {
+          this.messageBox = res.data.notice.sort((a, b) => {
+            return new Date(b.InitDate) - new Date(a.InitDate)
+          })
+          if (this.messageBox[0] && !message) {
+            this.showAlertButton('您有訊息通知可前往查詢', 'info')
+          }
+          if (message) {
+            this.showAlertAside('訊息已讀', 'success')
+          }
         })
-      })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
+        })
+    },
+    getUserData (message, status) {
+      const API = `http://fotricle.rocket-coding.com/api/customer/${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const Gender = {
+        1: '女',
+        0: '男'
+      }
+      this.axios
+        .get(API, config)
+        .then((res) => {
+          this.userData = res.data.member
+          this.userData.Gender = Gender[this.userData.Gender]
+          if (message) {
+            this.showAlertAside(message, status)
+          }
+          this.changeLoading(false)
+        })
+        .catch((err) => {
+          console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
+          this.changeLoading(false)
+        })
     },
     getBrandList () {
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
@@ -305,6 +383,34 @@ export default {
         .catch(err => {
           console.log(err)
         })
+    },
+    changeLoading (status) {
+      this.isLoading = status
+    },
+    showAlertAside (message, status) {
+      this.$swal({
+        toast: true,
+        position: 'top-end',
+        icon: status,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+      })
+    },
+    showAlert (message, status) {
+      this.$swal({
+        icon: status,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+      })
+    },
+    showAlertButton (message, status) {
+      this.$swal({
+        icon: status,
+        title: message,
+        showConfirmButton: true
+      })
     }
   }
 }
