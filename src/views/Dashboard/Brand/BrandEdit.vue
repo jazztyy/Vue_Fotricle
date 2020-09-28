@@ -4,7 +4,10 @@
             <router-view
             :feedback="feedback"
             :dataAnalysis="dataAnalysis"
+            :sort='sort'
+            :brandData='brandData'
             @changeLoading='changeLoading'
+            @getBrandData='getBrandData'
             ></router-view>
         </div>
 </template>
@@ -14,6 +17,7 @@ import Aside from '../../../components/Brand/Aside'
 
 export default {
   name: 'Edit',
+  props: ['brandData', 'sort'],
   data () {
     return {
       feedback: [],
@@ -42,9 +46,11 @@ export default {
       const API = `http://fotricle.rocket-coding.com/customer/feedback?id=${localStorage.getItem('id')}`
       this.axios.get(API)
         .then(res => {
-          console.log(res)
           this.feedback = res.data.fback
         })
+    },
+    getBrandData () {
+      this.$emit('getBrandData')
     },
     changeLoading (status) {
       this.$emit('changeLoading', status)

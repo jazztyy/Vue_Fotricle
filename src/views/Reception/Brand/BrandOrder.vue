@@ -92,7 +92,9 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          this.BrandProducts = res.data.products
+          this.BrandProducts = res.data.products.filter(product => {
+            return product.IsUse === '是'
+          })
         })
         .catch((err) => {
           console.log(err)

@@ -6,6 +6,7 @@
     />
     <brand-navbar v-if="identity === '餐車'"
     @changeIdentity="changeIdentity"
+    :brandData='brandData'
     class="sticky top-0 z-40"
     />
     <customer-navbar
@@ -40,11 +41,14 @@
     @changeLoading='changeLoading'
     @showAlertAside='showAlertAside'
     @showAlert='showAlert'
+    @getBrandData='getBrandData'
     :userData='userData'
     :identity='identity'
     :messageBox='messageBox'
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
+    :brandData='brandData'
+    :sort='sort'
     :brandId='brandId'
     :myFollowBrand='myFollowBrand'
     :isFollow='isFollow'
@@ -78,6 +82,8 @@ export default {
       totalPrice: '',
       QRCode: '',
       userData: {},
+      brandData: {},
+      sort: '',
       messageBox: [],
       myFollowBrand: [],
       brandList: {},
@@ -120,6 +126,8 @@ export default {
           console.log(err)
           this.showAlertButton('資料載入失敗，請重整頁面', 'error')
         }))
+      } else if (this.identity === '餐車') {
+        this.getBrandData()
       }
     }
   },
@@ -382,6 +390,23 @@ export default {
         })
         .catch(err => {
           console.log(err)
+        })
+    },
+    getBrandData () {
+      this.changeLoading(true)
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
+      this.axios
+        .get(API, config)
+        .then((res) => {
+          this.brandData = res.data.brand
+          this.sort = res.data.sort
+          this.changeLoading(false)
+        })
+        .catch((err) => {
+          console.log(err)
+          this.changeLoading(false)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error')
         })
     },
     changeLoading (status) {

@@ -3,6 +3,9 @@
     <main>
       <router-view
       @changeLoading='changeLoading'
+      @getBrandData='getBrandData'
+      :brandData='brandData'
+      :sort='sort'
       ></router-view>
     </main>
   </div>
@@ -12,6 +15,7 @@
 
 export default {
   name: 'Brand',
+  props: ['brandData', 'sort'],
   data () {
     return {
       token: ''
@@ -26,6 +30,9 @@ export default {
   methods: {
     changeLoading (status) {
       this.$emit('changeLoading', status)
+    },
+    getBrandData () {
+      this.$emit('getBrandData')
     }
   }
 }

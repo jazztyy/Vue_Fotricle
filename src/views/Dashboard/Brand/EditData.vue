@@ -115,14 +115,12 @@ import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'BrandData',
+  props: ['brandData', 'sort'],
   components: {
     Multiselect
   },
-  props: ['token', 'id'],
   data () {
     return {
-      brandData: {},
-      sort: '',
       value: '',
       options: [
         '特色小吃',
@@ -148,26 +146,7 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    getData () {
-      this.changeLoading(true)
-      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
-      this.axios
-        .get(API, config)
-        .then((res) => {
-          this.brandData = res.data.brand
-          this.sort = res.data.sort
-          this.changeLoading(false)
-        })
-        .catch((err) => {
-          console.log(err)
-          this.changeLoading(false)
-        })
-    },
     editBrandData () {
       const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
@@ -177,8 +156,7 @@ export default {
       this.axios
         .patch(API, BrandData, config)
         .then((res) => {
-          console.log(res)
-          this.getData()
+          this.$emit('getBrandData')
         })
         .catch((err) => {
           console.log(err)

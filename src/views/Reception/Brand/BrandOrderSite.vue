@@ -6,11 +6,11 @@
           <li class="flex text-center mb-5 md:mb-0">
             <div class="btn-second w-1/2 px-5 mr-5">
               <p class="text-xl text-black font-medium">目前單號</p>
-              <p class="text-4xl">15</p>
+              <p class="text-4xl">{{ order }}</p>
             </div>
             <div class="btn-second w-1/2 px-5">
               <p class="text-xl text-black font-medium">全部單號</p>
-              <p class="text-4xl">20</p>
+              <p class="text-4xl">{{ totalOrder }}</p>
             </div>
           </li>
           <li class="md:flex">
@@ -77,7 +77,7 @@
             </tbody>
           </table>
           <button class="w-full btn-second py-5 rounded-t-none text-2xl"
-          @click="getBrandOrder()"
+          @click="getBrandOrder(); isSend = true"
           >確認訂單</button>
         </div>
       </section>
@@ -93,11 +93,14 @@ export default {
   data () {
     return {
       SiteOrder: {},
-      totalPrice: 0
+      totalPrice: 0,
+      order: 0,
+      totalOrder: 0
     }
   },
   created () {
     this.getSiteOrder()
+    this.getBrandOrder()
   },
   methods: {
     addSiteOrder (productId) {
@@ -109,7 +112,6 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
           this.getSiteOrder()
         })
     },
@@ -130,7 +132,6 @@ export default {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios.delete(API, config)
         .then(res => {
-          console.log(res)
           this.getSiteOrder()
         })
     },
@@ -142,7 +143,6 @@ export default {
       }
       this.axios.patch(API, body, config)
         .then(res => {
-          console.log(res)
           this.getSiteOrder()
         })
     },
@@ -155,11 +155,8 @@ export default {
         Amount: this.totalPrice,
         Site: 1
       }
-      console.log(API, config)
-      console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
           this.getSiteOrder()
           this.getBrandOrderList()
         })
@@ -168,11 +165,16 @@ export default {
       const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${localStorage.getItem('id')}`
       this.axios.get(API)
         .then(res => {
-          console.log(res)
-          if (res.data.today.length === 0) {
-            this.sendSiteOrder()
-          } else {
-            this.sendSiteOrder(res.data.today.splice(-1)[0].MealNumber + 1)
+          this.totalOrder = res.data.today.splice(-1)[0].MealNumber
+          this.order = res.data.today.filter(order => {
+            return order.State === '訂單成立'
+          }).splice(-1)[0].MealNumber
+          if (this.totalPrice) {
+            if (res.data.today.length === 0) {
+              this.sendSiteOrder()
+            } else {
+              this.sendSiteOrder(res.data.today.splice(-1)[0].MealNumber + 1)
+            }
           }
         })
     },

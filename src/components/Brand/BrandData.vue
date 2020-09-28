@@ -101,14 +101,10 @@ export default {
       id: ''
     }
   },
-  created () {
-    this.token = localStorage.getItem('token')
-    this.id = localStorage.getItem('id')
-  },
   methods: {
     editBrandData () {
-      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${this.id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const BrandData = this.data
       this.axios.patch(API, BrandData, config
       ).then(res => {

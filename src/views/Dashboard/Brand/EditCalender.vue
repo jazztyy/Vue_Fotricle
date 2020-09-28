@@ -10,8 +10,8 @@
             <div
               class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
             >
-              <p class="w-3/5 text-left">{{  weekDay[new Date(day.OpenDate).getDay()] }}</p>
-              <p class="w-2/5 text-center">{{ new Date(day.OpenDate).getMonth() + 1 +'/'+ new Date(day.OpenDate).getDate() }}</p>
+            <p class="w-2/5 text-center">{{ new Date(day.OpenDate).getMonth() + 1 +'/'+ new Date(day.OpenDate).getDate() }}</p>
+              <p class="w-3/5 text-right text-xl">{{  weekDay[new Date(day.OpenDate).getDay()] }}</p>
             </div>
             <div class="px-2 text-xl">
               <select

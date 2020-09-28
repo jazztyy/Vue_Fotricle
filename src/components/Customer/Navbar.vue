@@ -77,11 +77,6 @@
               </ul>
             </div>
           </div>
-          <!-- <div
-                v-show="dropdownOpen"
-                class="absolute inset-0 h-full w-full z-10"
-              >
-          </div>-->
         </li>
         <li class="fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
           <router-link class="w-full block" to="/Customer/MessageBox">
