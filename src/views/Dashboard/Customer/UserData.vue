@@ -1,6 +1,6 @@
 <template>
-    <section class="lg:w-1/2 mx-5 bg-secondcolor-400 rounded-lg shadow-lg">
-      <header class="bg-maincolor-400 text-thirdcolor-400 rounded-t-lg">
+    <section class="lg:w-1/2 mx-5 bg-thirdcolor-400 rounded-lg shadow-lg">
+      <header class="bg-maincolor-200 text-thirdcolor-400 rounded-t-lg">
         <p class="text-center text-4xl">個人資料</p>
       </header>
       <main class="p-5 flex flex-col justify-center xs:flex-row" v-if="userData.Id">
@@ -16,7 +16,7 @@
           <li>
             <label class="mb-3" for="name">名稱</label>
             <input
-              class="w-full rounded-lg bg-thirdcolor-400 focus:outline-none indent mb-3"
+              class="w-full rounded-lg focus:outline-none indent mb-3"
               id="name"
               type="text"
               value
@@ -27,7 +27,7 @@
           <li>
             <label class="mb-3" for="tel">電話</label>
             <input
-              class="w-full rounded-lg bg-thirdcolor-400 focus:outline-none indent mb-3"
+              class="w-full rounded-lg focus:outline-none indent mb-3"
               id="tel"
               type="text"
               value
@@ -38,7 +38,7 @@
           <li>
             <label class="mb-3" for="gender">性別</label>
             <select
-              class="w-full rounded-lg bg-thirdcolor-400 indent mb-3 focus:outline-none"
+              class="w-full rounded-lg indent mb-3 focus:outline-none"
               name="gender"
               id="gender"
               v-model="userData.Gender"
@@ -52,7 +52,7 @@
           <li>
             <label class="mb-3" for="age">年齡</label>
             <select
-              class="w-full rounded-lg bg-thirdcolor-400 indent mb-3 focus:outline-none"
+              class="w-full rounded-lg indent mb-3 focus:outline-none"
               name="age"
               id="age"
               v-model="userData.Age"

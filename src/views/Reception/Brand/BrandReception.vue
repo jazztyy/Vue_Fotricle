@@ -7,7 +7,7 @@
     :key="orderList.OrderID"
     >
       <div class="bg-gray-500 rounded-lg text-center">
-        <p class="bg-maincolor-400 rounded-t-lg text-3xl text-thirdcolor-400">菜單單號：{{ orderList.OrderNumber }}</p>
+        <p class="bg-maincolor-200 rounded-t-lg text-3xl text-thirdcolor-400">菜單單號：{{ orderList.OrderNumber }}</p>
         <ul class="flex flex-wrap p-2 text-2xl">
           <li v-for="(order, i) of orderList.OrderDetails" :key="i" class="w-1/2">{{ order.ProductName }} * {{ order.ProductUnit }}</li>
         </ul>

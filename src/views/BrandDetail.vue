@@ -90,7 +90,7 @@
         <div class="xl:shadow-lg">
           <ul class="flex flex-wrap text-3xl text-center px-3 xl:px-0">
             <li class="shadow-lg w-1/2 md:w-1/4 xl:flex-1" v-for="day of calender" :key="day.Id">
-              <p class="bg-maincolor-400 text-thirdcolor-400">{{ day.Date[2] }}</p>
+              <p class="bg-maincolor-200 text-thirdcolor-400">{{ day.Date[2] }}</p>
               <div class="py-5 text-2xl">
                 <p v-if="day.Status === '未營業'">公休</p>
                 <p

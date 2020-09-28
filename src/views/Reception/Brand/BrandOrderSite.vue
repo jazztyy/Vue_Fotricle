@@ -40,7 +40,7 @@
         <h3 class="container mx-auto text-center text-4xl bg-gray-500 rounded-t-lg py-2">訂單明細</h3>
         <div class="container mx-auto max-h-1/5 overflow-y-auto relative">
           <table class="w-full bg-gray-500 sticky top-0">
-            <thead class="bg-maincolor-400 text-thirdcolor-400">
+            <thead class="bg-maincolor-200 text-thirdcolor-400">
               <tr>
                 <th class="p-3 text-2xl font-bold uppercase lg:table-cell">產品名稱</th>
                 <th class="p-3 text-2xl font-bold uppercase lg:table-cell">金額</th>
@@ -66,7 +66,7 @@
                   </div>
                 </td>
                 <td class="w-auto p-3 border-b text-center table-cell">
-                  <button class="rounded-lg text-thirdcolor-400 bg-maincolor-400 py-3 px-5 mr-3"
+                  <button class="rounded-lg text-thirdcolor-400 bg-maincolor-200 py-3 px-5 mr-3"
                   @click="editSiteOrder(product.Id, product.ProductList.ProductUnit)"
                   >修改</button>
                   <button class="rounded-lg text-thirdcolor-400 bg-red-600 py-3 px-5"

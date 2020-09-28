@@ -2,7 +2,7 @@
   <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg">
     <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
       <table class="w-full mb-5 rounded-t-lg">
-        <thead class="bg-maincolor-400 text-thirdcolor-400">
+        <thead class="bg-maincolor-200 text-thirdcolor-400">
           <tr>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">日期</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單總量</th>
@@ -21,7 +21,7 @@
               class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >日期</span>
               {{ data.Ordertime }}
             </td>
@@ -29,7 +29,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單總量</span>
               {{ data.count }}
             </td>
@@ -37,7 +37,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >營業時間</span>
               {{ data.workhour }} 小時
             </td>
@@ -45,7 +45,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >營業額</span>
               {{ data.total }}
             </td>

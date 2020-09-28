@@ -10,7 +10,7 @@
     </ul>
     <div class="bg-thirdcolor-400 rounded-lg flex flex-col shadow-lg mb-5">
       <table class="w-full mb-5 rounded-t-lg">
-        <thead class="bg-maincolor-400 text-thirdcolor-400">
+        <thead class="bg-maincolor-200 text-thirdcolor-400">
           <tr>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">金額</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">驗證碼</th>
@@ -28,7 +28,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >金額</span>
               {{ order.Total }}
             </td>
@@ -36,7 +36,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >驗證碼</span>
               {{ order.LinepayVer }}
             </td>
@@ -44,7 +44,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單內容</span>
               <span
                 class="pr-3"

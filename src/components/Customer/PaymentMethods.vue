@@ -23,12 +23,12 @@
         <input class="w-2/3 mb-3" v-model="LinePay" @input="input" maxlength="5" type="text" placeholder="輸入五碼驗證碼">
     </div>
     <button
-      class="block w-1/4 mx-auto py-2 bg-maincolor-400 rounded-lg text-thirdcolor-400 mb-3"
+      class="block w-1/4 mx-auto py-2 bg-maincolor-200 rounded-lg text-thirdcolor-400 mb-3"
     v-show="isCash"
     @click="getBrandOrder"
     >送出訂單</button>
     <button
-      class="block w-1/4 mx-auto py-2 bg-maincolor-400 rounded-lg text-thirdcolor-400 mb-3"
+      class="block w-1/4 mx-auto py-2 bg-maincolor-200 rounded-lg text-thirdcolor-400 mb-3"
     v-show="!isCash"
     :disabled="!access"
     @click="getBrandOrder"

@@ -1,7 +1,7 @@
 <template>
   <section class="max-w-screen-lg lg:w-2/3 mx-5 rounded-lg shadow-lg bg-thirdcolor-400">
     <header
-      class="text-3xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
+      class="text-3xl text-center bg-maincolor-200 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >餐車資料</header>
     <div class="p-5 text-xl"
     >
@@ -106,7 +106,7 @@
         </li>
       </ul>
     </div>
-    <button class="w-full md:w-1/5 block mx-auto rounded-t-none md:rounded-lg bg-maincolor-400 text-thirdcolor-400 py-3 text-2xl md:mb-4 " @click.prevent="editBrandData">送出資料</button>
+    <button class="w-full md:w-1/5 block mx-auto rounded-t-none md:rounded-lg bg-maincolor-200 text-thirdcolor-400 py-3 text-2xl md:mb-4 " @click.prevent="editBrandData">送出資料</button>
   </section>
 </template>
 

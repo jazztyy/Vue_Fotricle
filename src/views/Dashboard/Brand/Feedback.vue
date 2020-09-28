@@ -2,7 +2,7 @@
   <section class="lg:w-3/4 mx-5 rounded-lg shadow-lg">
     <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
       <table class="w-full mb-5 rounded-t-lg">
-        <thead class="bg-maincolor-400 text-thirdcolor-400">
+        <thead class="bg-maincolor-200 text-thirdcolor-400">
           <tr>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg"></th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">顧客名稱</th>
@@ -28,7 +28,7 @@
               class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static "
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY block bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY block bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >顧客名稱</span>
                 {{ person.UserName }}
             </td>
@@ -36,7 +36,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >日期</span>
               {{ person.Date }}
             </td>
@@ -44,7 +44,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >餐點分數</span>
               {{ person.Food }}
             </td>
@@ -52,7 +52,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >服務分數</span>
               {{ person.Service }}
             </td>
@@ -60,7 +60,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >整體分數</span>
               {{ person.AllSuggest }}
             </td>
@@ -68,7 +68,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >評價</span>
               {{ person.CarSuggest }}
             </td>

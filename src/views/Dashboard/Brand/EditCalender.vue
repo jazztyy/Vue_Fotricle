@@ -1,12 +1,12 @@
 <template>
   <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg bg-thirdcolor-400">
     <header
-      class="text-4xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
+      class="text-4xl text-center bg-maincolor-200 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >行事曆編輯</header>
     <main class="container mx-auto px-5">
       <ul class="flex flex-wrap justify-center lg:justify-start">
         <li class="w-full md:w-4/5 lg:w-1/2 xl:w-1/4 px-2 pb-5" v-for="day of date" :key="day.Id">
-          <div class="bg-maincolor-400 rounded-lg px-3 pb-3">
+          <div class="bg-maincolor-200 rounded-lg px-3 pb-3">
             <div
               class="text-thirdcolor-400 flex items-center text-3xl md:text-4xl lg:text-3xl py-3 px-2"
             >

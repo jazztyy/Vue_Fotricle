@@ -3,7 +3,7 @@
     <i class="text-thirdcolor-400 text-3xl absolute fas fa-times p-3 right-0 cursor-pointer"
     @click="closeModal"></i>
     <header
-      class="text-2xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
+      class="text-2xl text-center bg-maincolor-200 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >產品資料</header>
     <form class="rounded-b-lg flex flex-col px-5" action>
       <div class="mb-3 flex flex-col items-center">
@@ -18,7 +18,7 @@
             v-model="product.ProductPhoto"
           />
           <input id="fileUploading" class="hidden" @change="uploadFile" type="file">
-          <label for="fileUploading" class="ml-4 px-3 bg-maincolor-400 text-thirdcolor-400 rounded-lg flex items-center justify-center"> 選擇上傳圖片 </label>
+          <label for="fileUploading" class="ml-4 px-3 bg-maincolor-200 text-thirdcolor-400 rounded-lg flex items-center justify-center"> 選擇上傳圖片 </label>
         </div>
       </div>
       <div>

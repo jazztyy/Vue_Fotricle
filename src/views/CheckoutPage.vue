@@ -49,7 +49,7 @@
             @click="delAllShoppingCartProduct"
           >刪除全品項</button>
           <button
-            class="text-lg bg-maincolor-400 hover:bg-maincolor-600 px-2 rounded-lg focus:outline-none"
+            class="text-lg bg-maincolor-200 hover:bg-maincolor-600 px-2 rounded-lg focus:outline-none"
             @click="isShow = true"
           >確認訂單</button>
           <payment-methods

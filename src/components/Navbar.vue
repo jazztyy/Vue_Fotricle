@@ -1,5 +1,5 @@
 <template>
-     <header class="bg-maincolor-400">
+     <header class="bg-maincolor-200">
         <nav class="px-5 flex items-center">
             <ul class="nav md:justify-around text-xl">
                 <li class="nav-btn hidden md:block">
