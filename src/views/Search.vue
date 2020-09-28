@@ -579,9 +579,9 @@ export default {
                 brand.isFollow = true
               }
             })
-            // if (today > new Date(this.today + ' ' + brand.opentime[0].SDateTime) && today < new Date(this.today + ' ' + brand.opentime[0].EDateTimeDate)) {
-            //   brand.status = '營業中'
-            // }
+            if (today > new Date(this.today + ' ' + brand.opentime[0].SDateTime) && today < new Date(this.today + ' ' + brand.opentime[0].EDateTimeDate)) {
+              brand.status = '營業中'
+            }
           })
           console.log(123)
           this.filterBrandList = JSON.parse(JSON.stringify(this.brandList))

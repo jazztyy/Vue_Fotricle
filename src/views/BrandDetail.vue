@@ -210,12 +210,13 @@ export default {
       const API = `http://fotricle.rocket-coding.com/customer/feedback?Id=${id}`
       this.axios.get(API).then((res) => {
         console.log(res)
-        this.feedback = res.data.feedback
+        console.log(res)
+        this.feedback = res.data.fback
         this.allRating = 0
-        res.data.feedback.forEach((feedback) => {
+        res.data.fback.forEach((feedback) => {
           this.allRating += feedback.AllSuggest
         })
-        this.allRating = this.allRating / res.data.feedback.length
+        this.allRating = this.allRating / res.data.fback.length
       })
     },
     addShoppingCartProduct (id, brandId) {

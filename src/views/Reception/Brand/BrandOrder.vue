@@ -1,19 +1,27 @@
 <template>
-      <router-view
-      :OrderCofirmList='OrderCofirmList'
-      :OrderFoundList='OrderFoundList'
-      :OrderFoodCompleted='OrderFoodCompleted'
-      :BrandProducts='BrandProducts'
-      @changeOrderPhase='changeOrderPhase'
-      @getBrandOrderList='getBrandOrderList'
-      >
-      </router-view>
+      <div class="flex flex-col lg:flex-row lg:items-start py-10">
+        <order-aside
+        />
+        <router-view
+        :OrderCofirmList='OrderCofirmList'
+        :OrderFoundList='OrderFoundList'
+        :OrderFoodCompleted='OrderFoodCompleted'
+        :BrandProducts='BrandProducts'
+        @changeOrderPhase='changeOrderPhase'
+        @getBrandOrderList='getBrandOrderList'
+        >
+        </router-view>
+      </div>
 </template>
 
 <script>
+import OrderAside from '../../../components/Brand/OrderAside'
 
 export default {
   name: 'BrandOrder',
+  components: {
+    OrderAside
+  },
   data () {
     return {
       OrderCofirmList: {},
@@ -47,17 +55,20 @@ export default {
           console.log(err)
         })
     },
-    changeOrderPhase (phase, orderId, message) {
+    changeOrderPhase (phase, orderId, message, status) {
       const API = 'http://fotricle.rocket-coding.com/update/orderstatus'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       let body = {}
+
       switch (phase) {
         case 'Comfirm':
           body = {
             OrderId: orderId,
             Status: 1
           }
-          this.addMessage(orderId, 1, '您的訂單已成立，可至訂單明細查看詳細資訊')
+          if (message !== '現場' && status !== '現場') {
+            this.addMessage(orderId, 1, '您的訂單已成立，可至訂單明細查看詳細資訊')
+          }
           break
         case 'Fail':
           body = {
@@ -65,21 +76,27 @@ export default {
             Status: 2,
             Remark2: `${message}`
           }
-          this.addMessage(orderId, 2, `您的餐點由於 ${message} 因此被取消。`)
+          if (message !== '現場' && status !== '現場') {
+            this.addMessage(orderId, 2, `您的餐點由於 ${message} 因此被取消。`)
+          }
           break
         case 'Finished':
           body = {
             OrderId: orderId,
             Status: 4
           }
-          this.addMessage(orderId, 4, '您的訂單已完成，可至訂單明細填寫回饋單')
+          if (message !== '現場' && status !== '現場') {
+            this.addMessage(orderId, 4, '您的訂單已完成，可至訂單明細填寫回饋單')
+          }
           break
         case 'FoodCompleted':
           body = {
             OrderId: orderId,
             Status: 3
           }
-          this.addMessage(orderId, 3, '您的餐點已完成，可前往取餐')
+          if (message !== '現場' && status !== '現場') {
+            this.addMessage(orderId, 3, '您的餐點已完成，可前往取餐')
+          }
           break
       }
       this.axios.patch(API, body, config)

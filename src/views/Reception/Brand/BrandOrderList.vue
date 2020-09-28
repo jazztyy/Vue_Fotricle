@@ -1,19 +1,5 @@
 <template>
-  <section class="lg:w-11/12 mx-auto rounded-lg mb-5">
-    <ul class="flex justify-between py-5">
-      <li>
-        <router-link
-          class="block btn-second mb-5 md:mr-5 md:mb-0 p-5 text-3xl"
-          to="/Brand/Order/Site"
-        >點餐系統</router-link>
-      </li>
-      <li>
-        <router-link
-          class="block btn-second mb-5 md:mr-5 md:mb-0 p-5 text-3xl"
-          to="/Brand/Order/Online"
-        >網站訂單</router-link>
-      </li>
-    </ul>
+  <section class="lg:w-11/12 mx-auto rounded-lg mb-5 mr-5">
     <div class="bg-thirdcolor-400 rounded-lg flex flex-col shadow-lg">
       <table class="w-full mb-5 rounded-t-lg">
         <thead class="bg-maincolor-200 text-thirdcolor-400">
@@ -107,7 +93,7 @@ export default {
   props: ['OrderFoodCompleted'],
   methods: {
     changeOrderPhase (phase, orderId, customerId) {
-      this.$emit('changeOrderPhase', phase, orderId, customerId)
+      this.$emit('changeOrderPhase', phase, orderId, customerId, '現場')
     }
   }
 }
