@@ -94,6 +94,7 @@
         <button
           class="w-full btn-second py-5 rounded-t-none text-2xl"
           @click="getBrandOrder(); isShow = false; isCheck = false"
+          v-if="SiteOrder[0]"
         >確認訂單</button>
       </div>
     </section>
@@ -121,6 +122,7 @@ export default {
   },
   methods: {
     addSiteOrder (productId) {
+      this.$emit('changeLoading', true)
       const API = 'http://fotricle.rocket-coding.com/BrandCart/add'
       const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -130,34 +132,56 @@ export default {
         ProductUnit: 1
       }
       this.axios.post(API, body, config).then((res) => {
-        this.getSiteOrder()
+        this.getSiteOrder('成功添加', 'success')
       })
     },
-    getSiteOrder () {
+    getSiteOrder (message, status) {
       const API = `http://fotricle.rocket-coding.com/BrandCart/customer/${localStorage.getItem(
         'id'
       )}`
       const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
-      this.axios.get(API, config).then((res) => {
-        this.totalPrice = 0
-        this.SiteOrder = res.data.carts
-        res.data.carts.forEach((product) => {
-          this.totalPrice += product.ProductList.Amount
+      this.axios.get(API, config)
+        .then((res) => {
+          this.totalPrice = 0
+          this.SiteOrder = res.data.carts
+          if (this.SiteOrder.length === 0) {
+            this.isShow = false
+            this.isCheck = false
+          }
+          res.data.carts.forEach((product) => {
+            this.totalPrice += product.ProductList.Amount
+          })
+          this.$emit('changeLoading', false)
+          if (message) {
+            this.$emit('showAlertAside', message, status)
+          }
         })
-      })
+        .catch(err => {
+          console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '資料載入錯誤，請重新載入', 'error', 'reload')
+        })
     },
     delSiteOrder (id) {
+      this.$emit('changeLoading', true)
       const API = `http://fotricle.rocket-coding.com/BrandCart/${id}`
       const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }
-      this.axios.delete(API, config).then((res) => {
-        this.getSiteOrder()
-      })
+      this.axios.delete(API, config)
+        .then((res) => {
+          this.getSiteOrder('商品刪除成功', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '產品刪除失敗，請重新操作', 'error')
+        })
     },
     editSiteOrder (id, unit) {
+      this.$emit('changeLoading', true)
       const API = `http://fotricle.rocket-coding.com/BrandCart/Edit?Id=${id}`
       const config = {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
@@ -165,9 +189,16 @@ export default {
       const body = {
         ProductUnit: unit
       }
-      this.axios.patch(API, body, config).then((res) => {
-        this.getSiteOrder()
-      })
+      this.axios.patch(API, body, config)
+        .then((res) => {
+          this.$emit('changeLoading', false)
+          this.getSiteOrder('產品編輯成功', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '產品編輯失敗，請重新操作', 'error')
+        })
     },
     sendSiteOrder (mealNumber = 1) {
       const API = 'http://fotricle.rocket-coding.com/BrandOrder/add'
@@ -180,12 +211,14 @@ export default {
         Amount: this.totalPrice,
         Site: 1
       }
-      this.axios.post(API, body, config).then((res) => {
-        this.getSiteOrder()
-        this.getBrandOrderList()
-      })
+      this.axios.post(API, body, config)
+        .then((res) => {
+          this.getBrandOrderList()
+          this.getSiteOrder('訂單成功送出', 'success')
+        })
     },
     getBrandOrder () {
+      this.$emit('changeLoading', true)
       const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${localStorage.getItem(
         'id'
       )}`
@@ -196,12 +229,12 @@ export default {
           )[0].MealNumber
           if (
             JSON.parse(JSON.stringify(res.data.today)).filter((order) => {
-              return order.State === '訂單完成' || '訂單餐點完成'
+              return order.State === '訂單完成' || order.State === '訂單餐點完成'
             })
           ) {
             this.order = JSON.parse(JSON.stringify(res.data.today))
               .filter((order) => {
-                return order.State === '訂單完成' || '訂單餐點完成'
+                return order.State === '訂單完成' || order.State === '訂單餐點完成'
               })
               .splice(-1)[0].MealNumber
           }

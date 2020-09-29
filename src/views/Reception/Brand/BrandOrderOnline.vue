@@ -99,8 +99,8 @@ export default {
   },
   created () {},
   methods: {
-    changeOrderPhase (phase, orderId) {
-      this.$emit('changeOrderPhase', phase, orderId)
+    changeOrderPhase (phase, orderId, message) {
+      this.$emit('changeOrderPhase', phase, orderId, message)
     }
   }
 }

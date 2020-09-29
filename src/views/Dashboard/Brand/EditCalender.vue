@@ -115,7 +115,7 @@ export default {
         })
       }
     },
-    getCalender () {
+    getCalender (message, status) {
       this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${localStorage.getItem('id')}`
       this.axios
@@ -133,10 +133,12 @@ export default {
             this.getWeekDay()
             this.checkWeekDay()
             this.changeLoading(false)
+            this.$emit('showAlertAside', message, status)
           }
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '行事曆載入失敗，請重新載入', 'erroe', 'reload')
         })
     },
     editCalender (day, id, weekday) {
@@ -160,10 +162,11 @@ export default {
       this.axios
         .patch(API, body, config)
         .then((res) => {
-          this.getCalender()
+          this.getCalender('行事曆編輯成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '行事曆修改失敗，請重新操作', 'erroe')
         })
     },
     resetCalender (date, id) {
@@ -179,14 +182,14 @@ export default {
         EDateTimeDate: `${date.opdate} 00:00`,
         Location: ''
       }
-      console.log(body)
       this.axios
         .patch(API, body, config)
         .then((res) => {
-          this.getCalender()
+          this.getCalender('行事曆重置成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.resetCalender(date, id)
         })
     },
     addCalender (date) {

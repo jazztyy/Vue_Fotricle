@@ -98,12 +98,17 @@
             </tr>
           </tbody>
         </table>
-        <button class="btn-main rounded-t-none text-2xl px-5 py-2" @click="isShow = true">新增產品</button>
+        <button class="btn-main rounded-t-none text-2xl px-5 py-2" @click="isShow = true; isNew = true">新增產品</button>
       </div>
     </section>
     <Product
       @closeModal="closeModal"
       @init='init'
+      @showAlertAside="showAlertAside"
+      @showAlert="showAlert"
+      @showAlertButton="showAlertButton"
+      @changeLoading='changeLoading'
+      :isNew='isNew'
       class="fixed top-half left-half trans-center z-50"
       v-show="isShow"
       ref="product"
@@ -121,6 +126,7 @@ export default {
     return {
       check: false,
       isShow: false,
+      isNew: true,
       products: [],
       status: {
         是: true,
@@ -147,7 +153,7 @@ export default {
     closeModal () {
       this.isShow = false
     },
-    init () {
+    init (message, status) {
       this.changeLoading(true)
       const API = `http://fotricle.rocket-coding.com/ProductLists/Gets?Id=${localStorage.getItem('id')}`
       this.axios
@@ -161,6 +167,9 @@ export default {
             return products.IsUse !== '刪除'
           })
           this.changeLoading(false)
+          if (message) {
+            this.$emit('showAlertAside', message, status)
+          }
         })
         .catch((err) => {
           console.log(err)
@@ -180,19 +189,19 @@ export default {
       const body = {
         IsUse: changeStr[status]
       }
-      console.log(body)
       this.axios
         .patch(API, body, config)
         .then((res) => {
-          console.log(res)
-          this.init()
+          this.init('產品修改成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '資料修改失敗，請重新送出', 'error')
         })
     },
     openModal (product) {
       this.isShow = true
+      this.isNew = false
       this.$refs.product.openModal(product)
     },
     uploadFile () {
@@ -219,6 +228,15 @@ export default {
     },
     changeLoading (status) {
       this.$emit('changeLoading', status)
+    },
+    showAlertAside (message, status) {
+      this.$emit('showAlertAside', message, status)
+    },
+    showAlert (message, status) {
+      this.$emit('showAlert', message, status)
+    },
+    showAlertButton (message, status, reload) {
+      this.$emit('showAlertButton', message, status, reload)
     }
   },
   components: {

@@ -152,17 +152,18 @@ export default {
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const BrandData = this.brandData
       BrandData.Sort = this.changeOptions[this.sort]
-      console.log(BrandData)
       this.axios
         .patch(API, BrandData, config)
         .then((res) => {
-          this.$emit('getBrandData')
+          this.$emit('getBrandData', '資料修改成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '資料編輯失敗，請重新編輯', 'error')
         })
     },
     uploadFile (photoType) {
+      this.$emit('changeLoading', true)
       const file = document.querySelector(`#${photoType}`).files[0]
       const formData = new FormData()
       const API = 'http://fotricle.rocket-coding.com/BrandPhoto/upload'
@@ -188,13 +189,14 @@ export default {
               this.brandData.LogoPhoto = res.data.imageUrl
               break
           }
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertAside', '圖片上傳成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '圖片上傳失敗，請重新上傳', 'error')
         })
-    },
-    changeLoading (status) {
-      this.$emit('changeLoading', status)
     }
   }
 }
