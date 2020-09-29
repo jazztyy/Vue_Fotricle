@@ -35,7 +35,6 @@
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">營業地址</span>
                                 {{ brand.Location }}
-                                <button v-if="brand.Location" class="btn-main ml-5 px-5 py-2">導航</button>
                             </td>
                         </tr>
                     </tbody>

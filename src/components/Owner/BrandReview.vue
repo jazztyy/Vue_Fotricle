@@ -56,11 +56,9 @@ export default {
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
       this.axios.get(API)
         .then(res => {
-          console.log(res.data)
           this.brand = res.data.filter(brand => {
             return brand.Verification === 0
           })
-          console.log(this.brand)
         })
         .catch(err => {
           console.log(err)
@@ -75,7 +73,6 @@ export default {
       }
       this.axios.patch(API, data)
         .then(res => {
-          console.log(res.data)
           this.init()
         })
         .catch(err => {
@@ -86,7 +83,6 @@ export default {
       const API = `http://fotricle.rocket-coding.com/Api/Brands/${id}`
       this.axios.delete(API)
         .then(res => {
-          console.log(res.data)
           this.init()
         })
         .catch(err => {
@@ -95,7 +91,6 @@ export default {
     }
   },
   created () {
-    console.log(123)
     this.init()
   }
 }

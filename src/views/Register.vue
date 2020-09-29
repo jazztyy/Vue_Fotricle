@@ -70,7 +70,6 @@ export default {
         password: this.password,
         FbAccount: this.fanspage
       }
-      console.log(user)
       if (this.isCustomer) {
         this.axios.post(CustomerApi, user)
           .then(res => {
