@@ -4,7 +4,7 @@
 @tailwind components;
 
 .btn-main {
-    @apply bg-maincolor-400;
+    @apply bg-maincolor-200;
     @apply text-thirdcolor-400;
     @apply text-center;
     @apply rounded-lg;

@@ -1,7 +1,7 @@
 <template>
   <section class="max-w-screen-lg lg:w-2/3 mx-5 rounded-lg shadow-lg bg-thirdcolor-400">
     <header
-      class="text-3xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
+      class="text-3xl text-center bg-maincolor-200 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >餐車資料</header>
     <div class="p-5 text-xl"
     >
@@ -106,7 +106,7 @@
         </li>
       </ul>
     </div>
-    <button class="w-full md:w-1/5 block mx-auto rounded-t-none md:rounded-lg bg-maincolor-400 text-thirdcolor-400 py-3 text-2xl md:mb-4 " @click.prevent="editBrandData">送出資料</button>
+    <button class="w-full md:w-1/5 block mx-auto rounded-t-none md:rounded-lg bg-maincolor-200 text-thirdcolor-400 py-3 text-2xl md:mb-4 " @click.prevent="editBrandData">送出資料</button>
   </section>
 </template>
 
@@ -115,14 +115,12 @@ import Multiselect from 'vue-multiselect'
 
 export default {
   name: 'BrandData',
+  props: ['brandData', 'sort'],
   components: {
     Multiselect
   },
-  props: ['token', 'id'],
   data () {
     return {
-      brandData: {},
-      sort: '',
       value: '',
       options: [
         '特色小吃',
@@ -148,26 +146,7 @@ export default {
       }
     }
   },
-  created () {
-    this.getData()
-  },
   methods: {
-    getData () {
-      this.changeLoading(true)
-      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
-      const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
-      this.axios
-        .get(API, config)
-        .then((res) => {
-          this.brandData = res.data.brand
-          this.sort = res.data.sort
-          this.changeLoading(false)
-        })
-        .catch((err) => {
-          console.log(err)
-          this.changeLoading(false)
-        })
-    },
     editBrandData () {
       const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
@@ -177,8 +156,7 @@ export default {
       this.axios
         .patch(API, BrandData, config)
         .then((res) => {
-          console.log(res)
-          this.getData()
+          this.$emit('getBrandData')
         })
         .catch((err) => {
           console.log(err)

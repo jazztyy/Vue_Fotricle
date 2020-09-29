@@ -3,7 +3,7 @@
     <div class="bg-thirdcolor-400 rounded-lg">
       <table class="w-full">
         <thead class="text-thirdcolor-400 rounded-t-lg">
-          <tr class="bg-maincolor-400">
+          <tr class="bg-maincolor-200">
             <th class="p-3 text-2xl font-bold uppercase rounded-tl-lg hidden lg:table-cell">發送時間</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">餐車名稱</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單編號</th>
@@ -20,7 +20,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >發送時間</span>
               {{
                   new Date(message.InitDate).getMonth() + '/' +
@@ -33,7 +33,7 @@
               class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >餐車名稱</span>
               {{ message.BrandName }}
             </td>
@@ -41,7 +41,7 @@
               class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單編號</span>
               {{ message.OrderId }}
             </td>
@@ -49,7 +49,7 @@
               class="w-full lg:w-auto p-3 border-b text-center border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訊息內容</span>
               {{ message.Remarks }}
             </td>

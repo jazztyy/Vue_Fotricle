@@ -90,7 +90,7 @@
         <div class="xl:shadow-lg">
           <ul class="flex flex-wrap text-3xl text-center px-3 xl:px-0">
             <li class="shadow-lg w-1/2 md:w-1/4 xl:flex-1" v-for="day of calender" :key="day.Id">
-              <p class="bg-maincolor-400 text-thirdcolor-400">{{ day.Date[2] }}</p>
+              <p class="bg-maincolor-200 text-thirdcolor-400">{{ day.Date[2] }}</p>
               <div class="py-5 text-2xl">
                 <p v-if="day.Status === '未營業'">公休</p>
                 <p
@@ -187,6 +187,10 @@ export default {
             .splice(-1)[0].MealNumber
         }
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     getBrandCalender (id, today) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${id}`
@@ -205,18 +209,25 @@ export default {
           }
         })
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     getBrandFeedback (id) {
       const API = `http://fotricle.rocket-coding.com/customer/feedback?Id=${id}`
       this.axios.get(API).then((res) => {
-        console.log(res)
-        this.feedback = res.data.feedback
+        this.feedback = res.data.fback
         this.allRating = 0
-        res.data.feedback.forEach((feedback) => {
+        res.data.fback.forEach((feedback) => {
           this.allRating += feedback.AllSuggest
         })
-        this.allRating = this.allRating / res.data.feedback.length
+        this.allRating = this.allRating / res.data.fback.length
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     addShoppingCartProduct (id, brandId) {
       if (this.identity !== '顧客') {

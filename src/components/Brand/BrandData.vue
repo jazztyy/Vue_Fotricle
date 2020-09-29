@@ -1,7 +1,7 @@
 <template>
   <section class="lg:w-2/3 mx-5 rounded-lg shadow-lg bg-secondcolor-400">
     <header
-      class="text-3xl text-center bg-maincolor-400 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
+      class="text-3xl text-center bg-maincolor-200 text-thirdcolor-400 rounded-t-lg py-3 mb-3"
     >餐車資料
     <i class="text-thirdcolor-400 text-3xl absolute fas fa-times p-3 right-0 cursor-pointer"
     @click="closeModal"></i>
@@ -101,14 +101,10 @@ export default {
       id: ''
     }
   },
-  created () {
-    this.token = localStorage.getItem('token')
-    this.id = localStorage.getItem('id')
-  },
   methods: {
     editBrandData () {
-      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${this.id}`
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      const API = `http://fotricle.rocket-coding.com/Brand/Edit?Id=${localStorage.getItem('id')}`
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const BrandData = this.data
       this.axios.patch(API, BrandData, config
       ).then(res => {

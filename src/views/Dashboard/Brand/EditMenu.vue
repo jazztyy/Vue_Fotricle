@@ -3,7 +3,7 @@
     <section class="mx-5 rounded-lg shadow-lg">
       <div class="bg-thirdcolor-400 rounded-lg flex flex-col">
         <table class="w-full mb-5 rounded-t-lg">
-          <thead class="bg-maincolor-400 text-thirdcolor-400">
+          <thead class="bg-maincolor-200 text-thirdcolor-400">
             <tr>
               <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">圖片</th>
               <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">分類</th>
@@ -23,7 +23,7 @@
                 class="w-full lg:w-auto p-3 text-center border-black border-b block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >圖片</span>
                 <img
                   class="w-32 mx-auto rounded-lg"
@@ -35,7 +35,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >分類</span>
                 {{ product.sort }}
               </td>
@@ -43,7 +43,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >名稱</span>
                 {{ product.ProductName }}
               </td>
@@ -51,7 +51,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >價格</span>
                 {{ product.Price }}
               </td>
@@ -59,7 +59,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >是否上架</span>
                 <div
                   class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in"
@@ -67,13 +67,13 @@
                   <input
                     type="checkbox"
                     name="toggle"
-                    id="toggle"
+                    :id="'toggle'+ product.Id"
                     v-model="product.IsUse"
                     @click="changeProductStatus(product.Id, product.IsUse)"
                     class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer outline-none"
                   />
                   <label
-                    for="toggle"
+                    :for="'toggle'+ product.Id"
                     class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
                 </div>
@@ -82,7 +82,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >數量</span>
                 {{ product.Total }}
               </td>
@@ -90,7 +90,7 @@
                 class="w-full lg:w-auto p-3 border-b border-black  text-center block lg:table-cell relative lg:static"
               >
                 <span
-                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                  class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
                 >編輯</span>
                 <button class="btn-main p-2 mr-2 focus:outline-none" @click.prevent="openModal(product)">編輯</button>
                 <button class="bg-red-600 hover:bg-red-700 text-thirdcolor-400 rounded-lg p-2 focus:outline-none" @click.prevent="changeProductStatus(product.Id, 'del')">刪除</button>
@@ -164,6 +164,8 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.changeLoading(false)
+          this.$emit('showAlertButton', '資料載入失敗，請重新整理', 'error', 'reload')
         })
     },
     changeProductStatus (id, status) {
@@ -208,10 +210,11 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
+          this.$emit('showAlertAside', '圖片上傳成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '圖片上傳失敗，請重新上傳', 'error')
         })
     },
     changeLoading (status) {

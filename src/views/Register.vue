@@ -6,11 +6,11 @@
             <div class="flex flex-col xs:flex-row justify-between text-center text-2xl text-white">
                 <h2 class="flex-1 cursor-pointer md:rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = true"
-                :class="{ 'bg-maincolor-400 hover:bg-maincolor-600': isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': !isCustomer }"
+                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': !isCustomer }"
                 >消費者</h2>
                 <h2 class="flex-1 cursor-pointer md:rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = false"
-                :class="{ 'bg-maincolor-400 hover:bg-maincolor-600': !isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': isCustomer }"
+                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': !isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': isCustomer }"
                 >餐車業者</h2>
             </div>
             <div class="bg-thirdcolor-500 p-5 rounded-b-lg ">
@@ -77,7 +77,7 @@ export default {
             this.showAlert('註冊成功', 'success')
           })
           .catch(err => {
-            this.showAlert('註冊失敗，請重新註冊', 'error')
+            this.showAlertButton('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       } else {
@@ -86,7 +86,7 @@ export default {
             this.showAlert('註冊成功，請等待人工審核', 'success')
           })
           .catch(err => {
-            this.showAlert('註冊失敗，請重新註冊', 'error')
+            this.showAlertButton('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       }

@@ -1,19 +1,27 @@
 <template>
-      <router-view
-      :OrderCofirmList='OrderCofirmList'
-      :OrderFoundList='OrderFoundList'
-      :OrderFoodCompleted='OrderFoodCompleted'
-      :BrandProducts='BrandProducts'
-      @changeOrderPhase='changeOrderPhase'
-      @getBrandOrderList='getBrandOrderList'
-      >
-      </router-view>
+      <div class="flex flex-col lg:flex-row lg:items-start py-10">
+        <order-aside
+        />
+        <router-view
+        :OrderCofirmList='OrderCofirmList'
+        :OrderFoundList='OrderFoundList'
+        :OrderFoodCompleted='OrderFoodCompleted'
+        :BrandProducts='BrandProducts'
+        @changeOrderPhase='changeOrderPhase'
+        @getBrandOrderList='getBrandOrderList'
+        >
+        </router-view>
+      </div>
 </template>
 
 <script>
+import OrderAside from '../../../components/Brand/OrderAside'
 
 export default {
   name: 'BrandOrder',
+  components: {
+    OrderAside
+  },
   data () {
     return {
       OrderCofirmList: {},
@@ -47,10 +55,11 @@ export default {
           console.log(err)
         })
     },
-    changeOrderPhase (phase, orderId, message) {
+    changeOrderPhase (phase, orderId, message, status) {
       const API = 'http://fotricle.rocket-coding.com/update/orderstatus'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       let body = {}
+
       switch (phase) {
         case 'Comfirm':
           body = {
@@ -92,7 +101,9 @@ export default {
       this.axios
         .get(API)
         .then((res) => {
-          this.BrandProducts = res.data.products
+          this.BrandProducts = res.data.products.filter(product => {
+            return product.IsUse === '是'
+          })
         })
         .catch((err) => {
           console.log(err)
@@ -108,6 +119,7 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
+          console.log(res)
         })
     }
   }

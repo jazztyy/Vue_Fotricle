@@ -1,22 +1,8 @@
 <template>
-  <section class="lg:w-11/12 mx-auto rounded-lg mb-5">
-    <ul class="flex justify-between py-5">
-      <li>
-        <router-link
-          class="block btn-second mb-5 md:mr-5 md:mb-0 p-5 text-3xl"
-          to="/Brand/Order/Site"
-        >點餐系統</router-link>
-      </li>
-      <li>
-        <router-link
-          class="block btn-second mb-5 md:mr-5 md:mb-0 p-5 text-3xl"
-          to="/Brand/Order/Online"
-        >網站訂單</router-link>
-      </li>
-    </ul>
+  <section class="lg:w-11/12 mx-auto rounded-lg mb-5 mr-5">
     <div class="bg-thirdcolor-400 rounded-lg flex flex-col shadow-lg">
       <table class="w-full mb-5 rounded-t-lg">
-        <thead class="bg-maincolor-400 text-thirdcolor-400">
+        <thead class="bg-maincolor-200 text-thirdcolor-400">
           <tr>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell rounded-tl-lg">單號</th>
             <th class="p-3 text-2xl font-bold uppercase hidden lg:table-cell">訂單編號</th>
@@ -35,7 +21,7 @@
               class="w-full lg:w-auto p-3 text-center border-b border-black block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >單號</span>
               <p
                 class="mx-auto order-button w-20 h-20 text-center text-3xl py-4"
@@ -46,7 +32,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單編號</span>
               {{ order.Id }}
             </td>
@@ -54,7 +40,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >金額</span>
               {{ order.Total }}
             </td>
@@ -62,7 +48,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >來源</span>
               {{ order.Site }}
             </td>
@@ -70,7 +56,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >驗證碼</span>
               {{ order.LinepayVer }}
             </td>
@@ -78,7 +64,7 @@
               class="w-full lg:w-auto p-3 border-b border-black text-center block lg:table-cell relative lg:static"
             >
               <span
-                class="lg:hidden absolute top-half left-0 transY bg-maincolor-400 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
+                class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase"
               >訂單內容</span>
               <span
                 class="pr-3"

@@ -15,6 +15,7 @@
       @getMessage='getMessage'
       @getUserData='getUserData'
       @changeLoading='changeLoading'
+      @showAlertButton='showAlertButton'
       @showAlertAside='showAlertAside'
       @showAlert='showAlert'
       ></router-view>
@@ -60,6 +61,9 @@ export default {
     },
     showAlert (message, status) {
       this.$emit('showAlert', message, status)
+    },
+    showAlertButton (message, status, reload) {
+      this.$emit('showAlertButton', message, status, reload)
     }
   }
 }

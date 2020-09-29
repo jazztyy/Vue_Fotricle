@@ -6,11 +6,11 @@
             <div class="flex flex-col xs:flex-row justify-between text-center text-2xl text-white">
                 <h2 class="flex-1 cursor-pointer rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = true"
-                :class="{ 'bg-maincolor-400 hover:bg-maincolor-600': isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': !isCustomer }"
+                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': !isCustomer }"
                 >消費者</h2>
                 <h2 class="flex-1 cursor-pointer rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = false"
-                :class="{ 'bg-maincolor-400 hover:bg-maincolor-600': !isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': isCustomer }"
+                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': !isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': isCustomer }"
                 >餐車業者</h2>
             </div>
             <div class="bg-thirdcolor-500 p-5 rounded-b-lg ">
@@ -65,11 +65,11 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.$emit('showAlertButton', '帳號或密碼錯誤', 'error')
           })
       } else {
         this.axios.post(BrandApi, user)
           .then(res => {
-            console.log(res)
             const token = res.data.token
             const id = res.data.id
             localStorage.setItem('token', token)
@@ -80,6 +80,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.$emit('showAlertButton', '帳號或密碼錯誤', 'error')
           })
       }
     },

@@ -2,16 +2,22 @@
   <div>
     <main>
       <router-view
-      @changeLoading='changeLoading'
+        @changeLoading="changeLoading"
+        @getBrandData="getBrandData"
+        @showAlertAside="showAlertAside"
+        @showAlert="showAlert"
+        @showAlertButton="showAlertButton"
+        :brandData="brandData"
+        :sort="sort"
       ></router-view>
     </main>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Brand',
+  props: ['brandData', 'sort'],
   data () {
     return {
       token: ''
@@ -26,6 +32,18 @@ export default {
   methods: {
     changeLoading (status) {
       this.$emit('changeLoading', status)
+    },
+    getBrandData () {
+      this.$emit('getBrandData')
+    },
+    showAlertAside (message, status) {
+      this.$emit('showAlertAside', message, status)
+    },
+    showAlert (message, status) {
+      this.$emit('showAlert', message, status)
+    },
+    showAlertButton (message, status, reload) {
+      this.$emit('showAlertButton', message, status, reload)
     }
   }
 }
