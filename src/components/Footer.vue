@@ -5,7 +5,7 @@
       <ul class="flex-1">
         <li class="text-2xl flex justify-center lg:justify-start">
           <p>mail：</p>
-          <p>sdasdas@gmail.com</p>
+          <p>fortricle@gmail.com</p>
         </li>
         <li class="text-2xl flex justify-center lg:justify-start">
           <p>tel：</p>
