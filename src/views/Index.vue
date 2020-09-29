@@ -170,6 +170,7 @@ export default {
             this.showAlertButton('商品加入購物車失敗，請重新操作', 'error')
           })
       } else {
+        this.isLoading = false
         this.showAlertButton('同筆訂單中只能購買相同餐車的商品', 'error')
       }
     },
@@ -403,7 +404,7 @@ export default {
           console.log(err)
         })
     },
-    getBrandData () {
+    getBrandData (message, status) {
       this.changeLoading(true)
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const API = `http://fotricle.rocket-coding.com/Brand/Detail?Id=${localStorage.getItem('id')}`
@@ -413,6 +414,9 @@ export default {
           this.brandData = res.data.brand
           this.sort = res.data.sort
           this.changeLoading(false)
+          if (message) {
+            this.showAlertAside(message, status)
+          }
         })
         .catch((err) => {
           console.log(err)

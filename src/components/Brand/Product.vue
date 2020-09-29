@@ -82,12 +82,12 @@
 <script>
 export default {
   name: 'Product',
+  props: ['isNew'],
   data () {
     return {
       product: { },
       token: '',
       isUse: true,
-      isNew: true,
       changeOptions: {
         特色小吃: 0,
         甜點: 1,
@@ -102,12 +102,12 @@ export default {
     }
   },
   created () {
-    this.token = localStorage.getItem('token')
     this.product.BrandId = localStorage.getItem('id')
   },
   methods: {
     addProduct () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      this.$emit('changeLoading', true)
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const product = this.product
       product.ProductSort = this.changeOptions[product.sort]
       const API = 'http://fotricle.rocket-coding.com/ProductList/New'
@@ -115,15 +115,18 @@ export default {
         .post(API, product, config)
         .then((res) => {
           this.closeModal()
-          this.$emit('init')
+          this.$emit('init', '產品添加成功', 'success')
           this.product = {}
         })
         .catch((err) => {
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '產品添加失敗，請重新操作', 'error', 'reload')
           console.log(err)
         })
     },
     editProduct () {
-      const config = { headers: { Authorization: `Bearer ${this.token}` } }
+      this.$emit('changeLoading', true)
+      const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const product = this.product
       const API = `http://fotricle.rocket-coding.com/ProductList/Edit?Id=${this.product.Id}`
       product.ProductSort = this.changeOptions[product.sort]
@@ -131,15 +134,16 @@ export default {
         .patch(API, product, config)
         .then((res) => {
           this.closeModal()
-          this.$emit('init')
+          this.$emit('init', '產品編輯成功', 'success')
         })
         .catch((err) => {
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '編輯失敗，請重新編輯', 'error')
           console.log(err)
         })
     },
     openModal (product) {
       this.product = product
-      this.isNew = false
     },
     closeModal () {
       this.product = {}
@@ -153,12 +157,13 @@ export default {
       }
     },
     uploadFile () {
+      this.$emit('changeLoading', true)
       const file = document.querySelector('#fileUploading').files[0]
       const formData = new FormData()
-      const API = `http://fotricle.rocket-coding.com/customer/upload?Id=${this.id}`
+      const API = 'http://fotricle.rocket-coding.com/ProductPhoto/upload'
       const config = {
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
           'Content-Type': 'multipart/form-data'
         }
       }
@@ -167,11 +172,14 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
           this.product.ProductPhoto = res.data.imageUrl
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertAside', '圖片上傳成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('changeLoading', false)
+          this.$emit('showAlertButton', '圖片上傳失敗，請重新上傳', 'error')
         })
     }
   }

@@ -8,7 +8,11 @@
         :OrderFoodCompleted='OrderFoodCompleted'
         :BrandProducts='BrandProducts'
         @changeOrderPhase='changeOrderPhase'
+        @changeLoading="changeLoading"
         @getBrandOrderList='getBrandOrderList'
+        @showAlertAside="showAlertAside"
+        @showAlert="showAlert"
+        @showAlertButton="showAlertButton"
         >
         </router-view>
       </div>
@@ -35,7 +39,8 @@ export default {
     this.getBrandProducts()
   },
   methods: {
-    getBrandOrderList () {
+    getBrandOrderList (message, status) {
+      this.changeLoading(true)
       const API = 'http://fotricle.rocket-coding.com/BrandOrder/Get'
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       this.axios
@@ -50,9 +55,13 @@ export default {
           this.OrderFoodCompleted = res.data.today.filter(item => {
             return item.status === '訂單餐點完成' || item.status === '訂單成立'
           })
+          this.changeLoading(false)
+          this.showAlertAside(message, status)
         })
         .catch((err) => {
           console.log(err)
+          this.changeLoading(false)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error', 'reload')
         })
     },
     changeOrderPhase (phase, orderId, message, status) {
@@ -93,7 +102,11 @@ export default {
       }
       this.axios.patch(API, body, config)
         .then(res => {
-          this.getBrandOrderList()
+          this.getBrandOrderList('訂單狀態修改成功', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('操作失敗，請重新操作', 'error')
         })
     },
     getBrandProducts () {
@@ -107,6 +120,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.showAlertButton('資料載入失敗，請重整頁面', 'error', 'reload')
         })
     },
     addMessage (orderId, OrderStatus, remarks) {
@@ -119,8 +133,23 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
-          console.log(res)
         })
+        .catch(err => {
+          console.log(err)
+          this.showAlertButton('操作失敗，請重新操作', 'success')
+        })
+    },
+    showAlertAside (message, status) {
+      this.$emit('showAlertAside', message, status)
+    },
+    showAlert (message, status) {
+      this.$emit('showAlert', message, status)
+    },
+    showAlertButton (message, status, reload) {
+      this.$emit('showAlertButton', message, status, reload)
+    },
+    changeLoading (status) {
+      this.$emit('changeLoading', status)
     }
   }
 }

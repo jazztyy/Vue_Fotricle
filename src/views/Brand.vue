@@ -33,8 +33,8 @@ export default {
     changeLoading (status) {
       this.$emit('changeLoading', status)
     },
-    getBrandData () {
-      this.$emit('getBrandData')
+    getBrandData (message, status) {
+      this.$emit('getBrandData', message, status)
     },
     showAlertAside (message, status) {
       this.$emit('showAlertAside', message, status)

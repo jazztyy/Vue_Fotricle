@@ -552,7 +552,7 @@ export default {
       }
     },
     getBrandList () {
-      this.$emit('changeIdentity', true)
+      this.$emit('changeLoading', true)
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
       this.axios.get(API)
         .then(res => {
@@ -585,10 +585,10 @@ export default {
             }
           })
           this.filterBrandList = JSON.parse(JSON.stringify(this.brandList))
-          this.$emit('changeIdentity', false)
+          this.$emit('changeLoading', false)
         })
         .catch(err => {
-          this.$emit('changeIdentity', false)
+          this.$emit('changeLoading', false)
           this.$emit('showAlertButton', '資料載入錯誤，請重新載入', 'error', 'reload')
           console.log(err)
         })
