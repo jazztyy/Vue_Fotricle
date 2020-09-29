@@ -115,7 +115,7 @@ export default {
         })
         .catch(err => {
           console.log(err)
-          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
         })
     },
     closeModal () {
@@ -130,7 +130,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
         })
     },
     getBrandOrder (LinePay, payment) {
@@ -148,7 +148,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
-          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error')
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
         })
     }
   },

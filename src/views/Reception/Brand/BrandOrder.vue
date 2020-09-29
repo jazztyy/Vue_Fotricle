@@ -66,9 +66,7 @@ export default {
             OrderId: orderId,
             Status: 1
           }
-          if (message !== '現場' && status !== '現場') {
-            this.addMessage(orderId, 1, '您的訂單已成立，可至訂單明細查看詳細資訊')
-          }
+          this.addMessage(orderId, 1, '您的訂單已成立，可至訂單明細查看詳細資訊')
           break
         case 'Fail':
           body = {
@@ -76,27 +74,21 @@ export default {
             Status: 2,
             Remark2: `${message}`
           }
-          if (message !== '現場' && status !== '現場') {
-            this.addMessage(orderId, 2, `您的餐點由於 ${message} 因此被取消。`)
-          }
+          this.addMessage(orderId, 2, `您的餐點由於 ${message} 因此被取消。`)
           break
         case 'Finished':
           body = {
             OrderId: orderId,
             Status: 4
           }
-          if (message !== '現場' && status !== '現場') {
-            this.addMessage(orderId, 4, '您的訂單已完成，可至訂單明細填寫回饋單')
-          }
+          this.addMessage(orderId, 4, '您的訂單已完成，可至訂單明細填寫回饋單')
           break
         case 'FoodCompleted':
           body = {
             OrderId: orderId,
             Status: 3
           }
-          if (message !== '現場' && status !== '現場') {
-            this.addMessage(orderId, 3, '您的餐點已完成，可前往取餐')
-          }
+          this.addMessage(orderId, 3, '您的餐點已完成，可前往取餐')
           break
       }
       this.axios.patch(API, body, config)
@@ -127,6 +119,7 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
+          console.log(res)
         })
     }
   }

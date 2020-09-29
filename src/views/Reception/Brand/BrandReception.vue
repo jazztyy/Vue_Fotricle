@@ -37,7 +37,7 @@ export default {
   props: ['OrderFoundList'],
   methods: {
     changeOrderPhase (phase, orderId) {
-      this.$emit('changeOrderPhase', phase, orderId, '現場')
+      this.$emit('changeOrderPhase', phase, orderId)
     }
   }
 }

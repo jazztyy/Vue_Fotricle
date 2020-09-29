@@ -65,11 +65,11 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.$emit('showAlertButton', '帳號或密碼錯誤', 'error')
           })
       } else {
         this.axios.post(BrandApi, user)
           .then(res => {
-            console.log(res)
             const token = res.data.token
             const id = res.data.id
             localStorage.setItem('token', token)
@@ -80,6 +80,7 @@ export default {
           })
           .catch(err => {
             console.log(err)
+            this.$emit('showAlertButton', '帳號或密碼錯誤', 'error')
           })
       }
     },

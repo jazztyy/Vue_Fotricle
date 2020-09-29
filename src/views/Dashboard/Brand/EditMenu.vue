@@ -67,13 +67,13 @@
                   <input
                     type="checkbox"
                     name="toggle"
-                    id="toggle"
+                    :id="'toggle'+ product.Id"
                     v-model="product.IsUse"
                     @click="changeProductStatus(product.Id, product.IsUse)"
                     class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer outline-none"
                   />
                   <label
-                    for="toggle"
+                    :for="'toggle'+ product.Id"
                     class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
                   ></label>
                 </div>
@@ -164,6 +164,8 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.changeLoading(false)
+          this.$emit('showAlertButton', '資料載入失敗，請重新整理', 'error', 'reload')
         })
     },
     changeProductStatus (id, status) {
@@ -208,10 +210,11 @@ export default {
       this.axios
         .post(API, formData, config)
         .then((res) => {
-          console.log(res)
+          this.$emit('showAlertAside', '圖片上傳成功', 'success')
         })
         .catch((err) => {
           console.log(err)
+          this.$emit('showAlertButton', '圖片上傳失敗，請重新上傳', 'error')
         })
     },
     changeLoading (status) {

@@ -93,7 +93,7 @@ export default {
   props: ['OrderFoodCompleted'],
   methods: {
     changeOrderPhase (phase, orderId, customerId) {
-      this.$emit('changeOrderPhase', phase, orderId, customerId, '現場')
+      this.$emit('changeOrderPhase', phase, orderId, customerId)
     }
   }
 }

@@ -77,7 +77,7 @@ export default {
             this.showAlert('註冊成功', 'success')
           })
           .catch(err => {
-            this.showAlert('註冊失敗，請重新註冊', 'error')
+            this.showAlertButton('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       } else {
@@ -86,7 +86,7 @@ export default {
             this.showAlert('註冊成功，請等待人工審核', 'success')
           })
           .catch(err => {
-            this.showAlert('註冊失敗，請重新註冊', 'error')
+            this.showAlertButton('註冊失敗，請重新註冊', 'error')
             console.log(err)
           })
       }

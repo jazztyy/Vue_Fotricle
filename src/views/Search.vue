@@ -111,7 +111,7 @@
             v-for="brand of filterBrandList"
             :key="brand.Id"
           >
-            <div class="shadow-xl rounded-lg">
+            <div class="shadow-xl rounded-lg bg-thirdcolor-400">
               <div class="relative">
                 <router-link
                   class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white"
@@ -552,6 +552,7 @@ export default {
       }
     },
     getBrandList () {
+      this.$emit('changeIdentity', true)
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
       this.axios.get(API)
         .then(res => {
@@ -583,10 +584,12 @@ export default {
               brand.status = '營業中'
             }
           })
-          console.log(123)
           this.filterBrandList = JSON.parse(JSON.stringify(this.brandList))
+          this.$emit('changeIdentity', false)
         })
         .catch(err => {
+          this.$emit('changeIdentity', false)
+          this.$emit('showAlertButton', '資料載入錯誤，請重新載入', 'error', 'reload')
           console.log(err)
         })
     }

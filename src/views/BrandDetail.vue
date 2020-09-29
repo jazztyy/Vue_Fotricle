@@ -187,6 +187,10 @@ export default {
             .splice(-1)[0].MealNumber
         }
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     getBrandCalender (id, today) {
       const API = `http://fotricle.rocket-coding.com/OpenTime/Get?Id=${id}`
@@ -205,12 +209,14 @@ export default {
           }
         })
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     getBrandFeedback (id) {
       const API = `http://fotricle.rocket-coding.com/customer/feedback?Id=${id}`
       this.axios.get(API).then((res) => {
-        console.log(res)
-        console.log(res)
         this.feedback = res.data.fback
         this.allRating = 0
         res.data.fback.forEach((feedback) => {
@@ -218,6 +224,10 @@ export default {
         })
         this.allRating = this.allRating / res.data.fback.length
       })
+        .catch(err => {
+          console.log(err)
+          this.$emit('showAlertButton', '資料載入失敗，請重新載入', 'error', 'reload')
+        })
     },
     addShoppingCartProduct (id, brandId) {
       if (this.identity !== '顧客') {

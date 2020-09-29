@@ -44,11 +44,6 @@
 export default {
   created () {
     this.getIdentity()
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition(this.success, this.error)
-    // } else {
-    //   alert('Sorry, 你的裝置不支援地理位置功能。')
-    // }
   },
   name: 'Home',
   props: ['brandList'],
@@ -59,12 +54,6 @@ export default {
     getOrderList () {
       this.$emit('getOrderList')
     }
-    // error () {
-    //   alert('無法取得你的位置')
-    // },
-    // success (position) {
-    //   console.log(position.coords.latitude, position.coords.longitude)
-    // }
   }
 }
 </script>
