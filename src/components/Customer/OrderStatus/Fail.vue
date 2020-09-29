@@ -10,7 +10,7 @@
     </thead>
     <tbody class="text-xl">
       <tr
-        class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+        class="lg:hover:bg-thirdcolor-800 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
         v-for="order of OrderFailList" :key="order.Id"
       >
         <td

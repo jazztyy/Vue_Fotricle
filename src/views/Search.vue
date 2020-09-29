@@ -68,39 +68,9 @@
             @input="filterByStatus(open)"
           ></multiselect>
         </li>
-        <!-- <li class="w-full mb-3 md:mb-0 md:w-1/4 px-3">
-          <div class="relative">
-            <select
-              class="outline-none rounded-lg w-full relative z-10 indent"
-              name="距離"
-              id="distance"
-            >
-              <option value disabled selected>距離</option>
-              <option value="一公里內">一公里內</option>
-              <option value="三公里內">三公里內</option>
-              <option value="五公里內">五公里內</option>
-            </select>
-          </div>
-        </li> -->
       </ul>
     </div>
     <main class="container mx-auto">
-      <!-- <ul class="flex mb-3 text-xl px-3">
-        <li>
-          <button
-            class="focus:outline-none px-3 py-2 mr-5"
-            :class="{ 'btn-main': !isMap, 'btn-second': isMap }"
-            @click="isMap = true"
-          >地圖模式</button>
-        </li>
-        <li>
-          <button
-            class="focus:outline-none px-3 py-2"
-            :class="{ 'btn-main': isMap, 'btn-second': !isMap }"
-            @click="isMap = false"
-          >列表模式</button>
-        </li>
-      </ul>-->
       <section v-show="!isMap">
         <p class="text-4xl text-center opacity-50 py-16" v-if="!filterBrandList[0]">沒有相符的搜尋結果</p>
         <ul class="flex flex-col items-stretch md:flex-row md:flex-wrap"
@@ -136,7 +106,6 @@
                       :star-size="30"
                       :rounded-corners='true'
                     ></star-rating>
-                    <!-- <button class="btn-main p-3">導航前往</button> -->
                   </div>
                 </div>
                 <p class="mb-2 text-xl">營業時間：
@@ -148,17 +117,6 @@
             </div>
           </li>
         </ul>
-      </section>
-      <section v-show="isMap" class="px-3 pb-3">
-        <iframe
-          class="w-full h-767"
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14733.403778310749!2d120.3044352!3d22.603366400000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1szh-TW!2stw!4v1599200359968!5m2!1szh-TW!2stw"
-          frameborder="0"
-          style="border:0;"
-          allowfullscreen
-          aria-hidden="false"
-          tabindex="0"
-        ></iframe>
       </section>
     </main>
   </div>
@@ -213,7 +171,6 @@ export default {
       this.setBrandId(brandId)
     },
     addTag (newTag) {
-      console.log(newTag)
       const tag = {
         name: newTag,
         code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000)

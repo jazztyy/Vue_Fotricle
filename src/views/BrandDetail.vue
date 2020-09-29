@@ -3,6 +3,7 @@
     <div
       class="relative flex items-center bg-img h-auto py-10"
       style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/customer/20200920104620.jpg?Id=undefined)"
+      :style="{backgroundImage: 'url(' + brand.CarImage + ')' }"
     >
       <div class="mask"></div>
       <div
@@ -25,7 +26,6 @@
           <p v-if="!this.isOpen" class="text-lg pb-2">非營業時間</p>
           <p class="text-lg pb-2">訂購專線：{{ brand.PhoneNumber }}</p>
           <div>
-            <button class="btn-second py-2 px-5 mr-5">導航前往</button>
             <button
               class="btn-second py-2 px-5"
               @click="addMyFollow(brand.Id)"
@@ -107,24 +107,56 @@
           </ul>
         </div>
       </section>
+    </main>
       <section>
         <h3 class="title">顧客評論</h3>
-        <!-- <carousel :per-page="1" :navigate-to="someLocalProperty" :mouse-drag="true">
-          <slide>Slide 1 Content</slide>
-          <slide>Slide 2 Content</slide>
-        </carousel> -->
+        <carousel
+        :per-page="4"
+        :mouse-drag="true"
+        :autoplayHoverPause='true'
+        :autoplayTimeout='3000'
+        :autoplay='true'
+        :loop='true'
+        :scrollPerPage='false'
+        >
+          <slide
+          v-for="customer of feedback"
+          :key="customer.OrderIs"
+          class="flex flex-col justify-center items-center mx-3 bg-thirdcolor-400 rounded-lg px-3 mb-3 shadow-xl"
+          >
+            <div class="flex mb-3 items-center">
+              <img class="h-32 w-32 rounded-full mr-3" :src="customer.CusPhoto" alt="用戶大頭貼">
+                <p class="text-2xl">{{ customer.UserName }}</p>
+            </div>
+            <div class="flex flex-col w-full">
+              <star-rating
+                v-model="customer.AllSuggest"
+                :read-only="true"
+                :fixed-points="2"
+                :increment="0.01"
+                :show-rating="false"
+                :star-size="30"
+                :rounded-corners='true'
+                class="mb-3"
+              ></star-rating>
+              <div class="flex justify-between items-end">
+                <p class="text-xl">{{ customer.CarSuggest }}</p>
+                <p>{{ customer.Date }}</p>
+              </div>
+            </div>
+          </slide>
+        </carousel>
       </section>
-    </main>
   </div>
 </template>
 
 <script>
-// import { Carousel, Slide } from 'vue-carousel'
+import { Carousel, Slide } from 'vue-carousel'
 
 export default {
   components: {
-    // Carousel,
-    // Slide
+    Carousel,
+    Slide
   },
   name: 'Search',
   props: ['myFollowBrand', 'isFollow', 'identity'],
@@ -265,6 +297,13 @@ export default {
         title: message,
         showConfirmButton: true
       })
+    },
+    buildSlideMarkup (count) {
+      let slideMarkup = ''
+      for (var i = 1; i <= count; i++) {
+        slideMarkup += '<slide><span class="label">' + i + '</span></slide>'
+      }
+      return slideMarkup
     }
   },
   mounted () {

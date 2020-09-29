@@ -62,11 +62,9 @@ export default {
       const API = 'http://fotricle.rocket-coding.com/Brand/All'
       this.axios.get(API)
         .then(res => {
-          console.log(res.data)
           this.brand = res.data.filter(brand => {
             return brand.Verification === 1
           })
-          console.log(this.brand)
         })
         .catch(err => {
           console.log(err)

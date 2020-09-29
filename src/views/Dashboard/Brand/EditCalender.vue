@@ -204,7 +204,6 @@ export default {
         EDateTimeDate: `${date.opdate} 00:00`,
         Location: ''
       }
-      console.log(body)
       this.axios
         .post(API, body, config)
         .then((res) => {

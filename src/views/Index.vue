@@ -256,6 +256,10 @@ export default {
           .then(res => {
             this.getMyFollow(brandId, '成功追蹤', 'success')
           })
+          .catch(err => {
+            console.log(err)
+            this.isLoading = false
+          })
       }
     },
     getMyFollow (id, message, status) {
@@ -284,6 +288,10 @@ export default {
         this.axios.delete(API, config)
           .then(res => {
             this.getMyFollow('', '追蹤已取消', 'success')
+          })
+          .catch(err => {
+            console.log(err)
+            this.isLoading = false
           })
       }
     },

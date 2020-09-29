@@ -85,8 +85,8 @@ export default {
     }
   },
   methods: {
-    getShoppingCartProduct () {
-      this.$emit('getShoppingCartProduct')
+    getShoppingCartProduct (message, status) {
+      this.$emit('getShoppingCartProduct', message, status)
     },
     delShoppingCartProduct (id) {
       this.$emit('delShoppingCartProduct', id)
@@ -109,9 +109,8 @@ export default {
       }
       this.axios.post(API, body, config)
         .then(res => {
-          this.getShoppingCartProduct()
+          this.getShoppingCartProduct('訂單成功送出', 'success')
           this.$emit('getOrderList')
-          this.$emit('showAlertAside', '訂單成功送出', 'success')
         })
         .catch(err => {
           console.log(err)
@@ -134,6 +133,7 @@ export default {
         })
     },
     getBrandOrder (LinePay, payment) {
+      this.$emit('changeLoading', true)
       const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${this.brandId}`
       this.axios
         .get(API)

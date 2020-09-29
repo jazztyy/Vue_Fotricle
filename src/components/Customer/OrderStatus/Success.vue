@@ -11,7 +11,7 @@
     </thead>
     <tbody class="text-xl">
       <tr
-        class="lg:hover:bg-secondcolor-600 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
+        class="lg:hover:bg-thirdcolor-800 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-5 lg:mb-0"
         v-for="order of OrderSuccessList" :key="order.Id"
       >
         <td
@@ -127,8 +127,6 @@ export default {
         AllSuggest: this.allRating,
         CarSuggest: this.advice
       }
-      console.log(API, config)
-      console.log(body)
       this.axios.post(API, body, config)
         .then(res => {
           this.changeOrderPhase()
@@ -150,7 +148,6 @@ export default {
       }
       this.axios.patch(API, body, config)
         .then(res => {
-          console.log(res)
           this.getOrderList()
         })
     },
