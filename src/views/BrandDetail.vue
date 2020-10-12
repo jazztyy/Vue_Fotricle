@@ -101,7 +101,7 @@
                   class="pb-2"
                   v-if="day.Status === '營業中'"
                 >{{ day.SDateTime + '-' + day.EDateTimeDate}}</p>
-                <p class="pb-2" v-if="day.Status === '營業中'">{{ day.Location }}</p>
+                <p class="pb-2" v-if="day.Status === '營業中'">{{ day.Location.split(' ')[0] }}</p>
               </div>
             </li>
           </ul>

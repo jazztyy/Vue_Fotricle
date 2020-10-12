@@ -130,44 +130,81 @@ export default {
             this.date = res.data.result.open.sort((a, b) => {
               return new Date(a.OpenDate) - new Date(b.OpenDate)
             })
+            this.date.forEach(date => {
+              date.Location = date.Location.split(' ')[0]
+            })
             this.getWeekDay()
             this.checkWeekDay()
-            this.changeLoading(false)
             this.$emit('showAlertAside', message, status)
           }
+          this.changeLoading(false)
         })
         .catch((err) => {
           console.log(err)
-          this.$emit('showAlertButton', '行事曆載入失敗，請重新載入', 'erroe', 'reload')
+          this.changeLoading(false)
+          this.$emit('showAlertButton', '行事曆載入失敗，請重新載入', 'error', 'reload')
         })
     },
     editCalender (day, id, weekday) {
       this.changeLoading(true)
+      this.geocoder = new window.google.maps.Geocoder()
       const API = `http://fotricle.rocket-coding.com/OpenTime/Edit?id=${id}`
       const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       const changeStatus = {
         營業中: '1',
         未營業: '0'
       }
-      const body = {
-        OpenDate: day.OpenDate,
-        BrandName: day.BrandName,
-        BrandId: day.BrandId,
-        Date: weekday,
-        Status: changeStatus[day.Status],
-        SDateTime: day.OpenDate + ' ' + day.SDateTime,
-        EDateTimeDate: day.OpenDate + ' ' + day.EDateTimeDate,
-        Location: day.Location
-      }
-      this.axios
-        .patch(API, body, config)
-        .then((res) => {
-          this.getCalender('行事曆編輯成功', 'success')
-        })
-        .catch((err) => {
-          console.log(err)
-          this.$emit('showAlertButton', '行事曆修改失敗，請重新操作', 'erroe')
-        })
+      let lat = ''
+      let lng = ''
+      let body = {}
+      this.geocoder.geocode({ address: day.Location.split(' ')[0] }, (res, status) => {
+        if (res.length !== 0) {
+          const position = res[0].geometry.location
+          lat = position.lat()
+          lng = position.lng()
+          body = {
+            OpenDate: day.OpenDate,
+            BrandName: day.BrandName,
+            BrandId: day.BrandId,
+            Date: weekday,
+            Status: changeStatus[day.Status],
+            SDateTime: day.OpenDate + ' ' + day.SDateTime,
+            EDateTimeDate: day.OpenDate + ' ' + day.EDateTimeDate,
+            Location: day.Location.split(' ')[0] + ' ' + lat + ' ' + lng
+          }
+          this.axios
+            .patch(API, body, config)
+            .then((res) => {
+              this.getCalender('行事曆編輯成功', 'success')
+            })
+            .catch((err) => {
+              console.log(err)
+              this.changeLoading(false)
+              this.$emit('showAlertButton', '行事曆修改失敗，請重新操作', 'error')
+            })
+        } else {
+          body = {
+            OpenDate: day.OpenDate,
+            BrandName: day.BrandName,
+            BrandId: day.BrandId,
+            Date: weekday,
+            Status: changeStatus[day.Status],
+            SDateTime: day.OpenDate + ' ' + day.SDateTime,
+            EDateTimeDate: day.OpenDate + ' ' + day.EDateTimeDate,
+            Location: day.Location
+          }
+          this.axios
+            .patch(API, body, config)
+            .then((res) => {
+              this.getCalender('行事曆編輯成功', 'success')
+            })
+            .catch((err) => {
+              console.log(err)
+              this.changeLoading(false)
+              this.$emit('showAlertButton', '行事曆修改失敗，請重新操作', 'error')
+            })
+        }
+      })
     },
     resetCalender (date, id) {
       this.changeLoading(true)
