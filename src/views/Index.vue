@@ -469,8 +469,16 @@ export default {
         const API = 'http://fotricle.rocket-coding.com/GetIdentity'
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.get(API, config)
-          .then(res => {
+          .then((res, status) => {
+            console.log(status)
+            console.log(res)
             this.identity = res.data.message
+          })
+          .catch(err => {
+            this.identity = 'Visitors'
+            localStorage.setItem('token', '')
+            this.getIdentity()
+            console.log(err)
           })
       } else {
         this.identity = 'Visitors'

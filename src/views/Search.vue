@@ -71,6 +71,16 @@
       </ul>
     </div>
     <main class="container mx-auto">
+      <div class="ml-3 mb-3">
+        <button class="p-3 rounded-lg mr-3"
+        :class="{ 'bg-maincolor-100 text-thirdcolor-400' : isMap, 'bg-secondcolor-400 text-black' : !isMap }"
+        @click="isMap = false"
+        >列表模式</button>
+        <button class="p-3 rounded-lg"
+        :class="{ 'bg-maincolor-100  text-thirdcolor-400' : !isMap, 'bg-secondcolor-400 text-black' : isMap }"
+        @click="isMap = true"
+        >地圖模式</button>
+      </div>
       <section v-show="!isMap">
         <p class="text-4xl text-center opacity-50 py-16" v-if="!filterBrandList[0]">沒有相符的搜尋結果</p>
         <ul class="flex flex-col items-stretch md:flex-row md:flex-wrap"
@@ -118,6 +128,8 @@
           </li>
         </ul>
       </section>
+      <section v-show="isMap" id="#map" ref="map" class="h-767 mb-3">
+      </section>
     </main>
   </div>
 </template>
@@ -133,7 +145,7 @@ export default {
   data () {
     return {
       filterBrandList: '',
-      isMap: false,
+      isMap: true,
       brandId: '',
       brandList: [],
       tag: [],
@@ -155,12 +167,26 @@ export default {
       suggestOptions: ['由低到高', '由高到低'],
       open: '',
       openOptions: ['營業中', '未營業'],
-      today: ''
+      today: '',
+      markers: [],
+      infowindow: null,
+      map: null,
+      lat: 0,
+      lng: 0,
+      directionsService: null,
+      directionsDisplay: null,
+      isNew: true
     }
   },
   props: ['identity', 'myFollowBrand'],
   created () {
+    this.getLocation()
     this.getBrandList()
+  },
+  watch: {
+    filterBrandList () {
+      this.setMapMarker()
+    }
   },
   methods: {
     setBrandId (brandId) {
@@ -516,7 +542,7 @@ export default {
           const today = new Date()
           const year = today.getFullYear()
           const month = (today.getMonth() + 1 > 9 ? '' + (today.getMonth() + 1) : '0' + (today.getMonth() + 1))
-          const day = (today.getDate() > 9 ? '' + today.getDate() : '0' + today.getDay())
+          const day = (today.getDate() > 9 ? '' + today.getDate() : '0' + today.getDate())
           this.brandList = res.data.brandAll
           this.today = year + '-' + month + '-' + day
           this.brandList.forEach(brand => {
@@ -542,6 +568,7 @@ export default {
             }
           })
           this.filterBrandList = JSON.parse(JSON.stringify(this.brandList))
+          this.setMapMarker()
           this.$emit('changeLoading', false)
         })
         .catch(err => {
@@ -549,6 +576,156 @@ export default {
           this.$emit('showAlertButton', '資料載入錯誤，請重新載入', 'error', 'reload')
           console.log(err)
         })
+    },
+    initMap (lat, lng) {
+      this.map = new window.google.maps.Map(this.$refs.map,
+        {
+          zoom: 16,
+          center: { lat, lng },
+          mapTypeId: 'terrain',
+          zoomControl: false,
+          streetViewControl: false,
+          fullscreenControl: false,
+          mapTypeControl: false
+        })
+      this.marker = new window.google.maps.Marker({
+        position: { lat, lng },
+        map: this.map,
+        label: {
+          text: '目前位置',
+          color: 'black',
+          fontSize: '16px',
+          fontWeight: '700',
+          fontFamily: 'Noto Sans TC'
+        }
+      })
+      this.map.setOptions({
+        styles: [
+          {
+            featureType: 'poi.business',
+            stylers: [{
+              visibility: 'off'
+            }]
+          }
+        ]
+      })
+    },
+    getLocation () {
+      const vm = this
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error)
+      }
+      function error () {
+        vm.initMap(22.6051589, 120.30129609999997)
+      }
+      function success (position) {
+        vm.lat = position.coords.latitude
+        vm.lng = position.coords.longitude
+        vm.initMap(vm.lat, vm.lng)
+      }
+    },
+    setMapMarker () {
+      const features = []
+      this.filterBrandList.forEach(brand => {
+        features.push(
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [brand.opentime[0].Location.split(' ')[1], brand.opentime[0].Location.split(' ')[2]]
+            },
+            properties: {
+              id: brand.Id,
+              name: brand.BrandName,
+              site: brand.opentime[0].Location.split(' ')[0],
+              opentime: brand.opentime[0].SDateTime + '-' + brand.opentime[0].EDateTimeDate,
+              status: brand.opentime[0].Status,
+              sort: brand.Sort,
+              tel: brand.PhoneNumber
+            },
+            icon: brand.LogoPhoto
+          }
+        )
+      })
+      this.removeAllMapMarker()
+      features.forEach(marker => {
+        const latLng = new window.google.maps.LatLng(marker.geometry.coordinates[0], marker.geometry.coordinates[1])
+        const info = new window.google.maps.Marker({
+          position: latLng,
+          map: this.map,
+          label: {
+            text: marker.properties.name,
+            color: 'black',
+            fontSize: '18px',
+            fontWeight: '600',
+            fontFamily: 'Noto Sans TC'
+          },
+          icon: {
+            url: marker.icon,
+            scaledSize: new window.google.maps.Size(60, 60),
+            labelOrigin: new window.google.maps.Point(30, 70)
+          }
+        })
+        this.addInfowindow(marker, latLng, info)
+        this.markers.push(info)
+      })
+    },
+    addDirections (marker, latLng, info, infowindow) {
+      document.querySelector(`#${marker.properties.name.split(' ')[0]}`).addEventListener('click', () => {
+        this.directionsService = new window.google.maps.DirectionsService()
+        this.directionsDisplay = new window.google.maps.DirectionsRenderer()
+        const request = {
+          origin: { lat: this.lat, lng: this.lng },
+          destination: latLng,
+          travelMode: 'DRIVING'
+        }
+        this.directionsService.route(request, (result, status) => {
+          if (status === 'OK') {
+            this.isNew = false
+            this.directionsDisplay.setDirections(result)
+            this.directionsDisplay.setOptions({ suppressMarkers: true })
+            this.initMap(this.lat, this.lng)
+            this.setMapMarker()
+            this.directionsDisplay.setMap(this.map)
+            infowindow.close(this.map, info)
+          }
+        })
+      })
+    },
+    addInfowindow (marker, latLng, info) {
+      const infowindow = new window.google.maps.InfoWindow({
+        content: `
+        <div>
+                <div class="flex justify-between lg:flex-col lg:items-start items-center mb-3">
+                  <div class="w-full flex justify-between items-center">
+                    <h2 class="text-2xl font-semibold mb-2">${marker.properties.name}</h2>
+                    <div class="text-lg bg-secondcolor-400 px-2 rounded-lg">${marker.properties.sort}</div>
+                  </div>
+                </div>
+                <p class='mb-2 text-lg'>營業時間：${marker.properties.opentime}</p>
+                <p class='mb-2 text-lg'>連絡電話：${marker.properties.tel} </p>
+                <div class="flex justify-evenly">
+                  <button id='${marker.properties.name.split(' ')[0] + marker.properties.id}' class="bg-maincolor-200 text-thirdcolor-400 py-1 px-3 rounded-lg">前往訂購</button><button id='${marker.properties.name.split(' ')[0]}' class="bg-maincolor-200 text-thirdcolor-400 py-1 px-3 rounded-lg">導航前往</button>
+                </div>
+        </div>
+        `,
+        position: latLng,
+        maxWidth: 400
+      })
+      info.addListener('click', () => {
+        infowindow.open(this.map, info)
+        infowindow.addListener('domready', () => {
+          document.querySelector(`#${marker.properties.name.split(' ')[0] + marker.properties.id}`).addEventListener('click', () => {
+            this.getBrandId(marker.properties.id)
+            window.location = '/index.html#/BrandDetail'
+          })
+          this.addDirections(marker, latLng, info, infowindow)
+        })
+      })
+    },
+    removeAllMapMarker () {
+      this.markers.forEach(marker => marker.setMap(null))
+      this.markers = []
     }
   },
   beforeDestroy () {

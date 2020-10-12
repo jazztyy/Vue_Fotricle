@@ -76,8 +76,17 @@
 import { Carousel, Slide } from 'vue-carousel'
 
 export default {
+  data () {
+    return {
+      map: null,
+      marker: [],
+      geocoder: '',
+      infowindow: ''
+    }
+  },
   created () {
     this.getIdentity()
+    this.getLocation()
   },
   components: {
     Carousel,
