@@ -34,7 +34,7 @@
                                 class="w-full lg:w-auto p-3  border-b text-center border-black  block lg:table-cell relative lg:static ">
                                 <span
                                     class="lg:hidden absolute top-half left-0 transY bg-maincolor-200 text-thirdcolor-400 px-3 py-1 text-lg font-bold uppercase">營業地址</span>
-                                {{ brand.Location }}
+                                {{ brand.Location.split(' ')[0] }}
                             </td>
                         </tr>
                     </tbody>
