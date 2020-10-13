@@ -91,7 +91,7 @@
             v-for="brand of filterBrandList"
             :key="brand.Id"
           >
-            <div class="shadow-xl rounded-lg bg-thirdcolor-400">
+            <div class="shadow-xl rounded-lg bg-thirdcolor-300">
               <div class="relative">
                 <router-link
                   class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white"
@@ -616,6 +616,8 @@ export default {
         navigator.geolocation.getCurrentPosition(success, error)
       }
       function error () {
+        vm.lat = 22.6051589
+        vm.lng = 120.30129609999997
         vm.initMap(22.6051589, 120.30129609999997)
       }
       function success (position) {
