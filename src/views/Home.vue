@@ -86,7 +86,6 @@ export default {
   },
   created () {
     this.getIdentity()
-    this.getLocation()
   },
   components: {
     Carousel,

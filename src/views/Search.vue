@@ -91,7 +91,7 @@
             v-for="brand of filterBrandList"
             :key="brand.Id"
           >
-            <div class="shadow-xl rounded-lg bg-thirdcolor-400">
+            <div class="shadow-xl rounded-lg bg-thirdcolor-300">
               <div class="relative">
                 <router-link
                   class="mask rounded-t-lg opacity-0 hover:opacity-50 flex justify-center items-center text-white"
@@ -682,10 +682,12 @@ export default {
         this.directionsService.route(request, (result, status) => {
           if (status === 'OK') {
             this.isNew = false
+            console.log(result)
             this.directionsDisplay.setDirections(result)
             this.directionsDisplay.setOptions({ suppressMarkers: true })
             this.initMap(this.lat, this.lng)
             this.setMapMarker()
+            console.log(result)
             this.directionsDisplay.setMap(this.map)
             infowindow.close(this.map, info)
           }
