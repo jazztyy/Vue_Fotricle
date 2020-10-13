@@ -13,7 +13,7 @@
         <li class="nav-btn hidden md:block">
           <router-link to="/Search">餐車列表</router-link>
         </li>
-        <li class="nav-btn hidden md:block relative">
+        <li class="nav-btn block relative">
           <div class="flex justify-center">
             <div class="relative">
               <div
