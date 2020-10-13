@@ -107,7 +107,7 @@
 
 .default {
     @apply font-NotoSans; 
-    @apply bg-thirdcolor-300;
+    @apply bg-thirdcolor-400;
 }
 
 .indent {

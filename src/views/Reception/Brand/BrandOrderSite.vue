@@ -93,7 +93,7 @@
         </table>
         <button
           class="w-full btn-second py-5 rounded-t-none text-2xl"
-          @click="getBrandOrder(); isShow = false; isCheck = false"
+          @click="sendSiteOrder(); isShow = false; isCheck = false"
           v-if="SiteOrder[0]"
         >確認訂單</button>
       </div>
@@ -131,9 +131,13 @@ export default {
         ProductListId: productId,
         ProductUnit: 1
       }
-      this.axios.post(API, body, config).then((res) => {
-        this.getSiteOrder('成功添加', 'success')
-      })
+      this.axios.post(API, body, config)
+        .then((res) => {
+          this.getSiteOrder('成功添加', 'success')
+        })
+        .catch(err => {
+          console.log(err)
+        })
     },
     getSiteOrder (message, status) {
       const API = `http://fotricle.rocket-coding.com/BrandCart/customer/${localStorage.getItem(
@@ -200,29 +204,32 @@ export default {
           this.$emit('showAlertButton', '產品編輯失敗，請重新操作', 'error')
         })
     },
-    sendSiteOrder (mealNumber = 1) {
-      const API = 'http://fotricle.rocket-coding.com/BrandOrder/add'
-      const config = {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+    sendSiteOrder () {
+      if (this.totalPrice) {
+        const API = 'http://fotricle.rocket-coding.com/BrandOrder/add'
+        const config = {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+        }
+        const body = {
+          Payment: 1,
+          OrderNumber: this.totalOrder + 1,
+          Amount: this.totalPrice,
+          Site: 1
+        }
+        this.axios.post(API, body, config)
+          .then((res) => {
+            this.getBrandOrderList()
+            this.getBrandOrder()
+            this.getSiteOrder('訂單成功送出', 'success')
+          })
       }
-      const body = {
-        Payment: 1,
-        OrderNumber: mealNumber,
-        Amount: this.totalPrice,
-        Site: 1
-      }
-      this.axios.post(API, body, config)
-        .then((res) => {
-          this.getBrandOrderList()
-          this.getSiteOrder('訂單成功送出', 'success')
-        })
     },
     getBrandOrder () {
-      this.$emit('changeLoading', true)
       const API = `http://fotricle.rocket-coding.com/BrandOrder/GetMeal?Id=${localStorage.getItem(
         'id'
       )}`
       this.axios.get(API).then((res) => {
+        console.log(res)
         if (res.data.today.length !== 0) {
           this.totalOrder = JSON.parse(JSON.stringify(res.data.today)).splice(
             -1
@@ -230,22 +237,14 @@ export default {
           if (
             JSON.parse(JSON.stringify(res.data.today)).filter((order) => {
               return order.State === '訂單完成' || order.State === '訂單餐點完成'
-            })
+            }).length !== 0
           ) {
             this.order = JSON.parse(JSON.stringify(res.data.today))
               .filter((order) => {
                 return order.State === '訂單完成' || order.State === '訂單餐點完成'
               })
               .splice(-1)[0].MealNumber
-          }
-          if (this.totalPrice) {
-            if (res.data.today.length === 0) {
-            } else {
-              this.sendSiteOrder(
-                JSON.parse(JSON.stringify(res.data.today)).splice(-1)[0]
-                  .MealNumber + 1
-              )
-            }
+            console.log(this.order)
           }
         }
       })
