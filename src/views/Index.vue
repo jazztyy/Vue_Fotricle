@@ -470,8 +470,6 @@ export default {
         const config = { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
         this.axios.get(API, config)
           .then((res, status) => {
-            console.log(status)
-            console.log(res)
             this.identity = res.data.message
           })
           .catch(err => {
