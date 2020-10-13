@@ -616,6 +616,8 @@ export default {
         navigator.geolocation.getCurrentPosition(success, error)
       }
       function error () {
+        vm.lat = 22.6051589
+        vm.lng = 120.30129609999997
         vm.initMap(22.6051589, 120.30129609999997)
       }
       function success (position) {
@@ -682,12 +684,10 @@ export default {
         this.directionsService.route(request, (result, status) => {
           if (status === 'OK') {
             this.isNew = false
-            console.log(result)
             this.directionsDisplay.setDirections(result)
             this.directionsDisplay.setOptions({ suppressMarkers: true })
             this.initMap(this.lat, this.lng)
             this.setMapMarker()
-            console.log(result)
             this.directionsDisplay.setMap(this.map)
             infowindow.close(this.map, info)
           }
