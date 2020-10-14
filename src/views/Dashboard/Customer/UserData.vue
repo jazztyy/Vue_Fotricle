@@ -1,5 +1,5 @@
 <template>
-    <section class="lg:w-1/2 mx-5 bg-thirdcolor-400 rounded-lg shadow-lg">
+    <section class="lg:w-1/2 mx-5 bg-thirdcolor-300 rounded-lg shadow-lg">
       <header class="bg-maincolor-200 text-thirdcolor-400 rounded-t-lg">
         <p class="text-center text-4xl">個人資料</p>
       </header>

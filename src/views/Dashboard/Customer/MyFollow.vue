@@ -1,6 +1,6 @@
 <template>
     <section class="lg:w-3/4 mx-5 shadow-lg">
-            <div class="bg-thirdcolor-400 rounded-lg">
+            <div class="bg-thirdcolor-300 rounded-lg">
                 <table class="w-full">
                     <thead class=" text-thirdcolor-400 rounded-t-lg">
                         <tr class="bg-maincolor-200">

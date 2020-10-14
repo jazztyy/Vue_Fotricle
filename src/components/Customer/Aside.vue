@@ -1,6 +1,11 @@
 <template>
         <aside class="lg:w-1/5 lg:sticky top-10 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
-            <ul class="hidden lg:flex-col lg:flex justify-evenly text-2xl text-center ">
+            <div class="text-center lg:hidden text-3xl rounded-lg cursor-pointer"
+            @click="isShow = !isShow"
+            >Menu</div>
+            <ul class="lg:flex-col lg:flex justify-evenly text-2xl text-center"
+            :class="{'block': isShow, 'hidden': !isShow}"
+            >
                 <li class="border-l-8 rounded-tl-lg"
                     :class="{ 'border-maincolor-200 text-black': whichPage === '#/Customer/OrderList', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Customer/OrderList'}"
                 >
@@ -30,7 +35,6 @@
                     >訊息通知</router-link>
                     </li>
             </ul>
-            <div class="text-center lg:hidden text-3xl rounded-lg">Menu</div>
         </aside>
 </template>
 
@@ -38,11 +42,19 @@
 export default {
   data () {
     return {
-      whichPage: ''
+      whichPage: '',
+      isShow: true
     }
   },
   created () {
     this.whichPage = window.location.hash
+  },
+  mounted () {
+    window.onresize = () => {
+      if (document.body.clientWidth <= 1024) {
+        this.isShow = false
+      }
+    }
   }
 }
 </script>
