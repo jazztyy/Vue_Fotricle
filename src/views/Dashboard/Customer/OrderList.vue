@@ -3,7 +3,7 @@
     <ul class="flex justify-evenly text-center text-2xl">
       <li
         class="relative flex-1 rounded-t-lg cursor-pointer"
-        :class="{'bg-thirdcolor-600': currentPage === 'Checking', 'bg-maincolor-200': currentPage !== 'Checking'}"
+        :class="{'bg-thirdcolor-300': currentPage === 'Checking', 'bg-maincolor-200': currentPage !== 'Checking'}"
         @click.prevent="currentPage='Checking'"
       >
         <button
@@ -18,7 +18,7 @@
       </li>
       <li
         class="relative flex-1 rounded-t-lg text-thirdcolor-400 cursor-pointer"
-        :class="{'bg-thirdcolor-600': currentPage === 'Established', 'bg-maincolor-200': currentPage !== 'Established'}"
+        :class="{'bg-thirdcolor-300': currentPage === 'Established', 'bg-maincolor-200': currentPage !== 'Established'}"
         @click.prevent="currentPage='Established'"
       >
         <button
@@ -33,7 +33,7 @@
       </li>
       <li
         class="relative flex-1 rounded-t-lg bg-maincolor-200 text-thirdcolor-400 cursor-pointer"
-        :class="{'bg-thirdcolor-600': currentPage === 'Completed', 'bg-maincolor-200': currentPage !== 'Completed'}"
+        :class="{'bg-thirdcolor-300': currentPage === 'Completed', 'bg-maincolor-200': currentPage !== 'Completed'}"
         @click.prevent="currentPage='Completed'"
       >
         <button
@@ -48,7 +48,7 @@
       </li>
       <li
         class="relative flex-1 rounded-t-lg bg-maincolor-200 text-thirdcolor-400 cursor-pointer"
-        :class="{'bg-thirdcolor-600': currentPage === 'Success', 'bg-maincolor-200': currentPage !== 'Success'}"
+        :class="{'bg-thirdcolor-300': currentPage === 'Success', 'bg-maincolor-200': currentPage !== 'Success'}"
         @click.prevent="currentPage='Success'"
       >
         <button
@@ -63,7 +63,7 @@
       </li>
       <li
         class="relative flex-1 rounded-t-lg bg-maincolor-200 text-thirdcolor-400 cursor-pointer"
-        :class="{'bg-thirdcolor-600': currentPage === 'Fail', 'bg-maincolor-200': currentPage !== 'Fail'}"
+        :class="{'bg-thirdcolor-300': currentPage === 'Fail', 'bg-maincolor-200': currentPage !== 'Fail'}"
         @click.prevent="currentPage='Fail'"
       >
         <button
@@ -77,7 +77,7 @@
       </li>
     </ul>
     <div
-      class="bg-thirdcolor-600 pt-5 rounded-b-lg"
+      class="bg-thirdcolor-300 pt-5 rounded-b-lg"
       :is="currentPage"
       :OrderCofirmList="OrderCofirmList"
       :OrderFoundList="OrderFoundList"

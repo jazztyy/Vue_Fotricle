@@ -1,15 +1,10 @@
 <template>
   <header class="bg-maincolor-100 relative">
     <nav class="px-5 flex justify-between items-center">
-      <ul class="nav md:hidden text-xl">
-        <li class="nav-btn">
-          <i class="fas fa-hamburger cursor-pointer"></i>
-        </li>
-      </ul>
-      <h1 class="w-2/3 py-1 text-thirdcolor-500 text-4xl text-left">
+      <h1 class="w-1/2 md:w-2/3 py-1 text-thirdcolor-500 text-4xl text-left">
         <router-link to="/Home">Fotricle</router-link>
       </h1>
-      <ul class="nav justify-end md:justify-around text-xl">
+      <ul class="nav justify-evenly items-center md:justify-around text-xl">
         <li class="nav-btn hidden md:block">
           <router-link to="/Search">餐車列表</router-link>
         </li>
@@ -41,8 +36,14 @@
               <ul
                 v-show="dropdownOpen"
                 @mouseleave="dropdownOpen = false"
-                class="absolute right-0 top-120 mt-2 py-2 w-48 bg-thirdcolor-500 rounded-b-md shadow-xl z-20"
+                class="absolute right-0 top-120 mt-2 py-2 w-48 bg-thirdcolor-300 rounded-b-md shadow-xl z-20"
               >
+                <li>
+                  <router-link
+                    to="/Search"
+                    class="block md:hidden px-4 py-2 text-lg capitalize text-gray-700 hover:bg-maincolor-100 hover:text-white"
+                  >餐車列表</router-link>
+                </li>
                 <li>
                   <router-link
                     to="/Customer/OrderList"
@@ -81,7 +82,7 @@
         <li class="fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
           <router-link class="w-full block" to="/Customer/MessageBox">
             <div class="relative">
-              <i class="nav-btn fas fa-bell"></i>
+              <i class="nav-btn fas fa-bell text-secondcolor-400 md:text-thirdcolor-400"></i>
               <p
                 class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90"
                 v-show="messageBox.length"
