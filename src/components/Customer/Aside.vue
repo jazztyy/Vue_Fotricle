@@ -1,12 +1,12 @@
 <template>
-        <aside class="lg:w-1/5 lg:sticky top-10 bg-secondcolor-400 rounded-lg my-5 mx-5 shadow-lg">
+        <aside class="lg:w-1/5 lg:sticky top-10 bg-secondcolor-400  rounded-lg my-5 mx-5 shadow-lg">
             <div class="text-center lg:hidden text-3xl rounded-lg cursor-pointer"
             @click="isShow = !isShow"
             >Menu</div>
             <ul class="lg:flex-col lg:flex justify-evenly text-2xl text-center"
             :class="{'block': isShow, 'hidden': !isShow}"
             >
-                <li class="border-l-8 rounded-tl-lg"
+                <li class="border-l-8 rounded-tl-none lg:rounded-t-lg"
                     :class="{ 'border-maincolor-200 text-black': whichPage === '#/Customer/OrderList', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Customer/OrderList'}"
                 >
                     <router-link class="w-full block" to="/Customer/OrderList"
@@ -20,7 +20,7 @@
                     @click.native="whichPage='#/Customer/UserData'"
                     >個人資料</router-link>
                     </li>
-                <li class="border-l-8 rounded-bl-lg"
+                <li class="border-l-8"
                     :class="{ 'border-maincolor-200 text-black': whichPage === '#/Customer/MyFollow', 'border-secondcolor-400 text-thirdcolor-400': whichPage !== '#/Customer/MyFollow'}"
                 >
                     <router-link class="w-full block" to="/Customer/MyFollow"

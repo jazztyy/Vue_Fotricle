@@ -1,14 +1,14 @@
 <template>
-  <header class="bg-maincolor-100 relative">
-    <nav class="px-5 flex justify-between items-center">
-      <h1 class="w-1/2 md:w-2/3 py-1 text-thirdcolor-500 text-4xl text-left">
+  <header class="bg-secondcolor-400 relative">
+    <nav class="px-5 flex justify-between items-center container mx-auto">
+      <h1 class="text-thirdcolor-400 text-4xl w-1/2 md:w-2/3">
         <router-link to="/Home">Fotricle</router-link>
       </h1>
-      <ul class="nav justify-evenly items-center md:justify-around text-xl">
-        <li class="nav-btn hidden md:block">
+      <ul class="nav justify-evenly items-center text-xl text-thirdcolor-400">
+        <li class="hidden py-3 md:block hover:bg-maincolor-400">
           <router-link to="/Search">餐車列表</router-link>
         </li>
-        <li class="nav-btn block relative">
+        <li class="block relative">
           <div class="flex justify-center">
             <div class="relative">
               <div
@@ -20,7 +20,7 @@
                 <p>{{ userData.UserName }}</p>
                 <button class="relative z-10 block rounded-md p-2 focus:outline-none">
                   <svg
-                    class="h-5 w-5 text-thirdcolor-400"
+                    class="h-5 w-5 text-gray-700"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="5 2 20 20"
                     fill="currentColor"
@@ -36,7 +36,7 @@
               <ul
                 v-show="dropdownOpen"
                 @mouseleave="dropdownOpen = false"
-                class="absolute right-0 top-120 mt-2 py-2 w-48 bg-thirdcolor-300 rounded-b-md shadow-xl z-20"
+                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-500 rounded-b-md shadow-xl z-20"
               >
                 <li>
                   <router-link
@@ -79,10 +79,10 @@
             </div>
           </div>
         </li>
-        <li class="fixed z-10 fixed-br text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
+        <li class="fixed z-10 fixed-br py-3 text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
           <router-link class="w-full block" to="/Customer/MessageBox">
             <div class="relative">
-              <i class="nav-btn fas fa-bell text-secondcolor-400 md:text-thirdcolor-400"></i>
+              <i class="fas fa-bell text-secondcolor-400 hover:text-maincolor-400 md:text-thirdcolor-400"></i>
               <p
                 class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90"
                 v-show="messageBox.length"
@@ -90,9 +90,9 @@
             </div>
           </router-link>
         </li>
-        <li>
+        <li class="py-3">
           <a class="relative" href="#" @click.prevent="isShowCart = !isShowCart">
-            <i class="nav-btn fas fa-shopping-cart cursor-pointer"></i>
+            <i class="fas fa-shopping-cart cursor-pointer hover:text-maincolor-400"></i>
             <p
               class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90"
               v-show="shoppingCart.length"

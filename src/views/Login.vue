@@ -1,16 +1,16 @@
 <template>
   <div>
     <main class="relative">
-        <div style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/brand/info/20200920103216.jfif);" class="bg-img h-767 blur "></div>
+        <div style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/brand/info/20200920103216.jfif);" class="bg-img h-767 blur -mt-7"></div>
         <form action="" class="absolute top-half left-half trans-center w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
             <div class="flex flex-col xs:flex-row justify-between text-center text-2xl text-white">
                 <h2 class="flex-1 cursor-pointer rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = true"
-                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': !isCustomer }"
+                :class="{ 'bg-maincolor-100 hover:bg-maincolor-300': isCustomer,'bg-secondcolor-400 hover:bg-secondcolor-600': !isCustomer }"
                 >消費者</h2>
                 <h2 class="flex-1 cursor-pointer rounded-t-lg px-5 py-3"
                 @click.prevent="isCustomer = false"
-                :class="{ 'bg-maincolor-200 hover:bg-maincolor-600': !isCustomer,'bg-secondcolor-600 hover:bg-secondcolor-800': isCustomer }"
+                :class="{ 'bg-maincolor-100 hover:bg-maincolor-300': !isCustomer,'bg-secondcolor-400 hover:bg-secondcolor-600': isCustomer }"
                 >餐車業者</h2>
             </div>
             <div class="bg-thirdcolor-500 p-5 rounded-b-lg ">
@@ -24,10 +24,10 @@
                         <input class="w-full py-4 rounded-lg indent text-xl outline-none" type="password" name="password" id="password" v-model="password" placeholder="密碼">
                     </li>
                 </ul>
-                <button class="relative btn-second w-full py-3 mb-5 text-2xl touch"
+                <button class="relative w-full bg-secondcolor-400 hover:bg-secondcolor-600 rounded-lg text-thirdcolor-400 py-3 mb-5 text-2xl touch"
                  @click.prevent="login" @keyup.enter.prevent='login'
                 >登入</button>
-                <p class="text-lg">還不是會員？<router-link class="text-secondcolor-600 hover:text-secondcolor-800" to="/Register">按此註冊</router-link></p>
+                <p class="text-lg">還不是會員？<router-link class="text-secondcolor-400 hover:text-secondcolor-600" to="/Register">按此註冊</router-link></p>
             </div>
         </form>
     </main>

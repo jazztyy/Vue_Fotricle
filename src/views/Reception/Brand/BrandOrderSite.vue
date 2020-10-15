@@ -1,5 +1,5 @@
 <template>
-  <main class="w-2/3 lg:items-start mt-5">
+  <main class="lg:w-2/3 lg:items-start mt-5">
     <section class="w-full px-2 mb-5 flex">
       <main class="container mx-auto rounded-lg bg-thirdcolor-500 shadow-lg">
         <div class="container mx-auto py-5 px-5">

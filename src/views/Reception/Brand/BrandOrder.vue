@@ -56,7 +56,9 @@ export default {
             return item.status === '訂單餐點完成' || item.status === '訂單成立'
           })
           this.changeLoading(false)
-          this.showAlertAside(message, status)
+          if (message) {
+            this.showAlertAside(message, status)
+          }
         })
         .catch((err) => {
           console.log(err)

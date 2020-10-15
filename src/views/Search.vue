@@ -1,7 +1,7 @@
 <template>
-  <div class="">
+  <div>
     <div
-      class="relative bg-img h-96 mb-5"
+      class="relative bg-img h-96 mb-5 -mt-7"
       style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/customer/20200920104620.jpg?Id=undefined);"
     >
       <div class="mask"></div>
@@ -100,7 +100,12 @@
                 >前往餐車頁面</router-link>
                 <img class="rounded-t-lg w-full h-64" :src="brand.LogoPhoto" alt="Logo" />
               </div>
-              <div class="p-5">
+              <div class="p-5 relative">
+                <router-link
+                  class="touch"
+                  @click.native="getBrandId(brand.Id)"
+                  to="/BrandDetail"
+                ></router-link>
                 <div class="flex justify-between lg:flex-col lg:items-start items-center mb-3">
                   <div class="w-full flex justify-between items-center">
                     <h2 class="text-2xl font-semibold mb-2">{{ brand.BrandName }}</h2>
@@ -145,7 +150,7 @@ export default {
   data () {
     return {
       filterBrandList: '',
-      isMap: true,
+      isMap: false,
       brandId: '',
       brandList: [],
       tag: [],
