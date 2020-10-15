@@ -2,12 +2,12 @@
   <div class="keep-footer-bottom">
     <navbar v-if="identity === 'Visitors'"
     @changeIdentity="changeIdentity"
-    class="sticky top-0 z-40"
+    class="fixed top-0 left-0 right-0 z-40"
     />
     <brand-navbar v-if="identity === '餐車'"
     @changeIdentity="changeIdentity"
     :brandData='brandData'
-    class="sticky top-0 z-40"
+    class="fixed top-0 left-0 right-0 z-40"
     />
     <customer-navbar
     v-if="identity === '顧客'"
@@ -21,9 +21,10 @@
     :shoppingCart='shoppingCart'
     :totalPrice='totalPrice'
     :userData='userData'
-    class="sticky top-0 z-40"
+    class="fixed top-0 left-0 right-0 z-40"
     />
     <router-view
+    class="mt-20"
     @getShoppingCartProduct='getShoppingCartProduct'
     @addShoppingCartProduct='addShoppingCartProduct'
     @delShoppingCartProduct='delShoppingCartProduct'

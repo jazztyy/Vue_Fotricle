@@ -1,5 +1,5 @@
 <template>
-  <footer class="bg-maincolor-200 text-thirdcolor-400 p-5">
+  <footer class="bg-maincolor-100 text-thirdcolor-400 p-5">
     <h3 class="text-4xl text-center text-secondcolor-400 pb-5">聯絡我們</h3>
     <div class="container mx-auto flex flex-col justify-center lg:flex-row lg:items-end">
       <ul class="flex-1">

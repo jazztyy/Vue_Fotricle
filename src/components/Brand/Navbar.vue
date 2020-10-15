@@ -1,14 +1,14 @@
 <template>
-  <header class="bg-maincolor-200">
-    <nav class="px-5 flex justify-between items-center">
-      <h1 class="w-3/5 py-1 text-thirdcolor-500 text-4xl">
+  <header class="bg-secondcolor-400">
+    <nav class="px-5 flex justify-between items-center container mx-auto">
+      <h1 class="text-thirdcolor-400 text-4xl w-1/2 md:w-2/3">
         <router-link to="/Home">Fotricle</router-link>
       </h1>
-      <ul class="w-2/5 nav justify-end md:justify-around text-xl">
-        <li class="nav-btn">
+      <ul class="w-2/5 nav justify-end md:justify-around text-xl text-thirdcolor-400">
+        <li class="hidden md:block p-3 hover:bg-maincolor-400">
           <router-link to="/Search" >餐車列表</router-link>
         </li>
-        <li class="flex justify-center">
+        <li class="flex justify-center py-3">
             <div class="relative">
               <div
                 class="flex cursor-pointer"
@@ -35,8 +35,14 @@
               <ul
                 v-show="dropdownOpen"
                 @mouseleave="dropdownOpen = false"
-                class="absolute right-0 top-120 mt-2 py-2 w-48 bg-thirdcolor-500 rounded-b-md shadow-xl z-20"
+                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-300 rounded-b-md shadow-xl z-20"
               >
+                <li>
+                  <router-link
+                    to="/Search"
+                    class="block md:hidden px-4 py-2 text-lg capitalize text-gray-700 hover:bg-maincolor-100 hover:text-white"
+                  >餐車列表</router-link>
+                </li>
                 <li>
                   <router-link
                     to="/Brand/Edit/Menu"

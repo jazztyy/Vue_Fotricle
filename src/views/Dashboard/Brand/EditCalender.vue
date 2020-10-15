@@ -135,7 +135,9 @@ export default {
             })
             this.getWeekDay()
             this.checkWeekDay()
-            this.$emit('showAlertAside', message, status)
+            if (message) {
+              this.$emit('showAlertAside', message, status)
+            }
           }
           this.changeLoading(false)
         })

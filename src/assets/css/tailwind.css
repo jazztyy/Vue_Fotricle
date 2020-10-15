@@ -102,12 +102,11 @@
     @apply text-secondcolor-600;
     @apply text-4xl;
     @apply text-center; 
-    @apply py-8;
 }
 
 .default {
     @apply font-NotoSans; 
-    @apply bg-thirdcolor-400;
+    @apply bg-thirdcolor-200;
 }
 
 .indent {

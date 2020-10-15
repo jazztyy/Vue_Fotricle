@@ -124,9 +124,9 @@
           :key="customer.OrderIs"
           class="flex flex-col justify-center items-center mx-3 bg-thirdcolor-400 rounded-lg px-3 mb-3 shadow-xl"
           >
-            <div class="flex mb-3 items-center">
+            <div class="flex md:flex-col mb-3 items-center">
               <img class="h-32 w-32 rounded-full mr-3" :src="customer.CusPhoto" alt="用戶大頭貼">
-                <p class="text-2xl">{{ customer.UserName }}</p>
+              <p class="text-2xl">{{ customer.UserName }}</p>
             </div>
             <div class="flex flex-col w-full">
               <star-rating
