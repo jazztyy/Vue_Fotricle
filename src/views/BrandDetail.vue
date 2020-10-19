@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="relative flex items-center bg-img h-auto py-10"
+      class="relative flex items-center bg-img h-auto py-10 -mt-7"
       style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/customer/20200920104620.jpg?Id=undefined)"
       :style="{backgroundImage: 'url(' + brand.CarImage + ')' }"
     >

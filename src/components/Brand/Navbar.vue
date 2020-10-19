@@ -1,12 +1,12 @@
 <template>
   <header class="bg-secondcolor-400">
     <nav class="px-5 flex justify-between items-center container mx-auto">
-      <h1 class="text-thirdcolor-400 text-4xl w-1/2 md:w-2/3">
-        <router-link to="/Home">Fotricle</router-link>
+      <h1 class="w-1/2 md:w-1/5 py-1">
+        <router-link to="/Home"><img src="/img/logo.svg" alt=""></router-link>
       </h1>
-      <ul class="w-2/5 nav justify-end md:justify-around text-xl text-thirdcolor-400">
+      <ul class="flex justify-end md:justify-around text-xl text-maincolor-400">
         <li class="hidden md:block p-3 hover:bg-maincolor-400">
-          <router-link to="/Search" >餐車列表</router-link>
+          <router-link to="/Search" class="hover:text-secondcolor-400" >餐車列表</router-link>
         </li>
         <li class="flex justify-center py-3">
             <div class="relative">
@@ -19,7 +19,7 @@
                 <p>{{ brandData.BrandName }}</p>
                 <button class="relative z-10 block rounded-md p-2 focus:outline-none">
                   <svg
-                    class="h-5 w-5 text-thirdcolor-400"
+                    class="h-5 w-5 text-maincolor-400"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="5 2 20 20"
                     fill="currentColor"
@@ -35,7 +35,7 @@
               <ul
                 v-show="dropdownOpen"
                 @mouseleave="dropdownOpen = false"
-                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-300 rounded-b-md shadow-xl z-20"
+                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-300 rounded-b-md shadow-xl z-20 text-center"
               >
                 <li>
                   <router-link

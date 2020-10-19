@@ -1,14 +1,14 @@
 <template>
-  <header class="bg-secondcolor-400 relative">
+  <header class="bg-secondcolor-400 relative -mb-12">
     <nav class="px-5 flex justify-between items-center container mx-auto">
-      <h1 class="text-thirdcolor-400 text-4xl w-1/2 md:w-2/3">
-        <router-link to="/Home">Fotricle</router-link>
+      <h1 class="w-1/2 md:w-1/5 py-1">
+        <router-link to="/Home"><img src="/img/logo.svg" alt=""></router-link>
       </h1>
-      <ul class="nav justify-evenly items-center text-xl text-thirdcolor-400">
-        <li class="hidden py-3 md:block hover:bg-maincolor-400">
+      <ul class="flex justify-evenly items-center text-xl text-maincolor-400">
+        <li class="hidden p-5 mr-2 md:block hover:bg-maincolor-400 hover:text-secondcolor-400">
           <router-link to="/Search">餐車列表</router-link>
         </li>
-        <li class="block relative">
+        <li class="block relative mr-2">
           <div class="flex justify-center">
             <div class="relative">
               <div
@@ -36,7 +36,7 @@
               <ul
                 v-show="dropdownOpen"
                 @mouseleave="dropdownOpen = false"
-                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-500 rounded-b-md shadow-xl z-20"
+                class="absolute right-0 top-100 mt-2 py-2 w-48 bg-thirdcolor-500 rounded-b-md shadow-xl z-20 text-center"
               >
                 <li>
                   <router-link
@@ -79,10 +79,10 @@
             </div>
           </div>
         </li>
-        <li class="fixed z-10 fixed-br py-3 text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
+        <li class="fixed z-10 fixed-br py-4 mr-3 text-5xl xs:90% md:text-thirdcolor-400 md:static md:text-xl">
           <router-link class="w-full block" to="/Customer/MessageBox">
             <div class="relative">
-              <i class="fas fa-bell text-secondcolor-400 hover:text-maincolor-400 md:text-thirdcolor-400"></i>
+              <i class="fas fa-bell text-secondcolor-400 md:text-maincolor-400"></i>
               <p
                 class="bg-red-600 absolute w-5 h-5 text-xs rounded-full bottom-60 left-90"
                 v-show="messageBox.length"
@@ -102,7 +102,7 @@
             class="absolute top-100 right-0 md:right-3 z-40 bg-thirdcolor-400 text-black rounded-b-lg md:w-1/3 lg:w-1/4 shadow-lg"
             v-show="isShowCart"
           >
-            <p v-if="!shoppingCart[0]">購物車目前是空的</p>
+            <p v-if="!shoppingCart[0]" class="text-center">購物車目前是空的</p>
             <ul v-if="shoppingCart[0]">
               <li
                 class="flex relative p-4 border-b border-black my-3"

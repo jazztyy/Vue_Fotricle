@@ -10,15 +10,21 @@ import VueTimepicker from 'vue2-timepicker'
 import 'vue2-timepicker/dist/VueTimepicker.css'
 
 import Multiselect from 'vue-multiselect'
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+
+import Loading from 'vue-loading-overlay'
+import 'vue-loading-overlay/dist/vue-loading.css'
+
+import StarRating from 'vue-star-rating'
+
+import VueCarousel from 'vue-carousel'
+
+import AOS from 'aos'
+import 'aos/dist/aos.css'
 
 import App from './App.vue'
 import router from './router'
 import './assets/css/tailwind.css'
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
-import StarRating from 'vue-star-rating'
-import VueCarousel from 'vue-carousel'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
 
 Vue.config.productionTip = false
 
@@ -30,6 +36,9 @@ Vue.component('star-rating', StarRating)
 Vue.prototype.$bus = new Vue()
 
 new Vue({
+  created () {
+    AOS.init()
+  },
   router,
   render: h => h(App)
 }).$mount('#app')

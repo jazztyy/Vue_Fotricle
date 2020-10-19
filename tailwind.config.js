@@ -10,7 +10,7 @@ module.exports = {
     screens: {
       xs: '413px',
       sm: '640px',
-      md: '768px',
+      md: '769px',
       lg: '1024px',
       xl: '1280px'
     },
@@ -264,9 +264,6 @@ module.exports = {
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
       outline: '0 0 0 3px rgba(66, 153, 225, 0.5)',
       none: 'none'
-    },
-    container: {
-
     },
     cursor: {
       auto: 'auto',

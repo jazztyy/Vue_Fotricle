@@ -154,4 +154,8 @@
     text-overflow: ellipsis
 }
 
+.text-shadow {
+    text-shadow: black 0.1em 0.1em 0.2em
+}
+
 @tailwind utilities;
