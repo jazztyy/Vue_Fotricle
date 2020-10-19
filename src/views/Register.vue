@@ -1,7 +1,7 @@
 <template>
   <div>
     <main class="relative">
-        <div style="" class="bg-img h-767 blur "></div>
+        <div style="background-image: url(http://fotricle.rocket-coding.com:80/Upload/brand/info/20200920103216.jfif);" class="bg-img h-767 blur -mt-7"></div>
         <form action="" class="absolute top-half left-half trans-center w-full sm:w-1/2 lg:w-1/3 xl:w-1/4">
             <div class="flex flex-col xs:flex-row justify-between text-center text-2xl text-white">
                 <h2 class="flex-1 cursor-pointer md:rounded-t-lg px-5 py-3"
