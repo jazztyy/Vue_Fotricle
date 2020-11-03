@@ -48,8 +48,9 @@
 
 ### 首頁
 
-![](https://i.imgur.com/PMZpVQU.gif)
+![](https://i.imgur.com/sc4cm9i.gif)
 
+![](https://i.imgur.com/VeU6RlM.gif)
 
 
 ### 登入註冊
@@ -60,7 +61,8 @@
 ### 餐車列表
 
 列表模式：
-![](https://i.imgur.com/VndfFre.gif)
+![](https://i.imgur.com/IiRT0Aq.gif)
+
 
 地圖模式：
 ![](https://i.imgur.com/uvbJyJ1.gif)
@@ -69,7 +71,7 @@
 ### 點餐
 
 消費者：
-![](https://i.imgur.com/xxwpsjo.gif)
+![](https://i.imgur.com/VLx6PCt.gif)
 
 餐車業主現場：
 ![](https://i.imgur.com/XmUmFkq.gif)
