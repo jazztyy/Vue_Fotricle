@@ -47,25 +47,33 @@
 ## 前端介面
 
 ### 首頁
-![](https://i.imgur.com/3HpLoBh.jpg)
 
-![](https://i.imgur.com/g7Tu4dG.png)
-
-![](https://i.imgur.com/l5JN17N.png)
+![](https://i.imgur.com/xMXS5os.gif)
 
 ### 登入註冊
 
-![](https://i.imgur.com/FsmSuHp.jpg)
+![](https://i.imgur.com/0GRTRni.gif)
+
+![](https://i.imgur.com/49IICte.gif)
+
 
 ### 餐車列表
 
-![](https://i.imgur.com/KFH9PGN.jpg)
+列表模式：
+![](https://i.imgur.com/VndfFre.gif)
 
-![](https://i.imgur.com/dUMkHiD.png)
+地圖模式：
+![](https://i.imgur.com/uvbJyJ1.gif)
 
-### 餐車內頁
 
-![](https://i.imgur.com/WbFUgqp.png)
+### 點餐
+
+消費者：
+![](https://i.imgur.com/xxwpsjo.gif)
+
+餐車業主現場：
+![](https://i.imgur.com/XmUmFkq.gif)
+
 
 ## 聲明
 本作品僅供練習使用，不做任何商業用途
