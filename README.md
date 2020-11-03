@@ -61,7 +61,8 @@
 ### 餐車列表
 
 列表模式：
-![](https://i.imgur.com/IiRT0Aq.gif)
+![](https://i.imgur.com/rwMkftR.gif)
+
 
 
 地圖模式：
