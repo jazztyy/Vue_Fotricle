@@ -48,13 +48,12 @@
 
 ### 首頁
 
-![](https://i.imgur.com/xMXS5os.gif)
+![](https://i.imgur.com/1IrCzZc.gif)
+
 
 ### 登入註冊
 
 ![](https://i.imgur.com/0GRTRni.gif)
-
-![](https://i.imgur.com/49IICte.gif)
 
 
 ### 餐車列表
