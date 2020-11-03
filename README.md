@@ -48,7 +48,8 @@
 
 ### 首頁
 
-![](https://i.imgur.com/1IrCzZc.gif)
+![](https://i.imgur.com/PMZpVQU.gif)
+
 
 
 ### 登入註冊
